@@ -14,8 +14,6 @@ export function assertLiteral({ schema, value, expect, code }: LiteralAssertionP
 export function assertAPIObject({ schema, value, code, route }: APIObjectAssertionProps) {
   const name = code.toLowerCase().replaceAll("_", " ");
 
-  console.log(name);
-
   try {
     schema.parse(value);
   } catch (err) {

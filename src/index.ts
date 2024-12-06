@@ -4,6 +4,7 @@ import { APIService } from "./services";
 import { Routes } from "./lib/routes";
 import type { APIStatusInfo } from "@quikcess/bet-api-types/v1";
 import { APIServerStatus } from "./structures";
+import { GlobalCacheService } from "./services/cache/global";
 
 export class Betting extends TypedEventEmitter<ClientEvents> {
   public static apiInfo = {
@@ -13,6 +14,8 @@ export class Betting extends TypedEventEmitter<ClientEvents> {
 
   /** The API service */
   public readonly api: APIService;
+  /** The global cache service */
+  public readonly cache = new GlobalCacheService();
 
   constructor(apiKey: string) {
     super();
