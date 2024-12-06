@@ -1,0 +1,37 @@
+<div align="center">
+  <a href="https://ibb.co/Zc1w0Tq"><img src="https://i.ibb.co/gtFXxgk/banner-V1.png" alt="banner-V1" border="0"></a>
+</div>
+
+<h1 align="center">@quikcess/sdk-bet</h1>
+<p align="center">Software development kit for Quikcess betting bots.</p>
+
+<div align="center">
+  <div style="width: fit-content; display: flex; align-items: flex-start; gap: 4px;">
+    <img alt="NPM License" src="https://img.shields.io/npm/l/@quikcess/sdk-bet">
+    <img alt="NPM Downloads" src="https://img.shields.io/npm/dw/@quikcess/sdk-bet">
+    <a href="https://npmjs.com/package/@quikcess/sdk-bet">
+      <img alt="NPM Version" src="https://img.shields.io/npm/v/@quikcess/sdk-bet">
+    </a>
+  </div>
+</div>
+
+## Installation
+
+```bash
+npm install @quikcess/sdk-bet
+```
+
+## Documentation
+
+Visit our [official API documentation](https://docs.quikcess.com/sdk-bet-reference/) for more information about this service.
+
+## Getting Started
+
+- _Login and get your API Key at [https://discord.gg/quikcess](https://discord.gg/quikcess)._
+
+```ts
+import { Betting } from "@quikcess/sdk-bet";
+// CommonJS => const { Betting } = require("@quikcess/sdk-bet");
+
+const bettingApi = new Betting("Your API Key");
+```
