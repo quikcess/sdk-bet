@@ -1,9 +1,19 @@
 import type { Route } from "@/lib/routes";
-import type { APIPayload, APIStatusInfo } from "@quikcess/bet-api-types/v1";
+import type {
+  APICredentialInfo,
+  APIPayload,
+  APIStatusInfo,
+  RESTPostAPICredentialJSONBody,
+} from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
   status: {
     response: APIStatusInfo;
+  };
+  credential: {
+    method: "POST";
+    response: APICredentialInfo;
+    body: RESTPostAPICredentialJSONBody;
   };
 }
 

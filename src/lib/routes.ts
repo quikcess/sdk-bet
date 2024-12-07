@@ -11,4 +11,7 @@ export const Routes = {
   status: () => {
     return Route<"status">("api/v1/status");
   },
+  credential: () => {
+    return Route<"credential">("api/v1/auth/generate-api-key");
+  },
 } satisfies IRoutes;

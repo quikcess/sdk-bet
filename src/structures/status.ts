@@ -5,7 +5,7 @@ import type { Betting } from "..";
 /**
  * Represents an api status
  */
-export class APIServerStatus {
+export class Status {
   /** API response time */
   public ping: number;
   /**

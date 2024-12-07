@@ -15,6 +15,10 @@ export class APIService {
       throw new BetAPIError(err.code, err.message);
     });
 
+    if (response.status === 404) {
+      throw new BetAPIError("NOT_FOUND", "Route does not exist");
+    }
+
     if (response.status === 413) {
       throw new BetAPIError("PAYLOAD_TOO_LARGE", "Payload too large");
     }

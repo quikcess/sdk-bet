@@ -2,8 +2,9 @@ import { assertString } from "./assertions/literal";
 import { type ClientEvents, TypedEventEmitter } from "./types";
 import { APIService } from "./services";
 import { Routes } from "./lib/routes";
-import { APIServerStatus } from "./structures";
+import { Status } from "./structures";
 import { GlobalCacheService } from "./services/cache/global";
+import { CredentialModule } from "./modules/credentials";
 
 export class Betting extends TypedEventEmitter<ClientEvents> {
   public static apiInfo = {
@@ -13,6 +14,8 @@ export class Betting extends TypedEventEmitter<ClientEvents> {
 
   /** The API service */
   public readonly api: APIService;
+  /** The credentials module */
+  public readonly credentials = new CredentialModule(this);
   /** The global cache service */
   public readonly cache = new GlobalCacheService();
 
@@ -23,9 +26,9 @@ export class Betting extends TypedEventEmitter<ClientEvents> {
     this.api = new APIService(apiKey);
   }
 
-  async status(): Promise<APIServerStatus> {
+  async status(): Promise<Status> {
     const { response } = await this.api.request(Routes.status());
-    return new APIServerStatus(response);
+    return new Status(response);
   }
 }
 

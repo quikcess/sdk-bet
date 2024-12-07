@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import type { APIServerStatus } from "@/structures";
+import type { Status } from "@/structures";
 
 export class TypedEventEmitter<TEvents extends Record<string, any>> {
   private emitter = new EventEmitter();
@@ -24,5 +24,5 @@ export class TypedEventEmitter<TEvents extends Record<string, any>> {
 }
 
 export interface ClientEvents {
-  statusUpdate: [before: APIServerStatus | undefined, after: APIServerStatus];
+  statusUpdate: [before: Status | undefined, after: Status];
 }
