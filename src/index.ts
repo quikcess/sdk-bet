@@ -5,6 +5,7 @@ import { Routes } from "./lib/routes";
 import { Status } from "./structures";
 import { GlobalCacheService } from "./services/cache/global";
 import { CredentialModule } from "./modules/credentials";
+import { BetModule } from "./modules/bets";
 
 export class Betting extends TypedEventEmitter<ClientEvents> {
   public static apiInfo = {
@@ -16,6 +17,8 @@ export class Betting extends TypedEventEmitter<ClientEvents> {
   public readonly api: APIService;
   /** The credentials module */
   public readonly credentials = new CredentialModule(this);
+  /** The bets module */
+  public readonly bets = new BetModule(this);
   /** The global cache service */
   public readonly cache = new GlobalCacheService();
 

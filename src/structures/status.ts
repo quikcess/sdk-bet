@@ -1,6 +1,5 @@
 import type { APIStatus, APIStatusInfo, APIStatusServices } from "@quikcess/bet-api-types/v1";
 import { assertStatus } from "@/assertions/status";
-import type { Betting } from "..";
 
 /**
  * Represents an api status

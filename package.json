@@ -15,6 +15,7 @@
     "test": "node --env-file=.env -r ts-node/register -r tsconfig-paths/register",
     "test:status": "npm test ./test/status.test.ts",
     "test:credential": "npm test ./test/credential.test.ts",
+    "test:bet": "npm test ./test/bet.test.ts",
     "prepare": "husky"
   },
   "engines": {

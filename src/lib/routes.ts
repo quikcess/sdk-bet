@@ -14,4 +14,9 @@ export const Routes = {
   credential: () => {
     return Route<"credential">("api/v1/auth/generate-api-key");
   },
+  bets: {
+    get: (guildId?: string) => {
+      return Route<"bets/get">(`api/v1/bets/${guildId ? guildId : ""}`);
+    },
+  },
 } satisfies IRoutes;

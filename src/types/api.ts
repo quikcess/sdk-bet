@@ -4,6 +4,8 @@ import type {
   APIPayload,
   APIStatusInfo,
   RESTPostAPICredentialJSONBody,
+  RESTGetAPIBetsListQuery,
+  APIAllBetsPayload,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
@@ -14,6 +16,10 @@ export interface APIEndpoints {
     method: "POST";
     response: APICredentialInfo;
     body: RESTPostAPICredentialJSONBody;
+  };
+  "bets/get": {
+    response: APIAllBetsPayload;
+    query: RESTGetAPIBetsListQuery;
   };
 }
 
