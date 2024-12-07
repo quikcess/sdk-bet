@@ -7,7 +7,7 @@ import type { Betting } from "..";
  */
 export class APIServerStatus {
   /** API response time */
-  public ping: string;
+  public ping: number;
   /**
    * The status of the api
    *

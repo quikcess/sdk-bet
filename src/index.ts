@@ -2,7 +2,6 @@ import { assertString } from "./assertions/literal";
 import { type ClientEvents, TypedEventEmitter } from "./types";
 import { APIService } from "./services";
 import { Routes } from "./lib/routes";
-import type { APIStatusInfo } from "@quikcess/bet-api-types/v1";
 import { APIServerStatus } from "./structures";
 import { GlobalCacheService } from "./services/cache/global";
 
