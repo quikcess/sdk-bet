@@ -29,6 +29,12 @@ bettingApi.bets.create({
   updatedAt: new Date(),
   startedAt: new Date(),
   closedAt: null,
-  expireAt: new Date()
+  expireAt: new Date(),
+  logs: {
+    createdUrl: "",
+    startedUrl: "",
+    victoryUrl: "",
+    closedUrl: "",
+  }
 }).then(console.log);
 
