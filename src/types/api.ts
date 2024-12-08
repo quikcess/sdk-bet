@@ -23,8 +23,7 @@ export interface APIEndpoints {
     body: RESTPostAPICredentialJSONBody;
   };
   "bets/getById": {
-    response: APIAllBetsResult;
-    query: RESTGetAPIBetBaseQuery;
+    response: APIBetResult;
   };
   "bets/getByChannelId": {
     response: APIAllBetsResult;

@@ -9,6 +9,13 @@ import type { RESTGetAPIBetsPaginationQuery} from "@quikcess/bet-api-types/v1";
 export class BetModule {
   constructor(private readonly client: Betting) {}
 
+  async getById(betId: string): Promise<BetStructure> {
+    assertString(betId);
+    
+    const { response } = await this.client.api.request(Routes.bets.getById(betId));
+    return new BetStructure(response)
+  }
+
   async getAll(guildId?:string, options?: RESTGetAPIBetsPaginationQuery): Promise<AllBetsResult> {
     if (guildId) assertString(guildId);
     
