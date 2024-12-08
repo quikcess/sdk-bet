@@ -4,7 +4,8 @@ import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { BetStructure } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";
-import type { RESTGetAPIBetsPaginationQuery} from "@quikcess/bet-api-types/v1";
+import type { APIBetResult, RESTGetAPIBetsPaginationQuery} from "@quikcess/bet-api-types/v1";
+import { assertBet } from "@/assertions/bet";
 
 export class BetModule {
   constructor(private readonly client: Betting) {}
@@ -38,5 +39,16 @@ export class BetModule {
       totalBets: response.totalBets,
       data: transformedData,
     })
+  }
+
+  async create(data: APIBetResult): Promise<BetStructure> {
+    assertBet(data);
+    
+    const { response } = await this.client.api.request(Routes.bets.create(), { 
+      method: "POST",
+      body: data
+    });
+
+    return new BetStructure(response)
   }
 }
