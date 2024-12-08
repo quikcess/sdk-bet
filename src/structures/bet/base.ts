@@ -1,5 +1,5 @@
 import { BetCacheService } from "@/services/cache/bet";
-import type { APIBetInfo, APIBetStatus } from "@quikcess/bet-api-types/v1";
+import type { APIBetResult, APIBetStatus } from "@quikcess/bet-api-types/v1";
 
 /**
  * Represents the betting structure
@@ -19,7 +19,7 @@ export class BetStructure {
    * @constructor
    * @param data - The data from this bet
    */
-  constructor(data: APIBetInfo) {
+  constructor(data: APIBetResult) {
     const { betId, status } = data;
 
     this.betId = betId;

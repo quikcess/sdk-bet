@@ -15,8 +15,18 @@ export const Routes = {
     return Route<"credential">("api/v1/auth/generate-api-key");
   },
   bets: {
-    get: (guildId?: string) => {
-      return Route<"bets/get">(`api/v1/bets/${guildId ? guildId : ""}`);
-    },
+    getById: (betId: string) => Route<"bets/getById">(`api/v1/bets/${betId}`),
+    getByChannelId: (channelId: string) => Route<"bets/getByChannelId">(`api/v1/bets/${channelId}`),
+    getAll: () => Route<"bets/getAll">("api/v1/bets"),
+    create: () => Route<"bets/create">(`api/v1/bets`),
+    update: (betId: string) => Route<"bets/update">(`api/v1/bets/${betId}`),
+    delete: (betId: string) => Route<"bets/delete">(`api/v1/bets/${betId}`),
+    metrics: (guildId: string) => Route<"bets/metrics">(`api/v1/bets/metrics/${guildId}`),
+    count: () => Route<"bets/count">("api/v1/bets/count"),
+    has: (betId: string) => Route<"bets/has">(`api/v1/bets/has/${betId}`),
+    bulk: {
+      create: () => Route<"bets/bulkCreate">(`api/v1/bets/bulkDelete`),
+      delete:  () => Route<"bets/bulkDelete">(`api/v1/bets/bulkDelete`),
+    }
   },
 } satisfies IRoutes;

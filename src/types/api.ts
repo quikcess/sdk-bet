@@ -4,8 +4,13 @@ import type {
   APIPayload,
   APIStatusInfo,
   RESTPostAPICredentialJSONBody,
-  RESTGetAPIBetsListQuery,
-  APIAllBetsPayload,
+  APIAllBetsResult,
+  RESTGetAPIBetBaseQuery,
+  RESTGetAPIBetCreateBody,
+  APIBetResult,
+  RESTGetAPIBetUpdateBody,
+  APIBetAggregateMetricsResult,
+  RESTGetAPIAllBetsQuery
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
@@ -17,9 +22,53 @@ export interface APIEndpoints {
     response: APICredentialInfo;
     body: RESTPostAPICredentialJSONBody;
   };
-  "bets/get": {
-    response: APIAllBetsPayload;
-    query: RESTGetAPIBetsListQuery;
+  "bets/getById": {
+    response: APIAllBetsResult;
+    query: RESTGetAPIBetBaseQuery;
+  };
+  "bets/getByChannelId": {
+    response: APIAllBetsResult;
+    query: RESTGetAPIBetBaseQuery;
+  };
+  "bets/getAll": {
+    response: APIAllBetsResult;
+    query: RESTGetAPIAllBetsQuery;
+  };
+  "bets/create": {
+    method: "POST",
+    response: APIBetResult;
+    body: RESTGetAPIBetCreateBody;
+  };
+  "bets/update": {
+    method: "PATCH",
+    response: APIBetResult;
+    body: RESTGetAPIBetUpdateBody;
+  };
+  "bets/delete": {
+    method: "DELETE",
+    response: undefined;
+  };
+  "bets/metrics": {
+    response: APIBetAggregateMetricsResult;
+    query: RESTGetAPIBetBaseQuery;
+  };
+  "bets/count": {
+    response: number;
+    query: RESTGetAPIBetBaseQuery;
+  };
+  "bets/has": {
+    response: boolean;
+    query: RESTGetAPIBetBaseQuery;
+  };
+  "bets/bulkCreate": {
+    method: "POST",
+    response: APIBetResult[];
+    body: RESTGetAPIBetCreateBody;
+  };
+  "bets/bulkDelete": {
+    method: "DELETE",
+    response: undefined;
+    body: string[];
   };
 }
 
