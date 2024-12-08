@@ -16,6 +16,13 @@ export class BetModule {
     return new BetStructure(response)
   }
 
+  async getByChannelId(channelId: string): Promise<BetStructure> {
+    assertString(channelId);
+    
+    const { response } = await this.client.api.request(Routes.bets.getByChannelId(channelId));
+    return new BetStructure(response)
+  }
+
   async getAll(guildId?:string, options?: RESTGetAPIBetsPaginationQuery): Promise<AllBetsResult> {
     if (guildId) assertString(guildId);
     

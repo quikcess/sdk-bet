@@ -5,3 +5,4 @@ import { bettingApi } from "./index.test";
 // console.timeEnd("bet");
 
 bettingApi.bets.getById("123").then(console.log);
+bettingApi.bets.getByChannelId("123456789").then(console.log);

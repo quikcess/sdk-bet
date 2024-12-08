@@ -26,8 +26,7 @@ export interface APIEndpoints {
     response: APIBetResult;
   };
   "bets/getByChannelId": {
-    response: APIAllBetsResult;
-    query: RESTGetAPIBetBaseQuery;
+    response: APIBetResult;
   };
   "bets/getAll": {
     response: APIAllBetsResult;
