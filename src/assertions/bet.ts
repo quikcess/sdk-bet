@@ -8,6 +8,7 @@ import {
 	APIBetStatus,
 	APIBetType,
 } from "@quikcess/bet-api-types/v1";
+import { parseDate } from "@/utils/date";
 
 const APIBetPlayerDetailsSchema = z.object({
 	gelType: z.nativeEnum(APIBetGelType),
@@ -50,11 +51,17 @@ const APIBetLogSchema = z.object({
 	closedUrl: z.string(),
 });
 
+const APIBetFormatSchema = z.union([
+	z.literal(APIBetFormat.Normal),
+	z.literal(APIBetFormat.Tático),
+	z.string(),
+]);
+
 const BetSchema = z.object({
 	guildId: z.string(),
 	betId: z.string(),
 	platform: z.nativeEnum(APIBetPlatform),
-	format: z.nativeEnum(APIBetFormat),
+	format: APIBetFormatSchema,
 	mode: z.nativeEnum(APIBetMode),
 	players: z.array(APIBetPlayerSchema),
 	status: z.nativeEnum(APIBetStatus),
@@ -68,11 +75,23 @@ const BetSchema = z.object({
 	revenge: z.boolean(),
 	emulators: z.number(),
 	gelType: z.nativeEnum(APIBetGelType),
-	createdAt: z.date().default(() => new Date()),
-	updatedAt: z.date().default(() => new Date()),
-	startedAt: z.date().default(() => new Date()),
-	closedAt: z.date().or(z.null()),
-	expireAt: z.date().default(() => new Date()),
+	createdAt: z.preprocess(
+		parseDate,
+		z.date().default(() => new Date()),
+	),
+	updatedAt: z.preprocess(
+		parseDate,
+		z.date().default(() => new Date()),
+	),
+	startedAt: z.preprocess(
+		parseDate,
+		z.date().default(() => new Date()),
+	),
+	closedAt: z.preprocess(parseDate, z.date().or(z.null())),
+	expireAt: z.preprocess(
+		parseDate,
+		z.date().default(() => new Date()),
+	),
 	logs: APIBetLogSchema,
 });
 
