@@ -15,7 +15,7 @@ bettingApi.bets.create({
   format: "Normal",
   mode: "1v1",
   players: [],
-  status: "waiting",
+  status: "pending",
   type: "regenerative",
   roomId: 0,
   value: 3,

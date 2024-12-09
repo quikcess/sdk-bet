@@ -11,21 +11,21 @@ export class BetModule {
   constructor(private readonly client: Betting) {}
 
   async getById(betId: string): Promise<BetStructure> {
-    assertString(betId);
+    assertString(betId, "BET_ID");
     
     const { response } = await this.client.api.request(Routes.bets.getById(betId));
     return new BetStructure(response)
   }
 
   async getByChannelId(channelId: string): Promise<BetStructure> {
-    assertString(channelId);
+    assertString(channelId, "CHANNEL_ID");
     
     const { response } = await this.client.api.request(Routes.bets.getByChannelId(channelId));
     return new BetStructure(response)
   }
 
   async getAll(guildId?:string, options?: RESTGetAPIBetsPaginationQuery): Promise<AllBetsResult> {
-    if (guildId) assertString(guildId);
+    if (guildId) assertString(guildId, "GUILD_ID");
     
     const { response } = await this.client.api.request(Routes.bets.getAll(), { query: options || {} });
 
