@@ -42,7 +42,7 @@ export class BetModule {
   }
 
   async create(data: APIBetResult): Promise<BetStructure> {
-    assertBet(data);
+    assertBet(data, "/bets/create");
     
     const { response } = await this.client.api.request(Routes.bets.create(), { 
       method: "POST",

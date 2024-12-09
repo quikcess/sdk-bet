@@ -97,11 +97,12 @@ const BetSchema = z.object({
 
 export function assertBet(
 	value: unknown,
+  route?: string
 ): asserts value is z.infer<typeof BetSchema> {
 	assertAPIObject({
 		schema: BetSchema,
 		value,
 		code: "BET",
-		route: "/bets/create",
+		route: route ?? "/bets/?",
 	});
 }
