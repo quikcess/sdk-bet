@@ -1,5 +1,6 @@
 import EventEmitter from "events";
 import type { Status } from "@/structures";
+import type { BetStructure } from "@/structures/bet/base";
 
 export class TypedEventEmitter<TEvents extends Record<string, any>> {
   private emitter = new EventEmitter();
@@ -24,5 +25,6 @@ export class TypedEventEmitter<TEvents extends Record<string, any>> {
 }
 
 export interface ClientEvents {
+  betCreate: [data: BetStructure];
   statusUpdate: [before: Status | undefined, after: Status];
 }
