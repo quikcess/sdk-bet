@@ -1,39 +1,41 @@
 {
-  "name": "sdk-bet",
-  "private": false,
-  "version": "1.0.0",
-  "description": "Official Square Cloud Blob SDK for NodeJS",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "module": "lib/index.mjs",
-  "author": "Eydrenn Araújo",
-  "scripts": {
-    "release": "npm run lint && npm run build && changeset publish",
-    "build": "tsup ./src",
-    "check-types": "tsc --noEmit",
-    "lint": "biome check --write .",
-    "test": "node --env-file=.env -r ts-node/register -r tsconfig-paths/register",
-    "test:status": "npm test ./test/status.test.ts",
-    "test:credential": "npm test ./test/credential.test.ts",
-    "test:bet": "npm test ./test/bet.test.ts",
-    "prepare": "husky"
-  },
-  "engines": {
-    "node": ">=18.0.0"
-  },
-  "dependencies": {
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "^1.6.4",
-    "@changesets/cli": "^2.27.1",
-    "@types/node": "^20.12.4",
-    "husky": "^9.0.11",
-    "npm-run-all": "^4.1.5",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.2.0",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.3"
-  }
+	"name": "sdk-bet",
+	"private": false,
+	"version": "1.0.0",
+	"description": "Official Square Cloud Blob SDK for NodeJS",
+	"main": "lib/index.js",
+	"types": "lib/index.d.ts",
+	"module": "lib/index.mjs",
+	"author": "Eydrenn Araújo",
+	"scripts": {
+		"release": "npm run lint && npm run build && changeset publish",
+		"build": "tsup ./src",
+		"check-types": "tsc --noEmit",
+		"lint": "biome check --write .",
+		"test": "node --env-file=.env -r ts-node/register -r tsconfig-paths/register",
+		"test:status": "npm test ./test/status.test.ts",
+		"test:credential": "npm test ./test/credential.test.ts",
+		"test:bet": "npm test ./test/bet.test.ts",
+		"prepare": "husky"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"dependencies": {
+		"ws": "^8.18.0",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.6.4",
+		"@changesets/cli": "^2.27.1",
+		"@types/node": "^20.12.4",
+		"@types/ws": "^8.5.13",
+		"husky": "^9.0.11",
+		"npm-run-all": "^4.1.5",
+		"ts-node": "^10.9.2",
+		"ts-node-dev": "^2.0.0",
+		"tsconfig-paths": "^4.2.0",
+		"tsup": "^8.0.2",
+		"typescript": "^5.4.3"
+	}
 }

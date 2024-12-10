@@ -1,16 +1,16 @@
 import type { ZodSchema } from "zod";
 
 export interface BaseAssertionProps {
-  schema: ZodSchema;
-  value: unknown;
-  code?: string;
+	schema: ZodSchema;
+	value: unknown;
+	code?: string;
 }
 
 export interface LiteralAssertionProps extends BaseAssertionProps {
-  expect: string;
+	expect: string;
 }
 
 export interface APIObjectAssertionProps extends BaseAssertionProps {
-  code: string;
-  route: string;
+	code: string;
+	route: string;
 }

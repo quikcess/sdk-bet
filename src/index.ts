@@ -1,38 +1,80 @@
+import WebSocket from "ws";
 import { assertString } from "./assertions/literal";
-import { type ClientEvents, TypedEventEmitter } from "./types";
-import { APIService } from "./services";
 import { Routes } from "./lib/routes";
-import { Status } from "./structures";
-import { GlobalCacheService } from "./services/cache/global";
-import { CredentialModule } from "./modules/credentials";
 import { BetModule } from "./modules/bets";
+import { CredentialModule } from "./modules/credentials";
+import { APIService } from "./services";
+import { GlobalCacheService } from "./services/cache/global";
+import { Status } from "./structures";
+import { type APIEvents, TypedEventEmitter } from "./types";
 
-export class Betting extends TypedEventEmitter<ClientEvents> {
-  public static apiInfo = {
-    baseUrl: "http://localhost:80",
-    version: "v1",
-  };
+/**
+ * Betting - Manages communication with the API, including WebSocket for real-time events.
+ */
+export class Betting extends TypedEventEmitter<APIEvents> {
+	public static apiInfo = {
+		baseUrl: "http://localhost:80",
+		version: "v1",
+	};
 
-  /** The API service */
-  public readonly api: APIService;
-  /** The credentials module */
-  public readonly credentials = new CredentialModule(this);
-  /** The bets module */
-  public readonly bets = new BetModule(this);
-  /** The global cache service */
-  public readonly cache = new GlobalCacheService();
+  /** WS service */
+	private ws: WebSocket;
+	/** API service */
+	public readonly api: APIService;
+	/** Credentials module */
+	public readonly credentials = new CredentialModule(this);
+	/** Bets module */
+	public readonly bets = new BetModule(this);
+	/** Global cache service */
+	public readonly cache = new GlobalCacheService();
 
-  constructor(apiKey: string) {
-    super();
+	constructor(apiKey: string) {
+		super();
 
-    assertString(apiKey, "API_KEY");
-    this.api = new APIService(apiKey);
-  }
+		// Validate API key
+		assertString(apiKey, "API_KEY");
 
-  async status(): Promise<Status> {
-    const { response } = await this.api.request(Routes.status());
-    return new Status(response);
-  }
+		// Initialize WebSocket
+		this.websocket(apiKey);
+
+		// Initialize API service
+		this.api = new APIService(apiKey);
+	}
+
+	private async websocket(apiKey: string) {
+		this.ws = new WebSocket("ws://localhost:80", {
+			headers: {
+				authorization: `Bearer ${apiKey}`,
+			},
+		});
+
+		this.ws.on("open", () => {
+			console.log("Connected to WebSocket API.");
+		});
+
+		this.ws.on("message", (message: WebSocket.Data) => {
+			try {
+				const { event, data } = JSON.parse(message.toString());
+
+				if (Array.isArray(data)) {
+					this.emit(event, ...data);
+				} else {
+					this.emit(event, data);
+				}
+			} catch (error) {
+				console.error("Error processing WebSocket message:", error);
+			}
+		});
+
+		this.ws.on("close", () => {
+			console.log("WebSocket disconnected.");
+		});
+	}
+
+	async status(): Promise<Status> {
+		const { response } = await this.api.request(Routes.status());
+		return new Status(response);
+	}
 }
 
 export * from "./structures";

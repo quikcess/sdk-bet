@@ -1,5 +1,4 @@
-import { z } from "zod";
-import { assertAPIObject } from "./common";
+import { parseDate } from "@/utils/date";
 import {
 	APIBetFormat,
 	APIBetGelType,
@@ -8,7 +7,8 @@ import {
 	APIBetStatus,
 	APIBetType,
 } from "@quikcess/bet-api-types/v1";
-import { parseDate } from "@/utils/date";
+import { z } from "zod";
+import { assertAPIObject } from "./common";
 
 const APIBetPlayerDetailsSchema = z.object({
 	gelType: z.nativeEnum(APIBetGelType),
@@ -97,7 +97,7 @@ const BetSchema = z.object({
 
 export function assertBet(
 	value: unknown,
-  route?: string
+	route?: string,
 ): asserts value is z.infer<typeof BetSchema> {
 	assertAPIObject({
 		schema: BetSchema,
