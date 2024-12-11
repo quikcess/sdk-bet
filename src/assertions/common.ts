@@ -1,8 +1,8 @@
-import type * as z from "zod";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
 } from "@/types/assertions";
+import type * as z from "zod";
 import { BetAPIError } from "../structures";
 
 export function assertLiteral({

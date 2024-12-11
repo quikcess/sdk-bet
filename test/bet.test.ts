@@ -43,4 +43,4 @@ bettingApi.on("betCreate", async (data) => {
 // 	})
 // 	.then(() => console.log("success"));
 
-bettingApi.bets.getById("098").then(console.log)
+bettingApi.bets.getById("098").then(console.log);
