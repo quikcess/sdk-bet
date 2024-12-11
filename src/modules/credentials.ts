@@ -9,6 +9,11 @@ import type { Betting } from "..";
 export class CredentialModule {
 	constructor(private readonly client: Betting) {}
 
+  /**
+	 * Get informations of credential
+	 */
+  async get() {return}
+
 	/**
 	 * Create the credential
 	 */

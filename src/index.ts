@@ -58,7 +58,7 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 					this.emit(event, data);
 				}
 			} catch (error) {
-				console.error("Error processing WS message:", error);
+				console.error("Error processing websocket message:", error);
 			}
 		});
 	}
