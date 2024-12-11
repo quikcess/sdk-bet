@@ -42,14 +42,10 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	}
 
 	private async websocket(apiKey: string) {
-		this.ws = new WebSocket("ws://localhost:80", {
+		this.ws = new WebSocket(this.api.baseUrl, {
 			headers: {
 				authorization: `Bearer ${apiKey}`,
 			},
-		});
-
-		this.ws.on("open", () => {
-			console.log("Connected to WebSocket API.");
 		});
 
 		this.ws.on("message", (message: WebSocket.Data) => {
@@ -62,12 +58,8 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 					this.emit(event, data);
 				}
 			} catch (error) {
-				console.error("Error processing WebSocket message:", error);
+				console.error("Error processing WS message:", error);
 			}
-		});
-
-		this.ws.on("close", () => {
-			console.log("WebSocket disconnected.");
 		});
 	}
 
