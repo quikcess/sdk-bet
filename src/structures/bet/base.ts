@@ -9,6 +9,14 @@ export class BetStructure {
   public readonly betId: string;
   /** The bet status*/
   public status: APIBetStatus;
+  /** The creation bet date*/
+  public createdAt: Date;
+  /** The update bet date*/
+  public updatedAt: Date;
+  /** The started bet date*/
+  public startedAt: Date;
+  /** The closed bet date*/
+  public closedAt: Date | null;
 
   /** Cache service for this bet */
   public readonly cache = new BetCacheService();
@@ -24,6 +32,10 @@ export class BetStructure {
 
     this.betId = betId;
     this.status = status;
+    this.createdAt = new Date(data.createdAt)
+    this.updatedAt = new Date(data.updatedAt)
+    this.startedAt = new Date(data.startedAt)
+    this.closedAt = data.closedAt ? new Date(data.closedAt) : null
   }
 
   static from(data: APIBetResult): BetStructure {
