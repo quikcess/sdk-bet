@@ -1,5 +1,4 @@
 import type * as z from "zod";
-
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,

@@ -1,6 +1,5 @@
 import { APIServicesStatus, APIStatus } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-
 import { assertAPIObject } from "./common";
 
 const StatusSchema = z.object({

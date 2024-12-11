@@ -1,5 +1,4 @@
 import * as z from "zod";
-
 import { assertLiteral } from "./common";
 
 const StringSchema = z.coerce.string();
