@@ -13,7 +13,7 @@ bettingApi.on("betCreate", async (data) => {
 
 bettingApi.bets
 	.create({
-		betId: "123",
+		betId: "09812121",
 		channelId: "123",
 		guildId: "0", // Err
 		platform: "mobile",
@@ -30,11 +30,10 @@ bettingApi.bets
 		revenge: false,
 		emulators: 0,
 		gelType: "normal",
-		createdAt: new Date(),
-		updatedAt: new Date(),
-		startedAt: new Date(),
+		createdAt: new Date().toISOString(),
+		updatedAt: new Date().toISOString(),
+		startedAt: new Date().toISOString(),
 		closedAt: null,
-		expireAt: new Date(),
 		logs: {
 			createdUrl: "",
 			startedUrl: "",
@@ -43,3 +42,7 @@ bettingApi.bets
 		},
 	})
 	.then(() => console.log("success"));
+
+setInterval(() => {
+  bettingApi.bets.getById("09812121").then(console.log)
+}, 10000)

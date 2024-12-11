@@ -26,6 +26,10 @@ export class BetStructure {
     this.status = status;
   }
 
+  static from(data: APIBetResult): BetStructure {
+    return new BetStructure(data);
+  }
+
   /**
    * Gets the log this bet
    */

@@ -42,7 +42,7 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	}
 
 	private async websocket(apiKey: string) {
-		this.ws = new WebSocket(this.api.baseUrl, {
+		this.ws = new WebSocket("http://localhost:80", {
 			headers: {
 				authorization: `Bearer ${apiKey}`,
 			},

@@ -1,5 +1,4 @@
 import EventEmitter from "events";
-import type { Status } from "@/structures";
 import type { BetStructure } from "@/structures/bet/base";
 
 export class TypedEventEmitter<TEvents extends Record<string, any>> {
@@ -27,15 +26,8 @@ export class TypedEventEmitter<TEvents extends Record<string, any>> {
 	}
 }
 
-export interface ClientEvents {
-	betCreate: [data: BetStructure];
-	statusUpdate: [before: Status | undefined, after: Status];
-}
-
 export interface APIEvents {
 	betCreate: [data: BetStructure];
-	betUpdate: [betId: string, status: string];
-	betDelete: [betId: string];
-	userConnected: [userId: string];
-	userDisconnected: [userId: string];
+	betUpdate: [before: BetStructure | undefined, after: BetStructure];
+	betDelete: [betId: string, data: BetStructure | undefined];
 }
