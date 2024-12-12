@@ -77,21 +77,17 @@ const BetSchema = z.object({
 	gelType: z.nativeEnum(APIBetGelType),
 	createdAt: z.preprocess(
 		parseDate,
-		z.date().default(() => new Date()),
+		z.string().default(() => new Date().toISOString()),
 	),
 	updatedAt: z.preprocess(
 		parseDate,
-		z.date().default(() => new Date()),
+		z.string().default(() => new Date().toISOString()),
 	),
 	startedAt: z.preprocess(
 		parseDate,
-		z.date().default(() => new Date()),
+		z.string().default(() => new Date().toISOString()),
 	),
-	closedAt: z.preprocess(parseDate, z.date().or(z.null())),
-	expireAt: z.preprocess(
-		parseDate,
-		z.date().default(() => new Date()),
-	),
+	closedAt: z.preprocess(parseDate, z.string().or(z.null())),
 	logs: APIBetLogSchema,
 });
 

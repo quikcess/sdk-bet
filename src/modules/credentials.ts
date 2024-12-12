@@ -1,4 +1,4 @@
-import { assertCredential } from "@/assertions/credential";
+import { assertGenerateCredentialKey } from "@/assertions/credential";
 import { Routes } from "@/lib/routes";
 import type {
 	APICredentialInfo,
@@ -28,7 +28,7 @@ export class CredentialModule {
 		userId: string,
 		type: APICredentialType,
 	): Promise<APICredentialInfo> {
-		assertCredential({ guildId, userId, type });
+		assertGenerateCredentialKey({ guildId, userId, type }, "/credentials/generate-api-key");
 
 		const { response } = await this.client.api.request(Routes.credentials.generate(), {
 			method: "POST",
