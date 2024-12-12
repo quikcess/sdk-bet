@@ -3,8 +3,8 @@ import * as z from "zod";
 import { assertAPIObject } from "./common";
 
 const CredentialSchema = z.object({
-	email: z.string().email(),
 	guildId: z.string(),
+	userId: z.string(),
 	type: z.nativeEnum(APICredentialType),
 });
 
@@ -15,6 +15,6 @@ export function assertCredential(
 		schema: CredentialSchema,
 		value,
 		code: "CREDENTIAL",
-		route: "/auth",
+		route: "/credential",
 	});
 }

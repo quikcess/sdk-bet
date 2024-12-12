@@ -11,8 +11,13 @@ export const Routes = {
   status: () => {
     return Route<"status">("api/v1/status");
   },
-  credential: () => {
-    return Route<"credential">("api/v1/auth/generate-api-key");
+  credentials: {
+    get: () => {
+      return Route<"credential/get">("api/v1/credentials");
+    },
+    generate: () => {
+      return Route<"credential/generate">("api/v1/credentials/generate-api-key");
+    }
   },
   bets: {
     getById: (betId: string) => Route<"bets/getById">(`api/v1/bets/${betId}`),

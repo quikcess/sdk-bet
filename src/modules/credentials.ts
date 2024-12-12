@@ -5,6 +5,7 @@ import type {
 	APICredentialType,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
+import { assertString } from "@/assertions/literal";
 
 export class CredentialModule {
 	constructor(private readonly client: Betting) {}
@@ -12,23 +13,28 @@ export class CredentialModule {
   /**
 	 * Get informations of credential
 	 */
-  async get() {return}
+  async get(guildId?: string): Promise<APICredentialInfo> {
+    if (guildId) assertString(guildId);
+    const query = guildId ? { guildId } : {}
+		const { response } = await this.client.api.request(Routes.credentials.get(), { query });
+    return response
+  }
 
 	/**
-	 * Create the credential
+	 * Generate the credential
 	 */
-	async create(
+	async generate(
 		guildId: string,
-		email: string,
+		userId: string,
 		type: APICredentialType,
 	): Promise<APICredentialInfo> {
-		assertCredential({ guildId, email, type });
+		assertCredential({ guildId, userId, type });
 
-		const { response } = await this.client.api.request(Routes.credential(), {
+		const { response } = await this.client.api.request(Routes.credentials.generate(), {
 			method: "POST",
 			body: {
 				guildId,
-				email,
+				userId,
 				type,
 			},
 		});

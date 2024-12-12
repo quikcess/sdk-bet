@@ -10,6 +10,7 @@ import type {
 	RESTGetAPIBetBaseQuery,
 	RESTGetAPIBetCreateBody,
 	RESTGetAPIBetUpdateBody,
+	RESTGetAPICredentialBaseQuery,
 	RESTPostAPICredentialJSONBody,
 } from "@quikcess/bet-api-types/v1";
 
@@ -17,7 +18,11 @@ export interface APIEndpoints {
 	status: {
 		response: APIStatusInfo;
 	};
-	credential: {
+	"credential/get": {
+		response: APICredentialInfo;
+		query: RESTGetAPICredentialBaseQuery;
+	};
+  "credential/generate": {
 		method: "POST";
 		response: APICredentialInfo;
 		body: RESTPostAPICredentialJSONBody;
