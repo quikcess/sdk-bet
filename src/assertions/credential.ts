@@ -1,4 +1,3 @@
-import { parseDate } from "@/utils/date";
 import { APICredentialType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { assertAPIObject } from "./common";
@@ -8,14 +7,8 @@ const CredentialSchema = z.object({
 	guild_id: z.string(),
 	user_id: z.string(),
 	type: z.nativeEnum(APICredentialType),
-	created_at: z.preprocess(
-		parseDate,
-		z.string().default(() => new Date().toISOString()),
-	),
-	updated_at: z.preprocess(
-		parseDate,
-		z.string().default(() => new Date().toISOString()),
-	),
+	created_at: z.string().default(() => new Date().toISOString()),
+	updated_at: z.string().default(() => new Date().toISOString()),
 });
 
 export const GenerateApiKeySchema = z

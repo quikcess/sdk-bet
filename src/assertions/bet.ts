@@ -7,7 +7,6 @@ import {
 	APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
-import { parseDate } from "@/utils/date";
 import { assertAPIObject } from "./common";
 
 const APIBetPlayerDetailsSchema = z.object({
@@ -75,19 +74,10 @@ const BetSchema = z.object({
 	revenge: z.boolean(),
 	emulators: z.number(),
 	gel_type: z.nativeEnum(APIBetGelType),
-  created_at: z.preprocess(
-		parseDate,
-		z.string().default(() => new Date().toISOString()),
-	),
-	updated_at: z.preprocess(
-		parseDate,
-		z.string().default(() => new Date().toISOString()),
-	),
-	started_at: z.preprocess(
-		parseDate,
-		z.string().default(() => new Date().toISOString()),
-	),
-	closed_at: z.preprocess(parseDate, z.string().or(z.null())),
+	created_at: z.string().default(() => new Date().toISOString()),
+	updated_at: z.string().default(() => new Date().toISOString()),
+	started_at: z.string().default(() => new Date().toISOString()),
+	closed_at: z.string().or(z.null()),
 	logs: APIBetLogSchema,
 });
 
