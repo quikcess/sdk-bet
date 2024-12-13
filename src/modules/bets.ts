@@ -36,7 +36,7 @@ export class BetModule {
 		options?: RESTGetAPIBetsPaginationQuery,
 	): Promise<AllBetsResult> {
 		if (guildId) assertString(guildId, "GUILD_ID");
- 
+
 		const { response } = await this.client.api.request(Routes.bets.getAll(), {
 			query: options || {},
 		});

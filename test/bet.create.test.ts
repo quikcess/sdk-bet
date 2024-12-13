@@ -1,6 +1,6 @@
 import { bettingApi } from "./index.test";
 
-const bet_id = Date.now().toString()
+const bet_id = Date.now().toString();
 console.time("create-bet");
 bettingApi.bets
 	.create({
