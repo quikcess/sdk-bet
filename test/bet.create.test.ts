@@ -1,9 +1,10 @@
 import { bettingApi } from "./index.test";
 
+const bet_id = Date.now().toString()
 console.time("create-bet");
 bettingApi.bets
 	.create({
-		bet_id: Date.now().toString(),
+		bet_id,
 		channel_id: "123",
 		guild_id: "0", // Err
 		platform: "mobile",
