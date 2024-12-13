@@ -1,18 +1,18 @@
+import { parseDate } from "@/utils/date";
 import { APICredentialType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { assertAPIObject } from "./common";
-import { parseDate } from "@/utils/date";
 
 const CredentialSchema = z.object({
-	apiKey: z.string(),
-	guildId: z.string(),
-	userId: z.string(),
+	api_key: z.string(),
+	guild_id: z.string(),
+	user_id: z.string(),
 	type: z.nativeEnum(APICredentialType),
-	createdAt: z.preprocess(
+	created_at: z.preprocess(
 		parseDate,
 		z.string().default(() => new Date().toISOString()),
 	),
-	updatedAt: z.preprocess(
+	updated_at: z.preprocess(
 		parseDate,
 		z.string().default(() => new Date().toISOString()),
 	),
@@ -20,14 +20,14 @@ const CredentialSchema = z.object({
 
 export const GenerateApiKeySchema = z
 	.object({
-		guildId: z
+		guild_id: z
 			.string()
 			.regex(/^\d+$/, { message: "GUILD_ID_MUST_BE_NUMERIC_STRING" }),
-		userId: z.string({ message: "INVALID_USER_ID" }),
+		user_id: z.string({ message: "INVALID_USER_ID" }),
 		type: z.nativeEnum(APICredentialType),
 	})
 	.superRefine((data, ctx) => {
-		if (data.type === APICredentialType.Unlimited && data.guildId !== "0") {
+		if (data.type === APICredentialType.Unlimited && data.guild_id !== "0") {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
 				path: ["guildId"],
@@ -35,7 +35,7 @@ export const GenerateApiKeySchema = z
 			});
 		} else if (
 			data.type !== APICredentialType.Unlimited &&
-			data.guildId === "0"
+			data.guild_id === "0"
 		) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,

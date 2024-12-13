@@ -22,7 +22,7 @@ export interface APIEndpoints {
 		response: APICredentialInfo;
 		query: RESTGetAPICredentialBaseQuery;
 	};
-  "credential/generate": {
+	"credential/generate": {
 		method: "POST";
 		response: APICredentialInfo;
 		body: RESTPostAPICredentialJSONBody;

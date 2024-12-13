@@ -1,4 +1,3 @@
-import { parseDate } from "@/utils/date";
 import {
 	APIBetFormat,
 	APIBetGelType,
@@ -8,15 +7,16 @@ import {
 	APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
+import { parseDate } from "@/utils/date";
 import { assertAPIObject } from "./common";
 
 const APIBetPlayerDetailsSchema = z.object({
-	gelType: z.nativeEnum(APIBetGelType),
+	gel_type: z.nativeEnum(APIBetGelType),
 	emulators: z.number(),
 });
 
 const APIBetPlayerBaseSchema = z.object({
-	userId: z.string(),
+	user_id: z.string(),
 	wins: z.number(),
 	loses: z.number(),
 	consecutives: z.number(),
@@ -45,10 +45,10 @@ const APIBetPlayerSchema = z.union([
 ]);
 
 const APIBetLogSchema = z.object({
-	createdUrl: z.string(),
-	startedUrl: z.string(),
-	victoryUrl: z.string(),
-	closedUrl: z.string(),
+	created_url: z.string(),
+	started_url: z.string(),
+	victory_url: z.string(),
+	closed_url: z.string(),
 });
 
 const APIBetFormatSchema = z.union([
@@ -58,36 +58,36 @@ const APIBetFormatSchema = z.union([
 ]);
 
 const BetSchema = z.object({
-	guildId: z.string(),
-	betId: z.string(),
+	guild_id: z.string(),
+	bet_id: z.string(),
 	platform: z.nativeEnum(APIBetPlatform),
 	format: APIBetFormatSchema,
 	mode: z.nativeEnum(APIBetMode),
 	players: z.array(APIBetPlayerSchema),
 	status: z.nativeEnum(APIBetStatus),
 	type: z.nativeEnum(APIBetType),
-	roomId: z.number(),
+	room_id: z.number(),
 	value: z.number().or(z.string()),
-	queueChannelId: z.string(),
-	channelId: z.string(),
-	mediatorId: z.string(),
+	queue_channel_id: z.string(),
+	channel_id: z.string(),
+	mediator_id: z.string(),
 	wo: z.boolean(),
 	revenge: z.boolean(),
 	emulators: z.number(),
-	gelType: z.nativeEnum(APIBetGelType),
-	createdAt: z.preprocess(
+	gel_type: z.nativeEnum(APIBetGelType),
+  created_at: z.preprocess(
 		parseDate,
 		z.string().default(() => new Date().toISOString()),
 	),
-	updatedAt: z.preprocess(
+	updated_at: z.preprocess(
 		parseDate,
 		z.string().default(() => new Date().toISOString()),
 	),
-	startedAt: z.preprocess(
+	started_at: z.preprocess(
 		parseDate,
 		z.string().default(() => new Date().toISOString()),
 	),
-	closedAt: z.preprocess(parseDate, z.string().or(z.null())),
+	closed_at: z.preprocess(parseDate, z.string().or(z.null())),
 	logs: APIBetLogSchema,
 });
 

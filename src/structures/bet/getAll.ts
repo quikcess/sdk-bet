@@ -1,17 +1,17 @@
 import { Collection } from "@/structures/collection";
-import type { BetStructure } from "./base";
+import type { BetEntity } from "./base";
 
 export class AllBetsResult {
 	currentPage: number | null;
 	totalPages: number | null;
 	totalBets: number;
-	data: Collection<string, BetStructure>;
+	data: Collection<string, BetEntity>;
 
 	constructor({
 		currentPage = null,
 		totalPages = null,
 		totalBets = 0,
-		data = new Collection<string, BetStructure>(),
+		data = new Collection<string, BetEntity>(),
 	}: Partial<AllBetsResult>) {
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
