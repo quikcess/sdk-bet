@@ -1,4 +1,3 @@
-import { isISODateString } from "@/helpers/date";
 import {
 	APIBetFormat,
 	APIBetGelType,
@@ -9,6 +8,7 @@ import {
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
+import { isISODateString } from "@/helpers/date";
 
 const APIBetPlayerDetailsSchema = z.object({
 	gel_type: z.nativeEnum(APIBetGelType),
@@ -100,6 +100,20 @@ export function assertBet(
 	value: unknown,
 	route?: string,
 ): asserts value is z.infer<typeof BetSchema> {
+	assertAPIObject({
+		schema: BetSchema,
+		value,
+		code: "BET",
+		route: route ?? "/bets/?",
+	});
+}
+
+const PartialBetSchema = BetSchema.partial();
+
+export function assertPartialBet(
+	value: unknown,
+	route?: string,
+): asserts value is z.infer<typeof PartialBetSchema> {
 	assertAPIObject({
 		schema: BetSchema,
 		value,

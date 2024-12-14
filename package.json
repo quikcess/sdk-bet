@@ -18,6 +18,7 @@
 		"test:credential.generate": "npm test ./test/credential.generate.test.ts",
 		"test:bet": "npm test ./test/bet.test.ts",
 		"test:bet.create": "npm test ./test/bet.create.test.ts",
+		"test:bet.update": "npm test ./test/bet.update.test.ts",
 		"prepare": "husky"
 	},
 	"engines": {

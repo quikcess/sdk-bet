@@ -1,11 +1,10 @@
-import { assertBet } from "@/assertions/bet";
+import { assertBet, assertPartialBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
 import { toSnakeCase } from "@/helpers/cases";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
-import type { CamelCase } from "@/types/cases";
 import type {
 	APIBetResult,
 	RESTGetAPIAllBetsQuery,
@@ -57,13 +56,28 @@ export class BetModule {
 		});
 	}
 
-	async create(data: CamelCase<APIBetResult>): Promise<BetEntity> {
+	async create(data: APIBetResult): Promise<BetEntity> {
 		const payload = toSnakeCase(data);
 
 		assertBet(payload, "/bets/create");
 
 		const { response } = await this.client.api.request(Routes.bets.create(), {
 			method: "POST",
+			body: payload,
+		});
+
+		return new BetEntity(response);
+	}
+
+
+  async update(betId: string, data: Partial<APIBetResult>): Promise<BetEntity> {
+    assertString(betId);
+
+    const payload = toSnakeCase(data);
+		assertPartialBet(payload, "/bets/update");
+
+		const { response } = await this.client.api.request(Routes.bets.update(betId), {
+			method: "PATCH",
 			body: payload,
 		});
 

@@ -1,30 +1,30 @@
 import { bettingApi } from "./index.test";
 
-const betId = Date.now().toString();
+const bet_id = Date.now().toString();
 console.time("create-bet");
 bettingApi.bets
 	.create({
-		betId,
-		channelId: "123",
-		guildId: "123", // Err
+		bet_id,
+		channel_id: "123",
+		guild_id: "123", // Err
 		platform: "mobile",
 		format: "Normal",
 		mode: "1v1",
 		players: [],
 		status: "pending",
 		type: "regenerative",
-		roomId: 0,
+		room_id: 0,
 		value: 3,
-		queueChannelId: "123",
-		mediatorId: "123",
+		queue_channel_id: "123",
+		mediator_id: "123",
 		wo: false,
 		revenge: false,
 		emulators: 0,
-		gelType: "normal",
-		createdAt: new Date().toISOString(),
-		updatedAt: new Date().toISOString(),
-		startedAt: new Date().toISOString(),
-		closedAt: null,
+		gel_type: "normal",
+		created_at: new Date().toISOString(),
+		updated_at: new Date().toISOString(),
+		started_at: new Date().toISOString(),
+		closed_at: null,
 		logs: {
 			created_url: "",
 			started_url: "",
