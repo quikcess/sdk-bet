@@ -15,5 +15,10 @@ bettingApi.credentials.get().then((credential) => {
 
 bettingApi.on("betCreate", async (data) => {
   const bet = new BetEntity(data);
-	console.log(`Veja Mais: ${bet.channelId}`, data);
+	console.log(`Veja Mais: ${bet.channelId}`, bet);
+});
+
+bettingApi.on("betUpdate", async (data) => {
+  const bet = data ? new BetEntity(data): undefined;
+	console.log(`Veja Mais: ${bet?.channelId}`, bet);
 });
