@@ -8,6 +8,7 @@ import {
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
+import { isISODateString } from "@/helpers/date";
 
 const APIBetPlayerDetailsSchema = z.object({
 	gel_type: z.nativeEnum(APIBetGelType),
@@ -74,11 +75,23 @@ const BetSchema = z.object({
 	revenge: z.boolean(),
 	emulators: z.number(),
 	gel_type: z.nativeEnum(APIBetGelType),
-	created_at: z.string().default(() => new Date().toISOString()),
-	updated_at: z.string().default(() => new Date().toISOString()),
-	started_at: z.string().default(() => new Date().toISOString()),
-	closed_at: z.string().or(z.null()),
-	logs: APIBetLogSchema,
+	created_at: z
+    .string()
+    .default(() => new Date().toISOString())
+    .refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
+  updated_at: z
+    .string()
+    .default(() => new Date().toISOString())
+    .refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
+  started_at: z
+    .string()
+    .default(() => new Date().toISOString())
+    .refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
+  closed_at: z
+    .string()
+    .or(z.null())
+    .refine(value => value === null || isISODateString(value), { message: "INVALID_ISO_DATE_STRING" }),
+  logs: APIBetLogSchema,
 });
 
 export function assertBet(

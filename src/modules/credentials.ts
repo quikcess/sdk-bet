@@ -2,10 +2,9 @@ import { assertGenerateCredentialKey } from "@/assertions/credential";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import type {
-	APICredentialInfo,
 	APICredentialType,
 } from "@quikcess/bet-api-types/v1";
-import type { Betting } from "..";
+import { Credential, type Betting } from "..";
 
 export class CredentialModule {
 	constructor(private readonly client: Betting) {}
@@ -13,14 +12,16 @@ export class CredentialModule {
 	/**
 	 * Get informations of credential
 	 */
-	async get(guildId?: string): Promise<APICredentialInfo> {
+	async get(guildId?: string): Promise<Credential> {
 		if (guildId) assertString(guildId);
+
 		const query = guildId ? { guild_id: guildId } : {};
 		const { response } = await this.client.api.request(
 			Routes.credentials.get(),
 			{ query },
 		);
-		return response;
+
+		return new Credential(response);
 	}
 
 	/**
@@ -30,7 +31,7 @@ export class CredentialModule {
 		guildId: string,
 		userId: string,
 		type: APICredentialType,
-	): Promise<APICredentialInfo> {
+	): Promise<Credential> {
 		assertGenerateCredentialKey(
 			{ guild_id: guildId, user_id: userId, type },
 			"/credentials/generate-api-key",
@@ -48,6 +49,6 @@ export class CredentialModule {
 			},
 		);
 
-		return response;
+		return new Credential(response);
 	}
 }

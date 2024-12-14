@@ -9,6 +9,8 @@ import type {
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
+import type { CamelCase } from "@/types/cases";
+import { toSnakeCase } from "@/helpers/cases";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -53,14 +55,17 @@ export class BetModule {
 		});
 	}
 
-	async create(data: APIBetResult): Promise<BetEntity> {
-		assertBet(data, "/bets/create");
+	async create(data: CamelCase<APIBetResult>): Promise<BetEntity> {
+    const payload = toSnakeCase(data);
 
+		assertBet(payload, "/bets/create");
+    
 		const { response } = await this.client.api.request(Routes.bets.create(), {
 			method: "POST",
-			body: data,
+			body: payload,
 		});
 
 		return new BetEntity(response);
 	}
 }
+

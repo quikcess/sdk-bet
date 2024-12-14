@@ -1,14 +1,21 @@
 import { APICredentialType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { assertAPIObject } from "./common";
+import { isISODateString } from "@/helpers/date";
 
 const CredentialSchema = z.object({
 	api_key: z.string(),
 	guild_id: z.string(),
 	user_id: z.string(),
 	type: z.nativeEnum(APICredentialType),
-	created_at: z.string().default(() => new Date().toISOString()),
-	updated_at: z.string().default(() => new Date().toISOString()),
+	created_at: z
+      .string()
+      .default(() => new Date().toISOString())
+      .refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
+    updated_at: z
+      .string()
+      .default(() => new Date().toISOString())
+      .refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
 });
 
 export const GenerateApiKeySchema = z
