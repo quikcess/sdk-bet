@@ -6,7 +6,7 @@ bettingApi.bets
 	.create({
 		betId,
 		channelId: "123",
-		guildId: "0", // Err
+		guildId: "123", // Err
 		platform: "mobile",
 		format: "Normal",
 		mode: "1v1",

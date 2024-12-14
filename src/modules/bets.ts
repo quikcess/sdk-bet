@@ -1,16 +1,17 @@
 import { assertBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
+import { toSnakeCase } from "@/helpers/cases";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
+import type { CamelCase } from "@/types/cases";
 import type {
 	APIBetResult,
+	RESTGetAPIAllBetsQuery,
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
-import type { CamelCase } from "@/types/cases";
-import { toSnakeCase } from "@/helpers/cases";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -39,9 +40,10 @@ export class BetModule {
 	): Promise<AllBetsResult> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 
-		const { response } = await this.client.api.request(Routes.bets.getAll(), {
-			query: options || {},
-		});
+    const query: RESTGetAPIAllBetsQuery = options ? options : {}
+    if (guildId) query.guild_id = guildId;
+
+		const { response } = await this.client.api.request(Routes.bets.getAll(), { query });
 
 		const transformedData = new Collection(
 			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
@@ -56,10 +58,10 @@ export class BetModule {
 	}
 
 	async create(data: CamelCase<APIBetResult>): Promise<BetEntity> {
-    const payload = toSnakeCase(data);
+		const payload = toSnakeCase(data);
 
 		assertBet(payload, "/bets/create");
-    
+
 		const { response } = await this.client.api.request(Routes.bets.create(), {
 			method: "POST",
 			body: payload,
@@ -68,4 +70,3 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 }
-
