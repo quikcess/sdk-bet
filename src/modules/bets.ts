@@ -11,6 +11,7 @@ import type {
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
+import type { Bet } from "@/typings";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -56,7 +57,7 @@ export class BetModule {
 		});
 	}
 
-	async create(data: APIBetResult): Promise<BetEntity> {
+	async create(data: Bet): Promise<BetEntity> {
 		const payload = toSnakeCase(data);
 
 		assertBet(payload, "/bets/create");
@@ -69,8 +70,7 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-
-  async update(betId: string, data: Partial<APIBetResult>): Promise<BetEntity> {
+  async update(betId: string, data: Partial<Bet>): Promise<BetEntity> {
     assertString(betId);
 
     const payload = toSnakeCase(data);
