@@ -1,4 +1,4 @@
-import { assertBet, assertPartialBet } from "@/assertions/bet";
+import { assertBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
 import { toSnakeCase } from "@/helpers/cases";
 import { Routes } from "@/lib/routes";
@@ -74,7 +74,7 @@ export class BetModule {
     assertString(betId);
 
     const payload = toSnakeCase(data);
-		assertPartialBet(payload, "/bets/update");
+		assertBet(payload, "/bets/update");
 
 		const { response } = await this.client.api.request(Routes.bets.update(betId), {
 			method: "PATCH",
