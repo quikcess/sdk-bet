@@ -1,4 +1,14 @@
-import type { APIBetFormat, APIBetGelType, APIBetLog, APIBetMode, APIBetPlatform, APIBetPlayer, APIBetStatus, APIBetType, ISODateString } from "@quikcess/bet-api-types/v1";
+import type {
+	APIBetFormat,
+	APIBetGelType,
+	APIBetLog,
+	APIBetMode,
+	APIBetPlatform,
+	APIBetPlayer,
+	APIBetStatus,
+	APIBetType,
+	ISODateString,
+} from "@quikcess/bet-api-types/v1";
 
 export interface Bet {
 	guildId: string;

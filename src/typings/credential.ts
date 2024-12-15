@@ -1,4 +1,7 @@
-import type { APICredentialType, ISODateString } from "@quikcess/bet-api-types/v1";
+import type {
+	APICredentialType,
+	ISODateString,
+} from "@quikcess/bet-api-types/v1";
 
 export interface Credential {
 	apiKey: string;

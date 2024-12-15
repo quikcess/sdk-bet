@@ -6,11 +6,11 @@
 			"fileMatch": ["package.json", "tsup.config.json"]
 		}
 	],
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.patterns": {
-    ".env": ".env",
-    ".npmrc": ".npmignore",
-    "tsconfig.json": "tsup.config.ts, biome.json",
-    "package.json": "package-lock.json, .eslintrc.json, .gitignore"
-  },
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.patterns": {
+		".env": ".env",
+		".npmrc": ".npmignore",
+		"tsconfig.json": "tsup.config.ts, biome.json",
+		"package.json": "package-lock.json, .eslintrc.json, .gitignore"
+	}
 }

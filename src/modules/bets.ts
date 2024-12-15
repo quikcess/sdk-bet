@@ -5,13 +5,13 @@ import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
+import type { Bet } from "@/typings";
 import type {
 	APIBetResult,
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
-import type { Bet } from "@/typings";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -40,10 +40,12 @@ export class BetModule {
 	): Promise<AllBetsResult> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 
-    const query: RESTGetAPIAllBetsQuery = options ? options : {}
-    if (guildId) query.guild_id = guildId;
+		const query: RESTGetAPIAllBetsQuery = options ? options : {};
+		if (guildId) query.guild_id = guildId;
 
-		const { response } = await this.client.api.request(Routes.bets.getAll(), { query });
+		const { response } = await this.client.api.request(Routes.bets.getAll(), {
+			query,
+		});
 
 		const transformedData = new Collection(
 			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
@@ -70,16 +72,19 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-  async update(betId: string, data: Partial<Bet>): Promise<BetEntity> {
-    assertString(betId);
+	async update(betId: string, data: Partial<Bet>): Promise<BetEntity> {
+		assertString(betId);
 
-    const payload = toSnakeCase(data);
+		const payload = toSnakeCase(data);
 		assertBet(payload, "/bets/update");
 
-		const { response } = await this.client.api.request(Routes.bets.update(betId), {
-			method: "PATCH",
-			body: payload,
-		});
+		const { response } = await this.client.api.request(
+			Routes.bets.update(betId),
+			{
+				method: "PATCH",
+				body: payload,
+			},
+		);
 
 		return new BetEntity(response);
 	}

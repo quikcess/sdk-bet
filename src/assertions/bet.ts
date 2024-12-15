@@ -1,3 +1,4 @@
+import { isISODateString } from "@/helpers/date";
 import {
 	APIBetFormat,
 	APIBetGelType,
@@ -8,7 +9,6 @@ import {
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
-import { isISODateString } from "@/helpers/date";
 
 const APIBetPlayerDetailsSchema = z.object({
 	gel_type: z.nativeEnum(APIBetGelType),
