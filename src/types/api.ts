@@ -54,7 +54,7 @@ export interface APIEndpoints {
 	};
 	"bets/delete": {
 		method: "DELETE";
-		response: undefined;
+		response: APIBet;
 	};
 	"bets/metrics": {
 		response: APIBetAggregateMetrics;
@@ -75,7 +75,7 @@ export interface APIEndpoints {
 	};
 	"bets/bulkDelete": {
 		method: "DELETE";
-		response: undefined;
+		response: APIBet[];
 		body: string[];
 	};
 }

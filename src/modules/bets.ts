@@ -86,4 +86,15 @@ export class BetModule {
 
 		return new BetEntity(response);
 	}
+
+  async delete(betId: string): Promise<BetEntity> {
+		assertString(betId);
+
+		const { response } = await this.client.api.request(
+			Routes.bets.delete(betId),
+			{ method: "DELETE" },
+		);
+
+		return new BetEntity(response);
+	}
 }
