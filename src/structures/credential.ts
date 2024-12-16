@@ -1,6 +1,6 @@
 import { assertCredential } from "@/assertions/credential";
 import type {
-	APICredentialInfo,
+	APICredential,
 	APICredentialType,
 } from "@quikcess/bet-api-types/v1";
 
@@ -27,7 +27,7 @@ export class Credential {
 	 * @constructor
 	 * @param data - The data from this status
 	 */
-	constructor(data: APICredentialInfo) {
+	constructor(data: APICredential) {
 		assertCredential(data, "structures/credential");
 
 		const { api_key, guild_id, user_id, type, created_at, updated_at } = data;

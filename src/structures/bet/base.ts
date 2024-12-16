@@ -5,7 +5,7 @@ import type {
 	APIBetMode,
 	APIBetPlatform,
 	APIBetPlayer,
-	APIBetResult,
+	APIBet,
 	APIBetStatus,
 	APIBetType,
 } from "@quikcess/bet-api-types/v1";
@@ -85,7 +85,7 @@ export class BetEntity {
 	 *
 	 * @param data - Raw API data representing the bet.
 	 */
-	constructor(data: APIBetResult) {
+	constructor(data: APIBet) {
 		this.guildId = data.guild_id;
 		this.betId = data.bet_id;
 		this.platform = data.platform;

@@ -1,7 +1,7 @@
 import { assertStatus } from "@/assertions/status";
 import type {
+	APIStatusType,
 	APIStatus,
-	APIStatusInfo,
 	APIStatusServices,
 } from "@quikcess/bet-api-types/v1";
 
@@ -17,7 +17,7 @@ export class Status {
 	 * - 'healthy'
 	 * - 'degraded'
 	 */
-	public status: APIStatus;
+	public status: APIStatusType;
 	/** Data from external api services */
 	public services: APIStatusServices;
 	/** For how long the aou is running */
@@ -31,7 +31,7 @@ export class Status {
 	 * @constructor
 	 * @param data - The data from this status
 	 */
-	constructor(data: APIStatusInfo) {
+	constructor(data: APIStatus) {
 		assertStatus(data);
 
 		const { ping, services, status, uptime } = data;

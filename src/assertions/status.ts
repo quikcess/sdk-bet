@@ -1,17 +1,17 @@
-import { APIServicesStatus, APIStatus } from "@quikcess/bet-api-types/v1";
+import { APIServicesType, APIStatusType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { assertAPIObject } from "./common";
 
 const StatusSchema = z.object({
-	status: z.nativeEnum(APIStatus),
+	status: z.nativeEnum(APIStatusType),
 	ping: z.number(),
 	services: z.object({
 		database: z.object({
-			status: z.nativeEnum(APIServicesStatus),
+			status: z.nativeEnum(APIServicesType),
 			ping: z.number(),
 		}),
 		cache: z.object({
-			status: z.nativeEnum(APIServicesStatus),
+			status: z.nativeEnum(APIServicesType),
 			ping: z.number(),
 		}),
 	}),

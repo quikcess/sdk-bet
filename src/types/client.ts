@@ -1,5 +1,5 @@
 import EventEmitter from "events";
-import type { APIBetResult } from "@quikcess/bet-api-types/v1";
+import type { APIBet } from "@quikcess/bet-api-types/v1";
 
 export class TypedEventEmitter<TEvents extends Record<string, any>> {
 	private emitter = new EventEmitter();
@@ -27,7 +27,7 @@ export class TypedEventEmitter<TEvents extends Record<string, any>> {
 }
 
 export interface APIEvents {
-	betCreate: [data: APIBetResult];
-	betUpdate: [before: APIBetResult | undefined, after: APIBetResult];
-	betDelete: [betId: string, data: APIBetResult | undefined];
+	betCreate: [data: APIBet];
+	betUpdate: [before: APIBet | undefined, after: APIBet];
+	betDelete: [betId: string, data: APIBet | undefined];
 }

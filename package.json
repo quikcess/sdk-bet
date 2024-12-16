@@ -10,7 +10,7 @@
 	"scripts": {
 		"release": "npm run lint && npm run build && changeset publish",
 		"build": "tsup ./src",
-		"check-types": "tsc --noEmit",
+		"check": "tsc --noEmit",
 		"lint": "biome check --write .",
 		"test": "node --env-file=.env -r ts-node/register -r tsconfig-paths/register",
 		"test:status": "npm test ./test/status.test.ts",

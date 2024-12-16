@@ -1,58 +1,63 @@
 import type { Route } from "@/lib/routes";
 import type {
-	APIAllBetsResult,
-	APIBetAggregateMetricsResult,
-	APIBetResult,
-	APICredentialInfo,
-	APIPayload,
-	APIStatusInfo,
-	RESTGetAPIAllBetsQuery,
+  APIAllBets,
+  APIBet,
+  APIBetAggregateMetrics,
+  APICredential,
+  APIPayload,
+  APIStatus,
+  RESTGetAPIAllBetsQuery,
+	RESTGetAPIAllBetsResponse,
+	RESTGetAPIBetAggregateMetrics,
 	RESTGetAPIBetBaseQuery,
-	RESTGetAPIBetCreateBody,
-	RESTGetAPIBetUpdateBody,
+	RESTGetAPIBetResponse,
 	RESTGetAPICredentialBaseQuery,
+	RESTGetAPICredentialResponse,
+	RESTGetAPIStatusResponse,
+	RESTPatchAPIBetUpdateBody,
+	RESTPostAPIBetCreateBody,
 	RESTPostAPICredentialJSONBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
 	status: {
-		response: APIStatusInfo;
+		response: APIStatus;
 	};
 	"credential/get": {
-		response: APICredentialInfo;
+		response: APICredential;
 		query: RESTGetAPICredentialBaseQuery;
 	};
 	"credential/generate": {
 		method: "POST";
-		response: APICredentialInfo;
+		response: APICredential;
 		body: RESTPostAPICredentialJSONBody;
 	};
 	"bets/getById": {
-		response: APIBetResult;
+		response: APIBet;
 	};
 	"bets/getByChannelId": {
-		response: APIBetResult;
+		response: APIBet;
 	};
 	"bets/getAll": {
-		response: APIAllBetsResult;
+		response: APIAllBets;
 		query: RESTGetAPIAllBetsQuery;
 	};
 	"bets/create": {
 		method: "POST";
-		response: APIBetResult;
-		body: RESTGetAPIBetCreateBody;
+		response: APIBet;
+		body: RESTPostAPIBetCreateBody;
 	};
 	"bets/update": {
 		method: "PATCH";
-		response: APIBetResult;
-		body: RESTGetAPIBetUpdateBody;
+		response: APIBet;
+		body: RESTPatchAPIBetUpdateBody;
 	};
 	"bets/delete": {
 		method: "DELETE";
 		response: undefined;
 	};
 	"bets/metrics": {
-		response: APIBetAggregateMetricsResult;
+		response: APIBetAggregateMetrics;
 		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/count": {
@@ -65,8 +70,8 @@ export interface APIEndpoints {
 	};
 	"bets/bulkCreate": {
 		method: "POST";
-		response: APIBetResult[];
-		body: RESTGetAPIBetCreateBody;
+		response: APIBet[];
+		body: RESTPostAPIBetCreateBody[];
 	};
 	"bets/bulkDelete": {
 		method: "DELETE";

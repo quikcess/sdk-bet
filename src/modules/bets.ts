@@ -7,7 +7,7 @@ import { AllBetsResult } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
 import type { Bet } from "@/typings";
 import type {
-	APIBetResult,
+	APIBet,
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
