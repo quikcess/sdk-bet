@@ -1,17 +1,15 @@
-import { assertBet } from "@/assertions/bet";
+import { assertBet, assertPartialBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
 import { toSnakeCase } from "@/helpers/cases";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
-import type { Bet } from "@/typings";
 import type {
-	APIBet,
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { Betting } from "..";
+import type { BetData, Betting } from "..";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -59,7 +57,7 @@ export class BetModule {
 		});
 	}
 
-	async create(data: Bet): Promise<BetEntity> {
+	async create(data: BetData): Promise<BetEntity> {
 		const payload = toSnakeCase(data);
 
 		assertBet(payload, "/bets/create");
@@ -72,11 +70,11 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-	async update(betId: string, data: Partial<Bet>): Promise<BetEntity> {
+	async update(betId: string, data: Partial<BetData>): Promise<BetEntity> {
 		assertString(betId);
 
 		const payload = toSnakeCase(data);
-		assertBet(payload, "/bets/update");
+		assertPartialBet(payload, "/bets/update");
 
 		const { response } = await this.client.api.request(
 			Routes.bets.update(betId),

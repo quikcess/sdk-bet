@@ -107,3 +107,17 @@ export function assertBet(
 		route: route ?? "/bets/?",
 	});
 }
+
+export const BetSchemaPartial = BetSchema.partial();
+
+export function assertPartialBet(
+	value: unknown,
+	route?: string,
+): asserts value is z.infer<typeof BetSchemaPartial> {
+	assertAPIObject({
+		schema: BetSchemaPartial,
+		value,
+		code: "BET",
+		route: route ?? "/bets/?",
+	});
+}
