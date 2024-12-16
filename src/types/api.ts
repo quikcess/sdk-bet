@@ -7,13 +7,8 @@ import type {
   APIPayload,
   APIStatus,
   RESTGetAPIAllBetsQuery,
-	RESTGetAPIAllBetsResponse,
-	RESTGetAPIBetAggregateMetrics,
 	RESTGetAPIBetBaseQuery,
-	RESTGetAPIBetResponse,
 	RESTGetAPICredentialBaseQuery,
-	RESTGetAPICredentialResponse,
-	RESTGetAPIStatusResponse,
 	RESTPatchAPIBetUpdateBody,
 	RESTPostAPIBetCreateBody,
 	RESTPostAPICredentialJSONBody,
@@ -51,10 +46,12 @@ export interface APIEndpoints {
 		method: "PATCH";
 		response: APIBet;
 		body: RESTPatchAPIBetUpdateBody;
+		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/delete": {
 		method: "DELETE";
 		response: APIBet;
+		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/metrics": {
 		response: APIBetAggregateMetrics;

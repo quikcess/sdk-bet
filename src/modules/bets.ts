@@ -70,31 +70,52 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-	async update(betId: string, data: Partial<BetData>): Promise<BetEntity> {
+	async update(betId: string, data: Partial<Omit<BetData, "guildId" | "createdAt" | "updatedAt">>, guildId?: string): Promise<BetEntity> {
 		assertString(betId);
+		if (guildId) assertString(guildId);
 
 		const payload = toSnakeCase(data);
 		assertPartialBet(payload, "/bets/update");
+
+    const query = guildId ? { guild_id: guildId } : {}
 
 		const { response } = await this.client.api.request(
 			Routes.bets.update(betId),
 			{
 				method: "PATCH",
 				body: payload,
+        query
 			},
 		);
 
 		return new BetEntity(response);
 	}
 
-  async delete(betId: string): Promise<BetEntity> {
+  async delete(betId: string, guildId?: string): Promise<BetEntity> {
 		assertString(betId);
+		if (guildId) assertString(guildId);
+
+    const query = guildId ? { guild_id: guildId } : {}
 
 		const { response } = await this.client.api.request(
 			Routes.bets.delete(betId),
-			{ method: "DELETE" },
+			{ method: "DELETE", query },
 		);
 
 		return new BetEntity(response);
+	}
+
+  async has(betId: string, guildId?: string): Promise<boolean> {
+		assertString(betId);
+		if (guildId) assertString(guildId);
+
+    const query = guildId ? { guild_id: guildId } : {}
+
+		const { response } = await this.client.api.request(
+			Routes.bets.has(betId),
+			{ query },
+		);
+
+		return response
 	}
 }
