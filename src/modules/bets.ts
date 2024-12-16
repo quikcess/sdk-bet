@@ -6,6 +6,7 @@ import { BetEntity } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
 import type {
+  APIBetAggregateMetrics,
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
@@ -113,6 +114,32 @@ export class BetModule {
 
 		const { response } = await this.client.api.request(
 			Routes.bets.has(betId),
+			{ query },
+		);
+
+		return response
+	}
+
+  async count(guildId?: string): Promise<number> {
+		if (guildId) assertString(guildId);
+
+    const query = guildId ? { guild_id: guildId } : {}
+
+		const { response } = await this.client.api.request(
+			Routes.bets.count(),
+			{ query },
+		);
+
+		return response
+	}
+
+  async metrics(guildId?: string): Promise<APIBetAggregateMetrics> {
+		if (guildId) assertString(guildId);
+
+    const query = guildId ? { guild_id: guildId } : {}
+
+		const { response } = await this.client.api.request(
+			Routes.bets.metrics(),
 			{ query },
 		);
 

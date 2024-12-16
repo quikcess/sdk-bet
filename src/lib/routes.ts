@@ -26,7 +26,7 @@ export const Routes = {
     create: () => Route<"bets/create">(`api/v1/bets`),
     update: (betId: string) => Route<"bets/update">(`api/v1/bets/${betId}`),
     delete: (betId: string) => Route<"bets/delete">(`api/v1/bets/${betId}`),
-    metrics: (guildId: string) => Route<"bets/metrics">(`api/v1/bets/metrics/${guildId}`),
+    metrics: () => Route<"bets/metrics">(`api/v1/bets/metrics`),
     count: () => Route<"bets/count">("api/v1/bets/count"),
     has: (betId: string) => Route<"bets/has">(`api/v1/bets/has/${betId}`),
     bulk: {
