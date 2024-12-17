@@ -5,16 +5,16 @@ import type { APIBetLog } from "@quikcess/bet-api-types/v1";
  */
 export class BetLog {
   /** The URL for the closed bet log. */
-  public readonly closedUrl: URL;
+  public readonly closedUrl: string
 
   /** The URL for the created bet log. */
-  public readonly createdUrl: URL;
+  public readonly createdUrl: string
 
   /** The URL for the started bet log. */
-  public readonly startedUrl: URL;
+  public readonly startedUrl: string
 
   /** The URL for the victory bet log. */
-  public readonly victoryUrl: URL;
+  public readonly victoryUrl: string
 
   /**
    * Initializes the BetLog object with API data.
@@ -24,10 +24,10 @@ export class BetLog {
    */
   constructor(data: APIBetLog) {
     // Validate and convert string URLs to URL objects
-    this.closedUrl = new URL(data.closed_url);
-    this.createdUrl = new URL(data.created_url);
-    this.startedUrl = new URL(data.started_url);
-    this.victoryUrl = new URL(data.victory_url);
+    this.closedUrl = data.closed_url
+    this.createdUrl = data.created_url
+    this.startedUrl = data.started_url
+    this.victoryUrl = data.victory_url
   }
 
   /**
@@ -36,7 +36,7 @@ export class BetLog {
    * @param event - The event type ('created', 'started', 'closed', 'victory').
    * @returns The URL associated with the given event.
    */
-  public getLogUrl(event: "created" | "started" | "closed" | "victory"): URL {
+  public getLogUrl(event: "created" | "started" | "closed" | "victory"): string {
     switch (event) {
       case "created":
         return this.createdUrl;

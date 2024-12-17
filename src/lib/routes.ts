@@ -30,8 +30,8 @@ export const Routes = {
     count: () => Route<"bets/count">("api/v1/bets/count"),
     has: (betId: string) => Route<"bets/has">(`api/v1/bets/has/${betId}`),
     bulk: {
-      create: () => Route<"bets/bulkCreate">(`api/v1/bets/bulkDelete`),
-      delete:  () => Route<"bets/bulkDelete">(`api/v1/bets/bulkDelete`),
+      create: () => Route<"bets/bulkCreate">(`api/v1/bets/bulk/create`),
+      delete:  () => Route<"bets/bulkDelete">(`api/v1/bets/bulk/celete`),
     }
   },
 } satisfies IRoutes;

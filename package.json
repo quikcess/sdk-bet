@@ -21,6 +21,7 @@
     "test:bet.create": "npm test ./test/bet.create.test.ts",
     "test:bet.delete": "npm test ./test/bet.delete.test.ts",
     "test:bet.update": "npm test ./test/bet.update.test.ts",
+    "test:bet.bulk": "npm test ./test/bet.bulk.test.ts",
     "prepare": "husky"
   },
   "engines": {

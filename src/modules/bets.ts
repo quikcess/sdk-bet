@@ -1,4 +1,4 @@
-import { assertBet, assertPartialBet } from "@/assertions/bet";
+import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
@@ -6,6 +6,7 @@ import { AllBetsEntity } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases";
 import type {
+  APIBet,
   APIBetAggregateMetrics,
   RESTGetAPIAllBetsQuery,
   RESTGetAPIBetsPaginationQuery,
@@ -144,5 +145,18 @@ export class BetModule {
 		);
 
 		return response
+	}
+
+  async bulkCreate(data: BetData[]): Promise<BetEntity[]> {
+		const payload: APIBet[] = toSnakeCase<BetData[]>(data);
+
+		assertBets(payload, "/bets/bulk/create");
+
+		const { response } = await this.client.api.request(Routes.bets.bulk.create(), {
+			method: "POST",
+			body: payload,
+		});
+
+		return response.map(bet => new BetEntity(bet));
 	}
 }
