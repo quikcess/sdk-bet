@@ -26,6 +26,7 @@ bettingApi.bets
 		revenge: false,
 		emulators: 0,
 		gelType: "normal",
+		gelCount: 1,
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),
 		startedAt: new Date().toISOString(),

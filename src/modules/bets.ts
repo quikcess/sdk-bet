@@ -1,14 +1,14 @@
 import { assertBet, assertPartialBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
-import { toSnakeCase } from "@/utils/cases";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
-import { AllBetsResult } from "@/structures/bet/getAll";
+import { AllBetsEntity } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
+import { toSnakeCase } from "@/utils/cases";
 import type {
   APIBetAggregateMetrics,
-	RESTGetAPIAllBetsQuery,
-	RESTGetAPIBetsPaginationQuery,
+  RESTGetAPIAllBetsQuery,
+  RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { BetData, Betting } from "..";
 
@@ -36,7 +36,7 @@ export class BetModule {
 	async getAll(
 		guildId?: string,
 		options?: RESTGetAPIBetsPaginationQuery,
-	): Promise<AllBetsResult> {
+	): Promise<AllBetsEntity> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 
 		const query: RESTGetAPIAllBetsQuery = options ? options : {};
@@ -50,7 +50,7 @@ export class BetModule {
 			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
 		);
 
-		return new AllBetsResult({
+		return new AllBetsEntity({
 			currentPage: response.current_page,
 			totalPages: response.total_pages,
 			totalBets: response.total_bets,

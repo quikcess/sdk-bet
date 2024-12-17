@@ -119,14 +119,4 @@ export class BetEntity {
     const data = toSnakeCase(this); 
     return data as APIBet
 	}
-
-	/**
-	 * Retrieves the logs associated with this bet.
-	 *
-	 * @async
-	 * @returns A promise that resolves to the logs as a string.
-	 */
-	async getLogs(): Promise<string> {
-		return JSON.stringify(this.logs);
-	}
 }

@@ -1,12 +1,8 @@
 import type {
-  APIBetFormat,
+  APIBet,
   APIBetGelType,
   APIBetLog,
-  APIBetMode,
-  APIBetPlatform,
   APIBetPlayer,
-  APIBetStatus,
-  APIBetType,
   ISODateString
 } from "@quikcess/bet-api-types/v1";
 
@@ -21,27 +17,20 @@ export interface BetLogPayload extends Omit<APIBetLog, 'closed_url' | 'victory_u
   createdUrl: string;
 }
 
-export interface BetData {
+export type BetData = Omit<APIBet, 'guild_id' | 'bet_id' | 'players' | 'room_id' | 'queue_channel_id' | 'channel_id' | 'mediator_id' | 'gel_type' | 'gel_count' | 'created_at' | 'updated_at' | 'started_at' | 'closed_at' | 'logs'> & {
   guildId: string;
   betId: string;
-  platform: APIBetPlatform;
-  format: APIBetFormat;
-  mode: APIBetMode;
-  players: BetPlayerPayload[]; 
-  status: APIBetStatus;
-  type: APIBetType;
+  players: BetPlayerPayload[];
   roomId: number;
-  value: number | string;
   queueChannelId: string;
   channelId: string;
   mediatorId: string;
-  wo: boolean;
-  revenge: boolean;
-  emulators: number;
   gelType: APIBetGelType;
+  gelCount: number;
   createdAt: ISODateString;
   updatedAt: ISODateString;
   startedAt: ISODateString;
   closedAt: ISODateString | null;
   logs: BetLogPayload;
-}
+};
+

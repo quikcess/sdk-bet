@@ -48,6 +48,7 @@ const BetSchema = z.object({
 	revenge: z.boolean(),
 	emulators: z.number(),
 	gel_type: z.nativeEnum(APIBetGelType),
+	gel_count: z.number(),
 	created_at: z
 		.string()
 		.default(() => new Date().toISOString())
