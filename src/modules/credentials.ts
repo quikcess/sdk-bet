@@ -1,6 +1,6 @@
 import { assertGenerateCredentialKey } from "@/assertions/credential";
 import { assertString } from "@/assertions/literal";
-import { toSnakeCase } from "@/helpers/cases";
+import { toSnakeCase } from "@/utils/cases";
 import { Routes } from "@/lib/routes";
 import type { APICredentialType } from "@quikcess/bet-api-types/v1";
 import { type Betting, Credential } from "..";

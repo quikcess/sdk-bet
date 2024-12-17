@@ -1,6 +1,6 @@
 import { assertBet, assertPartialBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
-import { toSnakeCase } from "@/helpers/cases";
+import { toSnakeCase } from "@/utils/cases";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsResult } from "@/structures/bet/getAll";

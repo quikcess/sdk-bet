@@ -9,6 +9,7 @@ import type {
 	APIBetStatus,
 	APIBetType,
 } from "@quikcess/bet-api-types/v1";
+import { toSnakeCase } from "@/utils/cases";
 
 /**
  * Represents a detailed betting entity with utility methods and access to API-related data.
@@ -108,6 +109,15 @@ export class BetEntity {
 		this.startedAt = new Date(data.started_at);
 		this.closedAt = data.closed_at ? new Date(data.closed_at) : null;
 		this.logs = data.logs;
+	}
+
+  public static from(data: APIBet): BetEntity {
+		return new BetEntity(data);
+	}
+
+  public toJSON(): APIBet {
+    const data = toSnakeCase(this); 
+    return data as APIBet
 	}
 
 	/**
