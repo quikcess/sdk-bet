@@ -44,11 +44,10 @@ export class AllBetsEntity {
    */
   toJSON() {
     return {
-      currentPage: this.currentPage,
-      totalPages: this.totalPages,
-      totalBets: this.totalBets,
-      // Converts the Collection to an array of entries for serialization
-      data: Array.from(this.data.entries()),
+      current_page: this.currentPage,
+      total_pages: this.totalPages,
+      total_bets: this.totalBets,
+      data: Array.from(this.data.entries()), // Converts the Collection to an array of entries for serialization
     };
   }
 

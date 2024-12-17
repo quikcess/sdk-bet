@@ -24,10 +24,10 @@ export class BetEntity {
 	/** Platform on which the bet was placed. */
 	public readonly platform: APIBetPlatform;
 
-	/** Format of the bet (e.g., single, team). */
+	/** Format of the bet (e.g., Normal, Tático). */
 	public readonly format: APIBetFormat;
 
-	/** Mode of the bet (e.g., ranked, casual). */
+	/** Mode of the bet (e.g., 1v1, 2v2). */
 	public readonly mode: APIBetMode;
 
 	/** List of players involved in the bet. */
@@ -36,7 +36,7 @@ export class BetEntity {
 	/** Current status of the bet. */
 	public status: APIBetStatus;
 
-	/** Type of the bet (e.g., normal, custom). */
+	/** Type of the bet (e.g., regenerative, customized). */
 	public readonly type: APIBetType;
 
 	/** Identifier for the room associated with the bet. */
@@ -65,6 +65,9 @@ export class BetEntity {
 
 	/** The type of gel associated with the bet. */
 	public readonly gelType: APIBetGelType;
+  
+	/** The count of gel associated with the bet. */
+	public readonly gelCount: number;
 
 	/** Timestamp of when the bet was created. */
 	public readonly createdAt: Date;
@@ -104,6 +107,7 @@ export class BetEntity {
 		this.revenge = data.revenge;
 		this.emulators = data.emulators;
 		this.gelType = data.gel_type;
+		this.gelCount = data.gel_count;
 		this.createdAt = new Date(data.created_at);
 		this.updatedAt = new Date(data.updated_at);
 		this.startedAt = new Date(data.started_at);
@@ -116,7 +120,7 @@ export class BetEntity {
 	}
 
   public toJSON(): APIBet {
-    const data = toSnakeCase(this); 
+    const data = toSnakeCase<BetEntity>(this); 
     return data as APIBet
 	}
 }
