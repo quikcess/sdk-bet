@@ -1,48 +1,21 @@
 import { isISODateString } from "@/utils/date";
 import {
-	APIBetFormat,
-	APIBetGelType,
-	APIBetMode,
-	APIBetPlatform,
-	APIBetStatus,
-	APIBetType,
+  APIBetFormat,
+  APIBetGelType,
+  APIBetMode,
+  APIBetPlatform,
+  APIBetStatus,
+  APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
 
-const APIBetPlayerDetailsSchema = z.object({
-	gel_type: z.nativeEnum(APIBetGelType),
-	emulators: z.number(),
-});
-
-const APIBetPlayerBaseSchema = z.object({
+const APIBetPlayerSchema = z.object({
 	user_id: z.string(),
 	wins: z.number(),
 	loses: z.number(),
 	consecutives: z.number(),
 });
-
-const APIBetRegenerativePlayerSchema = APIBetPlayerBaseSchema.extend({
-	details: APIBetPlayerDetailsSchema,
-});
-
-const APIBetCustomizedPlayerSchema = APIBetPlayerBaseSchema.extend({
-	details: APIBetPlayerDetailsSchema.extend({
-		platform: z.nativeEnum(APIBetPlatform),
-	}),
-});
-
-const APIBetSpecializedPlayerSchema = APIBetPlayerBaseSchema.extend({
-	details: APIBetPlayerDetailsSchema.extend({
-		value: z.union([z.number(), z.string()]),
-	}),
-});
-
-const APIBetPlayerSchema = z.union([
-	APIBetRegenerativePlayerSchema,
-	APIBetCustomizedPlayerSchema,
-	APIBetSpecializedPlayerSchema,
-]);
 
 const APIBetLogSchema = z.object({
 	created_url: z.string(),

@@ -15,13 +15,9 @@ bettingApi.bets
       wins: 0,
       loses: 0,
       consecutives: 0,
-      details: {
-        gelType: "normal",
-        emulators: 0,
-      }
     }],
 		status: "pending",
-		type: "regenerative",
+		type: "customized",
 		roomId: 0,
 		value: 3,
 		queueChannelId: "123",
@@ -35,10 +31,10 @@ bettingApi.bets
 		startedAt: new Date().toISOString(),
 		closedAt: null,
 		logs: {
-			created_url: "",
-			started_url: "",
-			victory_url: "",
-			closed_url: "",
+			createdUrl: "",
+			startedUrl: "",
+			victoryUrl: "",
+			closedUrl: "",
 		},
 	})
 	.then(console.log);

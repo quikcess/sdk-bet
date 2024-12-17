@@ -1,15 +1,15 @@
-import type {
-	APIBetFormat,
-	APIBetGelType,
-	APIBetLog,
-	APIBetMode,
-	APIBetPlatform,
-	APIBetPlayer,
-	APIBet,
-	APIBetStatus,
-	APIBetType,
-} from "@quikcess/bet-api-types/v1";
 import { toSnakeCase } from "@/utils/cases";
+import type {
+  APIBet,
+  APIBetFormat,
+  APIBetGelType,
+  APIBetMode,
+  APIBetPlatform,
+  APIBetStatus,
+  APIBetType
+} from "@quikcess/bet-api-types/v1";
+import { BetLog } from "./log";
+import { BetPlayer } from "./player";
 
 /**
  * Represents a detailed betting entity with utility methods and access to API-related data.
@@ -31,7 +31,7 @@ export class BetEntity {
 	public readonly mode: APIBetMode;
 
 	/** List of players involved in the bet. */
-	public readonly players: APIBetPlayer[];
+	public readonly players: BetPlayer[];
 
 	/** Current status of the bet. */
 	public status: APIBetStatus;
@@ -79,7 +79,7 @@ export class BetEntity {
 	public readonly closedAt: Date | null;
 
 	/** Logs associated with the bet. */
-	public readonly logs: APIBetLog;
+	public readonly logs: BetLog;
 
 	/**
 	 * Initializes the bet entity using API data.
@@ -92,7 +92,7 @@ export class BetEntity {
 		this.platform = data.platform;
 		this.format = data.format;
 		this.mode = data.mode;
-		this.players = data.players;
+		this.players = data.players.map(player => new BetPlayer(player));
 		this.status = data.status;
 		this.type = data.type;
 		this.roomId = data.room_id;
@@ -108,7 +108,7 @@ export class BetEntity {
 		this.updatedAt = new Date(data.updated_at);
 		this.startedAt = new Date(data.started_at);
 		this.closedAt = data.closed_at ? new Date(data.closed_at) : null;
-		this.logs = data.logs;
+		this.logs = new BetLog(data.logs);
 	}
 
   public static from(data: APIBet): BetEntity {

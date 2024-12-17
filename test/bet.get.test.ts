@@ -1,5 +1,10 @@
+import type { BetEntity } from "../src";
 import { bettingApi } from "./index.test";
 
-const betId = "1734381155714";
+const betId = "1734446380446";
 
-bettingApi.bets.getById(betId).then(console.log);
+async function test() {
+  const data: BetEntity = await bettingApi.bets.getById(betId);
+}
+
+test()
