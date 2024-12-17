@@ -7,11 +7,11 @@ import type {
   APIPayload,
   APIStatus,
   RESTGetAPIAllBetsQuery,
-	RESTGetAPIBetBaseQuery,
-	RESTGetAPICredentialBaseQuery,
-	RESTPatchAPIBetUpdateBody,
-	RESTPostAPIBetCreateBody,
-	RESTPostAPICredentialJSONBody,
+  RESTGetAPIBetBaseQuery,
+  RESTGetAPICredentialBaseQuery,
+  RESTPatchAPIBetUpdateBody,
+  RESTPostAPIBetCreateBody,
+  RESTPostAPICredentialJSONBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {

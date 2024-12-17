@@ -159,4 +159,13 @@ export class BetModule {
 
 		return response.map(bet => new BetEntity(bet));
 	}
+
+  async bulkDelete(betIds: string[]): Promise<BetEntity[]> {
+		const { response } = await this.client.api.request(Routes.bets.bulk.delete(), {
+			method: "DELETE",
+			body: betIds,
+		});
+
+		return response.map(bet => new BetEntity(bet));
+	}
 }
