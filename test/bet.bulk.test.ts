@@ -75,4 +75,4 @@ import { bettingApi } from "./index.test";
 //   console.log(data)
 // });
 
-bettingApi.bets.bulkDelete(["098", "099"]).then(console.log)
+bettingApi.bets.bulkDelete(["098", "099"]).then(console.log);

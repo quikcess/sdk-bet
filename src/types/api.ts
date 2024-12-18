@@ -1,17 +1,17 @@
 import type { Route } from "@/lib/routes";
 import type {
-  APIAllBets,
-  APIBet,
-  APIBetAggregateMetrics,
-  APICredential,
-  APIPayload,
-  APIStatus,
-  RESTGetAPIAllBetsQuery,
-  RESTGetAPIBetBaseQuery,
-  RESTGetAPICredentialBaseQuery,
-  RESTPatchAPIBetUpdateBody,
-  RESTPostAPIBetCreateBody,
-  RESTPostAPICredentialJSONBody,
+	APIAllBets,
+	APIBet,
+	APIBetAggregateMetrics,
+	APICredential,
+	APIPayload,
+	APIStatus,
+	RESTGetAPIAllBetsQuery,
+	RESTGetAPIBetBaseQuery,
+	RESTGetAPICredentialBaseQuery,
+	RESTPatchAPIBetUpdateBody,
+	RESTPostAPIBetCreateBody,
+	RESTPostAPICredentialJSONBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {

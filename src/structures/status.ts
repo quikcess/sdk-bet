@@ -1,8 +1,8 @@
 import { assertStatus } from "@/assertions/status";
 import type {
-	APIStatusType,
 	APIStatus,
 	APIStatusServices,
+	APIStatusType,
 } from "@quikcess/bet-api-types/v1";
 
 /**

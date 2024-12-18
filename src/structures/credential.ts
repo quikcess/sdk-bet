@@ -1,8 +1,8 @@
 import { assertCredential } from "@/assertions/credential";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-  APICredential,
-  APICredentialType
+	APICredential,
+	APICredentialType,
 } from "@quikcess/bet-api-types/v1";
 
 /**
@@ -41,12 +41,12 @@ export class Credential {
 		this.updatedAt = new Date(updated_at);
 	}
 
-  public static from(data: APICredential): Credential {
-    return new Credential(data);
-  }
+	public static from(data: APICredential): Credential {
+		return new Credential(data);
+	}
 
-  public toJSON(): APICredential {
-    const data: APICredential = toSnakeCase<Credential>(this); 
-    return data;
-  }
+	public toJSON(): APICredential {
+		const data: APICredential = toSnakeCase<Credential>(this);
+		return data;
+	}
 }

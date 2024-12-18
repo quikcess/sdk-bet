@@ -1,12 +1,12 @@
 import { toSnakeCase } from "@/utils/cases";
 import type {
-  APIBet,
-  APIBetFormat,
-  APIBetGelType,
-  APIBetMode,
-  APIBetPlatform,
-  APIBetStatus,
-  APIBetType
+	APIBet,
+	APIBetFormat,
+	APIBetGelType,
+	APIBetMode,
+	APIBetPlatform,
+	APIBetStatus,
+	APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { BetLog } from "./log";
 import { BetPlayer } from "./player";
@@ -65,7 +65,7 @@ export class BetEntity {
 
 	/** The type of gel associated with the bet. */
 	public readonly gelType: APIBetGelType;
-  
+
 	/** The count of gel associated with the bet. */
 	public readonly gelCount: number;
 
@@ -95,7 +95,7 @@ export class BetEntity {
 		this.platform = data.platform;
 		this.format = data.format;
 		this.mode = data.mode;
-		this.players = data.players.map(player => new BetPlayer(player));
+		this.players = data.players.map((player) => new BetPlayer(player));
 		this.status = data.status;
 		this.type = data.type;
 		this.roomId = data.room_id;
@@ -115,12 +115,12 @@ export class BetEntity {
 		this.logs = new BetLog(data.logs);
 	}
 
-  public static from(data: APIBet): BetEntity {
+	public static from(data: APIBet): BetEntity {
 		return new BetEntity(data);
 	}
 
-  public toJSON(): APIBet {
-    const data: APIBet = toSnakeCase<BetEntity>(this); 
-    return data
+	public toJSON(): APIBet {
+		const data: APIBet = toSnakeCase<BetEntity>(this);
+		return data;
 	}
 }

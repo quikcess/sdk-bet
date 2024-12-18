@@ -9,11 +9,11 @@ bettingApi.on("betCreate", async (data) => {
 });
 
 bettingApi.on("betUpdate", async (data) => {
-  console.log(data)
+	console.log(data);
 	const bet = data ? new BetEntity(data) : undefined;
 	console.log(`Veja Mais: ${bet?.channelId}`, bet);
 });
 
 bettingApi.on("betDelete", async (data) => {
-  console.log(data)
+	console.log(data);
 });

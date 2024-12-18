@@ -1,11 +1,11 @@
 import { isISODateString } from "@/utils/date";
 import {
-  APIBetFormat,
-  APIBetGelType,
-  APIBetMode,
-  APIBetPlatform,
-  APIBetStatus,
-  APIBetType,
+	APIBetFormat,
+	APIBetGelType,
+	APIBetMode,
+	APIBetPlatform,
+	APIBetStatus,
+	APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
@@ -83,17 +83,17 @@ export function assertBet(
 }
 
 export function assertBets(
-  value: unknown[],
-  route?: string,
+	value: unknown[],
+	route?: string,
 ): asserts value is z.infer<typeof BetSchema>[] {
-  value.forEach((bet, index) => {
-    assertAPIObject({
-      schema: BetSchema,
-      value: bet,
-      code: "BET",
-      route: route ? `${route}/${index}` : "/bets/?",
-    });
-  });
+	value.forEach((bet, index) => {
+		assertAPIObject({
+			schema: BetSchema,
+			value: bet,
+			code: "BET",
+			route: route ? `${route}/${index}` : "/bets/?",
+		});
+	});
 }
 
 export const BetSchemaPartial = BetSchema.partial();

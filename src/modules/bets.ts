@@ -6,10 +6,10 @@ import { AllBetsEntity } from "@/structures/bet/getAll";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-  APIBet,
-  APIBetAggregateMetrics,
-  RESTGetAPIAllBetsQuery,
-  RESTGetAPIBetsPaginationQuery,
+	APIBet,
+	APIBetAggregateMetrics,
+	RESTGetAPIAllBetsQuery,
+	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { BetData, Betting } from "..";
 
@@ -72,32 +72,36 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-	async update(betId: string, data: Partial<Omit<BetData, "guildId" | "createdAt" | "updatedAt">>, guildId?: string): Promise<BetEntity> {
+	async update(
+		betId: string,
+		data: Partial<Omit<BetData, "guildId" | "createdAt" | "updatedAt">>,
+		guildId?: string,
+	): Promise<BetEntity> {
 		assertString(betId);
 		if (guildId) assertString(guildId);
 
 		const payload = toSnakeCase(data);
 		assertPartialBet(payload, "/bets/update");
 
-    const query = guildId ? { guild_id: guildId } : {}
+		const query = guildId ? { guild_id: guildId } : {};
 
 		const { response } = await this.client.api.request(
 			Routes.bets.update(betId),
 			{
 				method: "PATCH",
 				body: payload,
-        query
+				query,
 			},
 		);
 
 		return new BetEntity(response);
 	}
 
-  async delete(betId: string, guildId?: string): Promise<BetEntity> {
+	async delete(betId: string, guildId?: string): Promise<BetEntity> {
 		assertString(betId);
 		if (guildId) assertString(guildId);
 
-    const query = guildId ? { guild_id: guildId } : {}
+		const query = guildId ? { guild_id: guildId } : {};
 
 		const { response } = await this.client.api.request(
 			Routes.bets.delete(betId),
@@ -107,65 +111,68 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-  async has(betId: string, guildId?: string): Promise<boolean> {
+	async has(betId: string, guildId?: string): Promise<boolean> {
 		assertString(betId);
 		if (guildId) assertString(guildId);
 
-    const query = guildId ? { guild_id: guildId } : {}
+		const query = guildId ? { guild_id: guildId } : {};
 
-		const { response } = await this.client.api.request(
-			Routes.bets.has(betId),
-			{ query },
-		);
+		const { response } = await this.client.api.request(Routes.bets.has(betId), {
+			query,
+		});
 
-		return response
+		return response;
 	}
 
-  async count(guildId?: string): Promise<number> {
+	async count(guildId?: string): Promise<number> {
 		if (guildId) assertString(guildId);
 
-    const query = guildId ? { guild_id: guildId } : {}
+		const query = guildId ? { guild_id: guildId } : {};
 
-		const { response } = await this.client.api.request(
-			Routes.bets.count(),
-			{ query },
-		);
+		const { response } = await this.client.api.request(Routes.bets.count(), {
+			query,
+		});
 
-		return response
+		return response;
 	}
 
-  async metrics(guildId?: string): Promise<APIBetAggregateMetrics> {
+	async metrics(guildId?: string): Promise<APIBetAggregateMetrics> {
 		if (guildId) assertString(guildId);
 
-    const query = guildId ? { guild_id: guildId } : {}
+		const query = guildId ? { guild_id: guildId } : {};
 
-		const { response } = await this.client.api.request(
-			Routes.bets.metrics(),
-			{ query },
-		);
+		const { response } = await this.client.api.request(Routes.bets.metrics(), {
+			query,
+		});
 
-		return response
+		return response;
 	}
 
-  async bulkCreate(data: BetData[]): Promise<BetEntity[]> {
+	async bulkCreate(data: BetData[]): Promise<BetEntity[]> {
 		const payload: APIBet[] = toSnakeCase<BetData[]>(data);
 
 		assertBets(payload, "/bets/bulk/create");
 
-		const { response } = await this.client.api.request(Routes.bets.bulk.create(), {
-			method: "POST",
-			body: payload,
-		});
+		const { response } = await this.client.api.request(
+			Routes.bets.bulk.create(),
+			{
+				method: "POST",
+				body: payload,
+			},
+		);
 
-		return response.map(bet => new BetEntity(bet));
+		return response.map((bet) => new BetEntity(bet));
 	}
 
-  async bulkDelete(betIds: string[]): Promise<BetEntity[]> {
-		const { response } = await this.client.api.request(Routes.bets.bulk.delete(), {
-			method: "DELETE",
-			body: betIds,
-		});
+	async bulkDelete(betIds: string[]): Promise<BetEntity[]> {
+		const { response } = await this.client.api.request(
+			Routes.bets.bulk.delete(),
+			{
+				method: "DELETE",
+				body: betIds,
+			},
+		);
 
-		return response.map(bet => new BetEntity(bet));
+		return response.map((bet) => new BetEntity(bet));
 	}
 }

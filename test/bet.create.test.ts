@@ -10,12 +10,14 @@ bettingApi.bets
 		platform: "mobile",
 		format: "Normal",
 		mode: "1v1",
-		players: [{
-      userId: "1",
-      wins: 0,
-      loses: 0,
-      consecutives: 0,
-    }],
+		players: [
+			{
+				userId: "1",
+				wins: 0,
+				loses: 0,
+				consecutives: 0,
+			},
+		],
 		status: "pending",
 		type: "customized",
 		roomId: 0,
