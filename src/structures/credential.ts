@@ -46,7 +46,7 @@ export class Credential {
   }
 
   public toJSON(): APICredential {
-    const data = toSnakeCase<Credential>(this); 
-    return data as APICredential
+    const data: APICredential = toSnakeCase<Credential>(this); 
+    return data;
   }
 }

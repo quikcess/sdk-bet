@@ -120,7 +120,7 @@ export class BetEntity {
 	}
 
   public toJSON(): APIBet {
-    const data = toSnakeCase<BetEntity>(this); 
-    return data as APIBet
+    const data: APIBet = toSnakeCase<BetEntity>(this); 
+    return data
 	}
 }
