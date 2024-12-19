@@ -2,7 +2,7 @@ import { assertGenerateCredentialKey } from "@/assertions/credential";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { toSnakeCase } from "@/utils/cases";
-import type { APICredentialType } from "@quikcess/bet-api-types/v1";
+import type { CredentialType } from "@quikcess/bet-api-types/v1";
 import { type Betting, Credential } from "..";
 
 export class CredentialModule {
@@ -29,7 +29,7 @@ export class CredentialModule {
 	async generate(
 		guildId: string,
 		userId: string,
-		type: APICredentialType,
+		type: CredentialType,
 	): Promise<Credential> {
 		const payload = toSnakeCase({ guildId, userId, type });
 

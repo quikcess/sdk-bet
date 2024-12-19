@@ -1,8 +1,8 @@
 import { assertCredential } from "@/assertions/credential";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-	APICredential,
-	APICredentialType,
+  APICredential,
+  CredentialType,
 } from "@quikcess/bet-api-types/v1";
 
 /**
@@ -16,7 +16,7 @@ export class Credential {
 	/** API response time */
 	userId: string;
 	/** API response time */
-	type: APICredentialType;
+	type: CredentialType;
 	/** API response time */
 	createdAt: Date;
 	/** API response time */
