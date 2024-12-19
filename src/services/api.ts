@@ -1,9 +1,9 @@
-import { BetAPIError } from "@/structures";
+import { BetSDKError } from "@/structures";
 import type {
-	APIEndpoint,
-	APIRequestArgs,
-	APIRequestOptions,
-	APIResponse,
+    APIEndpoint,
+    APIRequestArgs,
+    APIRequestOptions,
+    APIResponse,
 } from "@/types";
 import type { APIVersion } from "@quikcess/bet-api-types/v1";
 
@@ -19,31 +19,31 @@ export class APIService {
 		const { url, init } = this.parseRequestOptions(path, options);
 
 		const response = await fetch(url, init).catch((err) => {
-			throw new BetAPIError(err.code, err.message);
+			throw new BetSDKError(err.code, err.message);
 		});
 
 		if (response.status === 404) {
-			throw new BetAPIError("NOT_FOUND", "Route does not exist");
+			throw new BetSDKError("NOT_FOUND", "Route does not exist");
 		}
 
 		if (response.status === 413) {
-			throw new BetAPIError("PAYLOAD_TOO_LARGE", "Payload too large");
+			throw new BetSDKError("PAYLOAD_TOO_LARGE", "Payload too large");
 		}
 
 		if (response.status === 429) {
-			throw new BetAPIError("RATE_LIMIT_EXCEEDED", "Rate limit exceeded");
+			throw new BetSDKError("RATE_LIMIT_EXCEEDED", "Rate limit exceeded");
 		}
 
 		if (response.status === 502 || response.status === 504) {
-			throw new BetAPIError("SERVER_UNAVAILABLE", "Server unavailable");
+			throw new BetSDKError("SERVER_UNAVAILABLE", "Server unavailable");
 		}
 
 		const data = (await response.json().catch(() => {
-			throw new BetAPIError("CANNOT_PARSE_RESPONSE", "Try again later");
+			throw new BetSDKError("CANNOT_PARSE_RESPONSE", "Try again later");
 		})) as APIResponse<T>;
 
 		if (!data || data.status === "error" || !response.ok) {
-			throw new BetAPIError(data?.code || "COMMON_ERROR");
+			throw new BetSDKError(data?.code || "COMMON_ERROR");
 		}
 
 		return data;

@@ -7,9 +7,9 @@ bettingApi.bets
 		betId,
 		channelId: "123",
 		guildId: "123", // Err
-		platform: "mobile",
+		platform: 1,
 		format: "Normal",
-		mode: "1v1",
+		mode: "1x1",
 		players: [
 			{
 				userId: "1",
@@ -18,8 +18,8 @@ bettingApi.bets
 				consecutives: 0,
 			},
 		],
-		status: "pending",
-		type: "customized",
+		status: 1,
+		type: 1,
 		roomId: 0,
 		value: 3,
 		queueChannelId: "123",
@@ -27,7 +27,7 @@ bettingApi.bets
 		wo: false,
 		revenge: false,
 		emulators: 0,
-		gelType: "normal",
+		gelType: 1,
 		gelCount: 1,
 		createdAt: new Date().toISOString(),
 		updatedAt: new Date().toISOString(),

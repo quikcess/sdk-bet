@@ -3,13 +3,13 @@ import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsEntity } from "@/structures/bet/getAll";
+import { BetMetrics } from "@/structures/bet/metric";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-	APIBet,
-	APIBetAggregateMetrics,
-	RESTGetAPIAllBetsQuery,
-	RESTGetAPIBetsPaginationQuery,
+  APIBet,
+  RESTGetAPIAllBetsQuery,
+  RESTGetAPIBetsPaginationQuery
 } from "@quikcess/bet-api-types/v1";
 import type { BetData, Betting } from "..";
 
@@ -61,7 +61,6 @@ export class BetModule {
 
 	async create(data: BetData): Promise<BetEntity> {
 		const payload = toSnakeCase(data);
-
 		assertBet(payload, "/bets/create");
 
 		const { response } = await this.client.api.request(Routes.bets.create(), {
@@ -136,7 +135,7 @@ export class BetModule {
 		return response;
 	}
 
-	async metrics(guildId?: string): Promise<APIBetAggregateMetrics> {
+	async metrics(guildId?: string): Promise<BetMetrics> {
 		if (guildId) assertString(guildId);
 
 		const query = guildId ? { guild_id: guildId } : {};
@@ -145,7 +144,7 @@ export class BetModule {
 			query,
 		});
 
-		return response;
+		return new BetMetrics(response);
 	}
 
 	async bulkCreate(data: BetData[]): Promise<BetEntity[]> {

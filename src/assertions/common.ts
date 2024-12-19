@@ -1,9 +1,9 @@
 import type {
-	APIObjectAssertionProps,
-	LiteralAssertionProps,
+  APIObjectAssertionProps,
+  LiteralAssertionProps,
 } from "@/types/assertions";
 import type * as z from "zod";
-import { BetAPIError } from "../structures";
+import { BetSDKError } from "../structures";
 
 export function assertLiteral({
 	schema,
@@ -14,7 +14,7 @@ export function assertLiteral({
 	try {
 		schema.parse(value);
 	} catch {
-		throw new BetAPIError(
+		throw new BetSDKError(
 			code ? `INVALID_${code}` : "VALIDATION_ERROR",
 			`Expect ${expect}, got ${typeof value}`,
 		);
@@ -37,7 +37,7 @@ export function assertAPIObject({
 			path: err.path.join(" > "),
 		}));
 
-		throw new BetAPIError(
+		throw new BetSDKError(
 			`INVALID_API_${code}`,
 			`Invalid ${name} object received from API ${route}`,
 			{

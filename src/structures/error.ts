@@ -1,4 +1,4 @@
-export class BetAPIError extends TypeError {
+export class BetSDKError extends TypeError {
 	constructor(
 		code: string,
 		message?: string,
@@ -6,7 +6,7 @@ export class BetAPIError extends TypeError {
 	) {
 		super(code);
 
-		this.name = "BetAPIError";
+		this.name = "BetSDKError";
 
 		this.message =
 			(code
