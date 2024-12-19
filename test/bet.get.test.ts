@@ -1,6 +1,6 @@
 import { bettingApi } from "./index.test";
 
-const betId = "1734446380446";
+const betId = "1";
 
 async function test() {
 	const data = await bettingApi.bets.getById(betId);

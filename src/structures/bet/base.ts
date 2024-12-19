@@ -1,11 +1,11 @@
 import { toSnakeCase } from "@/utils/cases";
 import type {
   APIBet,
-  APIBetGelType,
-  APIBetMode,
-  APIBetPlatform,
-  APIBetStatus,
-  APIBetType,
+  BetGelType,
+  BetMode,
+  BetPlatform,
+  BetStatus,
+  BetType
 } from "@quikcess/bet-api-types/v1";
 import { BetLog } from "./log";
 import { BetPlayer } from "./player";
@@ -21,22 +21,22 @@ export class BetEntity {
 	public readonly betId: string;
 
 	/** Platform on which the bet was placed. */
-	public readonly platform: APIBetPlatform;
+	public readonly platform: BetPlatform;
 
 	/** Format of the bet (e.g., Normal, Tático). */
 	public readonly format: string;
 
 	/** Mode of the bet (e.g., 1v1, 2v2). */
-	public readonly mode: APIBetMode;
+	public readonly mode: BetMode; 
 
 	/** List of players involved in the bet. */
 	public readonly players: BetPlayer[];
 
 	/** Current status of the bet. */
-	public status: APIBetStatus;
+	public status: BetStatus;
 
 	/** Type of the bet (e.g., regenerative, customized). */
-	public readonly type: APIBetType;
+	public readonly type: BetType;
 
 	/** Identifier for the room associated with the bet. */
 	public readonly roomId: number;
@@ -63,7 +63,7 @@ export class BetEntity {
 	public readonly emulators: number;
 
 	/** The type of gel associated with the bet. */
-	public readonly gelType: APIBetGelType;
+	public readonly gelType: BetGelType;
 
 	/** The count of gel associated with the bet. */
 	public readonly gelCount: number;

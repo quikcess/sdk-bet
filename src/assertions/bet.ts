@@ -1,10 +1,10 @@
 import { ISODateStringSchema, isISODateString } from "@/utils/date";
 import {
-  APIBetGelType,
-  APIBetMode,
-  APIBetPlatform,
-  APIBetStatus,
-  APIBetType,
+  BetGelType,
+  BetMode,
+  BetPlatform,
+  BetStatus,
+  BetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
@@ -26,9 +26,9 @@ const APIBetLogSchema = z.object({
 const BetSchema = z.object({
 	guild_id: z.string(),
 	bet_id: z.string(),
-	platform: z.nativeEnum(APIBetPlatform),
+	platform: z.nativeEnum(BetPlatform),
 	format: z.string(),
-	mode: z.nativeEnum(APIBetMode),
+	mode: z.nativeEnum(BetMode),
 	players: z
 		.array(APIBetPlayerSchema)
 		.min(1, { message: "AT_LEAST_ONE_PLAYERS_REQUIRED" })
@@ -38,8 +38,8 @@ const BetSchema = z.object({
 				new Set(players.map((p) => p.user_id)).size === players.length,
 			{ message: "DUPLICATE_USER_ID_FOUND" },
 		),
-	status: z.nativeEnum(APIBetStatus),
-	type: z.nativeEnum(APIBetType),
+	status: z.nativeEnum(BetStatus),
+	type: z.nativeEnum(BetType),
 	room_id: z.number(),
 	value: z.union([
 		z.number(),
@@ -58,7 +58,7 @@ const BetSchema = z.object({
 	wo: z.boolean(),
 	revenge: z.boolean(),
 	emulators: z.number(),
-	gel_type: z.nativeEnum(APIBetGelType),
+	gel_type: z.nativeEnum(BetGelType),
 	gel_count: z.number(),
 	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
 	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
