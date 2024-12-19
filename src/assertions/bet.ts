@@ -1,11 +1,10 @@
-import { isISODateString } from "@/utils/date";
+import { ISODateStringSchema, isISODateString } from "@/utils/date";
 import {
-	APIBetFormat,
-	APIBetGelType,
-	APIBetMode,
-	APIBetPlatform,
-	APIBetStatus,
-	APIBetType,
+  APIBetGelType,
+  APIBetMode,
+  APIBetPlatform,
+  APIBetStatus,
+  APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
@@ -24,23 +23,35 @@ const APIBetLogSchema = z.object({
 	closed_url: z.string(),
 });
 
-const APIBetFormatSchema = z.union([
-	z.literal(APIBetFormat.Normal),
-	z.literal(APIBetFormat.Tático),
-	z.string(),
-]);
-
 const BetSchema = z.object({
 	guild_id: z.string(),
 	bet_id: z.string(),
 	platform: z.nativeEnum(APIBetPlatform),
-	format: APIBetFormatSchema,
+	format: z.string(),
 	mode: z.nativeEnum(APIBetMode),
-	players: z.array(APIBetPlayerSchema),
+	players: z
+		.array(APIBetPlayerSchema)
+		.min(1, { message: "AT_LEAST_ONE_PLAYERS_REQUIRED" })
+		.max(2, { message: "MAXIMUM_TWO_PLAYERS_ALLOWED" })
+		.refine(
+			(players) =>
+				new Set(players.map((p) => p.user_id)).size === players.length,
+			{ message: "DUPLICATE_USER_ID_FOUND" },
+		),
 	status: z.nativeEnum(APIBetStatus),
 	type: z.nativeEnum(APIBetType),
 	room_id: z.number(),
-	value: z.number().or(z.string()),
+	value: z.union([
+		z.number(),
+		z
+			.string()
+			.regex(/^(\d+)(\/\d+){0,2}$/, "INVALID_VALUE_FORMAT")
+			.refine(
+				(str) => str.split("/").every((num) => !Number.isNaN(Number(num))),
+				{ message: "INVALID_NUMBER_IN_STRING" },
+			),
+	]),
+
 	queue_channel_id: z.string(),
 	channel_id: z.string(),
 	mediator_id: z.string(),
@@ -49,18 +60,9 @@ const BetSchema = z.object({
 	emulators: z.number(),
 	gel_type: z.nativeEnum(APIBetGelType),
 	gel_count: z.number(),
-	created_at: z
-		.string()
-		.default(() => new Date().toISOString())
-		.refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
-	updated_at: z
-		.string()
-		.default(() => new Date().toISOString())
-		.refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
-	started_at: z
-		.string()
-		.default(() => new Date().toISOString())
-		.refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" }),
+	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	started_at: ISODateStringSchema.default(() => new Date().toISOString()),
 	closed_at: z
 		.string()
 		.or(z.null())
@@ -83,16 +85,14 @@ export function assertBet(
 }
 
 export function assertBets(
-	value: unknown[],
+	value: unknown,
 	route?: string,
 ): asserts value is z.infer<typeof BetSchema>[] {
-	value.forEach((bet, index) => {
-		assertAPIObject({
-			schema: BetSchema,
-			value: bet,
-			code: "BET",
-			route: route ? `${route}/${index}` : "/bets/?",
-		});
+	assertAPIObject({
+		schema: BetSchema.array(),
+		value,
+		code: "BET",
+		route: route ?? "/bets/?",
 	});
 }
 

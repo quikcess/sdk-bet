@@ -1,12 +1,11 @@
 import { toSnakeCase } from "@/utils/cases";
 import type {
-	APIBet,
-	APIBetFormat,
-	APIBetGelType,
-	APIBetMode,
-	APIBetPlatform,
-	APIBetStatus,
-	APIBetType,
+  APIBet,
+  APIBetGelType,
+  APIBetMode,
+  APIBetPlatform,
+  APIBetStatus,
+  APIBetType,
 } from "@quikcess/bet-api-types/v1";
 import { BetLog } from "./log";
 import { BetPlayer } from "./player";
@@ -25,7 +24,7 @@ export class BetEntity {
 	public readonly platform: APIBetPlatform;
 
 	/** Format of the bet (e.g., Normal, Tático). */
-	public readonly format: APIBetFormat;
+	public readonly format: string;
 
 	/** Mode of the bet (e.g., 1v1, 2v2). */
 	public readonly mode: APIBetMode;
