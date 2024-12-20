@@ -15,6 +15,7 @@ import type {
   RESTGetAPICredentialBaseQuery,
   RESTPatchAPIBetUpdateBody,
   RESTPostAPIBetCreateBody,
+  RESTPostAPIBlacklistCreateBody,
   RESTPostAPICredentialJSONBody,
 } from "@quikcess/bet-api-types/v1";
 
@@ -41,7 +42,7 @@ export interface APIEndpoints {
 	"blacklist/add": {
 		method: "POST";
 		response: APIBlacklist;
-		body: RESTPostAPIBetCreateBody;
+		body: RESTPostAPIBlacklistCreateBody;
 	};
 	"blacklist/delete": {
 		method: "DELETE";

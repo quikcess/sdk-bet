@@ -2,6 +2,7 @@ import WebSocket from "ws";
 import { assertString } from "./assertions/literal";
 import { Routes } from "./lib/routes";
 import { BetModule } from "./modules/bets";
+import { BlacklistModule } from "./modules/blacklist";
 import { CredentialModule } from "./modules/credentials";
 import { APIService } from "./services";
 import { GlobalCacheService } from "./services/cache/global";
@@ -25,6 +26,8 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	public readonly credentials = new CredentialModule(this);
 	/** Bets module */
 	public readonly bets = new BetModule(this);
+	/** Blacklist module */
+	public readonly blacklist = new BlacklistModule(this);
 	/** Global cache service */
 	public readonly cache = new GlobalCacheService();
 
@@ -71,3 +74,4 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 
 export * from "./structures";
 export * from "./types";
+

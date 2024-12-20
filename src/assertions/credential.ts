@@ -5,8 +5,8 @@ import { assertAPIObject } from "./common";
 
 const CredentialSchema = z.object({
 	api_key: z.string(),
-	guild_id: z.string(),
-	user_id: z.string(),
+	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
+	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),
 	type: z.nativeEnum(CredentialType),
 	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
   updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
