@@ -19,6 +19,13 @@ export const Routes = {
       return Route<"credential/generate">("api/v1/credentials/generate-api-key");
     }
   },
+  blacklist: {
+    getById: (targetId: string) => Route<"blacklist/getById">(`api/v1/blacklist/${targetId}`),
+    getAll: () => Route<"blacklist/getAll">("api/v1/blacklist"),
+    add: () => Route<"blacklist/add">(`api/v1/blacklist`),
+    delete: (targetId: string) => Route<"blacklist/delete">(`api/v1/blacklist/${targetId}`),
+    has: (targetId: string) => Route<"blacklist/has">(`api/v1/blacklist/has/${targetId}`),
+  },
   bets: {
     getById: (betId: string) => Route<"bets/getById">(`api/v1/bets/${betId}`),
     getByChannelId: (channelId: string) => Route<"bets/getByChannelId">(`api/v1/bets/channel/${channelId}`),

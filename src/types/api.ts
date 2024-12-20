@@ -1,17 +1,21 @@
 import type { Route } from "@/lib/routes";
 import type {
-	APIAllBets,
-	APIBet,
-	APIBetAggregateMetrics,
-	APICredential,
-	APIPayload,
-	APIStatus,
-	RESTGetAPIAllBetsQuery,
-	RESTGetAPIBetBaseQuery,
-	RESTGetAPICredentialBaseQuery,
-	RESTPatchAPIBetUpdateBody,
-	RESTPostAPIBetCreateBody,
-	RESTPostAPICredentialJSONBody,
+  APIAllBets,
+  APIAllBlacklist,
+  APIBet,
+  APIBetAggregateMetrics,
+  APIBlacklist,
+  APICredential,
+  APIPayload,
+  APIStatus,
+  RESTGetAPIAllBetsQuery,
+  RESTGetAPIAllBlacklistQuery,
+  RESTGetAPIBetBaseQuery,
+  RESTGetAPIBlacklistBaseQuery,
+  RESTGetAPICredentialBaseQuery,
+  RESTPatchAPIBetUpdateBody,
+  RESTPostAPIBetCreateBody,
+  RESTPostAPICredentialJSONBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
@@ -26,6 +30,27 @@ export interface APIEndpoints {
 		method: "POST";
 		response: APICredential;
 		body: RESTPostAPICredentialJSONBody;
+	};
+	"blacklist/getById": {
+		response: APIBlacklist;
+	};
+	"blacklist/getAll": {
+		response: APIAllBlacklist;
+		query: RESTGetAPIAllBlacklistQuery;
+	};
+	"blacklist/add": {
+		method: "POST";
+		response: APIBlacklist;
+		body: RESTPostAPIBetCreateBody;
+	};
+	"blacklist/delete": {
+		method: "DELETE";
+		response: APIBlacklist;
+		query: RESTGetAPIBlacklistBaseQuery;
+	};
+	"blacklist/has": {
+		response: boolean;
+		query: RESTGetAPIBlacklistBaseQuery;
 	};
 	"bets/getById": {
 		response: APIBet;
