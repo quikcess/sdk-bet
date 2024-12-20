@@ -1,4 +1,4 @@
-import { assertBlacklist } from "@/assertions/blacklist";
+import { assertBlacklist, assertPartialBlacklist } from "@/assertions/blacklist";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { AllBlacklist } from "@/structures/blacklist";
@@ -12,7 +12,7 @@ import type { Betting } from "..";
 export class BlacklistModule {
   constructor(private readonly client: Betting) {}
 
- async getById(targetId: string): Promise<Blacklist> {
+  async getById(targetId: string): Promise<Blacklist> {
     assertString(targetId, "TARGET_ID");
  
     const { response } = await this.client.api.request(
@@ -59,6 +59,32 @@ export class BlacklistModule {
     return new Blacklist(response);
   }
       
+  async update(
+      betId: string,
+      data: Partial<Omit<BlacklistData, "guildId" | "createdAt" | "updatedAt">>,
+      guildId?: string,
+    ): Promise<Blacklist> {
+      assertString(betId);
+      if (guildId) assertString(guildId);
+  
+      const payload = toSnakeCase(data);
+      assertPartialBlacklist(payload, "/blacklist/update");
+  
+      const query = guildId ? { guild_id: guildId } : {};
+  
+      const { response } = await this.client.api.request(
+        Routes.blacklist.update(betId),
+        {
+          method: "PATCH",
+          body: payload,
+          query,
+        },
+      );
+  
+      return new Blacklist(response);
+    }
+  
+
   async delete(targetId: string, guildId?: string): Promise<Blacklist> {
     assertString(targetId);
     if (guildId) assertString(guildId);

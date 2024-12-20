@@ -7,7 +7,7 @@ import * as z from "zod";
 import { assertAPIObject } from "./common";
 
 const BlacklistSchema = z.object({
-	guild_id: z.string(),
+	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
 	target_id: z.string().regex(/^\d+$/, "TARGET_ID_MUST_BE_NUMERIC_STRING"),
 	target_type: z.nativeEnum(BlacklistTargetType),
 	status: z.nativeEnum(BlacklistStatus),
@@ -27,4 +27,18 @@ export function assertBlacklist(
 		code: "BLACKLIST",
 		route: route ?? "/blacklist/?",
 	});
+}
+
+export const BlacklistSchemaPartial = BlacklistSchema.partial();
+
+export function assertPartialBlacklist(
+  value: unknown,
+  route?: string,
+): asserts value is z.infer<typeof BlacklistSchemaPartial> {
+  assertAPIObject({
+    schema: BlacklistSchemaPartial,
+    value,
+    code: "BLACKLIST",
+    route: route ?? "/blacklist/?",
+  });
 }

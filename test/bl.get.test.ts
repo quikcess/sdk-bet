@@ -1,5 +1,5 @@
 import { bettingApi } from "./index.test";
 
-bettingApi.blacklist.has("123").then((data) => {
+bettingApi.blacklist.getAll().then((data) => {
 	console.log(data);
 });

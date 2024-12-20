@@ -14,6 +14,7 @@ import type {
   RESTGetAPIBlacklistBaseQuery,
   RESTGetAPICredentialBaseQuery,
   RESTPatchAPIBetUpdateBody,
+  RESTPatchAPIBlacklistUpdateBody,
   RESTPostAPIBetCreateBody,
   RESTPostAPIBlacklistCreateBody,
   RESTPostAPICredentialJSONBody,
@@ -43,6 +44,12 @@ export interface APIEndpoints {
 		method: "POST";
 		response: APIBlacklist;
 		body: RESTPostAPIBlacklistCreateBody;
+	};
+	"blacklist/update": {
+		method: "PATCH";
+		response: APIBlacklist;
+		body: RESTPatchAPIBlacklistUpdateBody;
+		query: RESTGetAPIBlacklistBaseQuery;
 	};
 	"blacklist/delete": {
 		method: "DELETE";

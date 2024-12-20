@@ -23,6 +23,7 @@ export const Routes = {
     getById: (targetId: string) => Route<"blacklist/getById">(`api/v1/blacklist/${targetId}`),
     getAll: () => Route<"blacklist/getAll">("api/v1/blacklist"),
     add: () => Route<"blacklist/add">(`api/v1/blacklist`),
+    update: (targetId: string) => Route<"blacklist/update">(`api/v1/blacklist/${targetId}`),
     delete: (targetId: string) => Route<"blacklist/delete">(`api/v1/blacklist/${targetId}`),
     has: (targetId: string) => Route<"blacklist/has">(`api/v1/blacklist/has/${targetId}`),
   },
