@@ -4,7 +4,7 @@ import { Routes } from "@/lib/routes";
 import { AllBlacklist } from "@/structures/blacklist";
 import { Blacklist } from "@/structures/blacklist/base";
 import { Collection } from "@/structures/collection";
-import type { BlacklistData } from "@/types/sdk/blacklist";
+import type { BlacklistData } from "@/types/blacklist";
 import { toSnakeCase } from "@/utils/cases";
 import type { RESTGetAPIAllBlacklistQuery, RESTGetAPIBlacklistPaginationQuery } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
