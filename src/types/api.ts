@@ -2,6 +2,7 @@ import type { Route } from "@/lib/routes";
 import type {
   APIAllBets,
   APIAllBlacklist,
+  APIAllScam,
   APIBet,
   APIBetAggregateMetrics,
   APIBlacklist,
@@ -11,14 +12,18 @@ import type {
   APIStatus,
   RESTGetAPIAllBetsQuery,
   RESTGetAPIAllBlacklistQuery,
+  RESTGetAPIAllScamQuery,
   RESTGetAPIBetBaseQuery,
   RESTGetAPIBlacklistBaseQuery,
   RESTGetAPICredentialBaseQuery,
+  RESTGetAPIScamBaseQuery,
   RESTPatchAPIBetUpdateBody,
   RESTPatchAPIBlacklistUpdateBody,
+  RESTPatchAPIScamUpdateBody,
   RESTPostAPIBetCreateBody,
   RESTPostAPIBlacklistCreateBody,
   RESTPostAPICredentialJSONBody,
+  RESTPostAPIScamCreateBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
@@ -65,28 +70,28 @@ export interface APIEndpoints {
 		response: APIScam;
 	};
 	"scam/getAll": {
-		response: APIAllBlacklist;
-		query: RESTGetAPIAllBlacklistQuery;
+		response: APIAllScam;
+		query: RESTGetAPIAllScamQuery;
 	};
 	"scam/add": {
 		method: "POST";
 		response: APIScam;
-		body: RESTPostAPIBlacklistCreateBody;
+		body: RESTPostAPIScamCreateBody;
 	};
 	"scam/update": {
 		method: "PATCH";
 		response: APIScam;
-		body: RESTPatchAPIBlacklistUpdateBody;
-		query: RESTGetAPIBlacklistBaseQuery;
+		body: RESTPatchAPIScamUpdateBody;
+		query: RESTGetAPIScamBaseQuery;
 	};
 	"scam/delete": {
 		method: "DELETE";
 		response: APIScam;
-		query: RESTGetAPIBlacklistBaseQuery;
+		query: RESTGetAPIScamBaseQuery;
 	};
 	"scam/has": {
 		response: boolean;
-		query: RESTGetAPIBlacklistBaseQuery;
+		query: RESTGetAPIScamBaseQuery;
 	};
 	"bets/getById": {
 		response: APIBet;
