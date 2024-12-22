@@ -27,6 +27,14 @@ export const Routes = {
     delete: (targetId: string) => Route<"blacklist/delete">(`api/v1/blacklist/${targetId}`),
     has: (targetId: string) => Route<"blacklist/has">(`api/v1/blacklist/has/${targetId}`),
   },
+  scam: {
+    getById: (targetName: string) => Route<"scam/getById">(`api/v1/scam/${targetName}`),
+    getAll: () => Route<"scam/getAll">("api/v1/scam"),
+    add: () => Route<"scam/add">(`api/v1/scam`),
+    update: (targetName: string) => Route<"scam/update">(`api/v1/scam/${targetName}`),
+    delete: (targetName: string) => Route<"scam/delete">(`api/v1/scam/${targetName}`),
+    has: (targetName: string) => Route<"scam/has">(`api/v1/scam/has/${targetName}`),
+  },
   bets: {
     getById: (betId: string) => Route<"bets/getById">(`api/v1/bets/${betId}`),
     getByChannelId: (channelId: string) => Route<"bets/getByChannelId">(`api/v1/bets/channel/${channelId}`),

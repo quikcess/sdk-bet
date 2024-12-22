@@ -7,6 +7,7 @@ import type {
   APIBlacklist,
   APICredential,
   APIPayload,
+  APIScam,
   APIStatus,
   RESTGetAPIAllBetsQuery,
   RESTGetAPIAllBlacklistQuery,
@@ -57,6 +58,33 @@ export interface APIEndpoints {
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
 	"blacklist/has": {
+		response: boolean;
+		query: RESTGetAPIBlacklistBaseQuery;
+	};
+  "scam/getById": {
+		response: APIScam;
+	};
+	"scam/getAll": {
+		response: APIAllBlacklist;
+		query: RESTGetAPIAllBlacklistQuery;
+	};
+	"scam/add": {
+		method: "POST";
+		response: APIScam;
+		body: RESTPostAPIBlacklistCreateBody;
+	};
+	"scam/update": {
+		method: "PATCH";
+		response: APIScam;
+		body: RESTPatchAPIBlacklistUpdateBody;
+		query: RESTGetAPIBlacklistBaseQuery;
+	};
+	"scam/delete": {
+		method: "DELETE";
+		response: APIScam;
+		query: RESTGetAPIBlacklistBaseQuery;
+	};
+	"scam/has": {
 		response: boolean;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
