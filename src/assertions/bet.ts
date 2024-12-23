@@ -1,10 +1,10 @@
 import { ISODateStringSchema, isISODateString } from "@/utils/date";
 import {
-  BetGelType,
-  BetMode,
-  BetPlatform,
-  BetStatus,
-  BetType,
+	BetGelType,
+	BetMode,
+	BetPlatform,
+	BetStatus,
+	BetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { assertAPIObject } from "./common";
@@ -51,7 +51,9 @@ const BetSchema = z.object({
 				{ message: "INVALID_NUMBER_IN_STRING" },
 			),
 	]),
-	queue_channel_id: z.string().regex(/^\d+$/, "QUEUE_CHANNEL_ID_MUST_BE_NUMERIC_STRING"),
+	queue_channel_id: z
+		.string()
+		.regex(/^\d+$/, "QUEUE_CHANNEL_ID_MUST_BE_NUMERIC_STRING"),
 	channel_id: z.string().regex(/^\d+$/, "CHANNEL_ID_MUST_BE_NUMERIC_STRING"),
 	mediator_id: z.string().regex(/^\d+$/, "MEDIATOR_ID_MUST_BE_NUMERIC_STRING"),
 	wo: z.boolean(),

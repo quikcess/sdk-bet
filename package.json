@@ -25,7 +25,7 @@
 		"test:bl.add": "npm test ./test/bl.add.test.ts",
 		"test:bl.get": "npm test ./test/bl.get.test.ts",
 		"test:bl.delete": "npm test ./test/bl.delete.test.ts",
-    "test:scam.add": "npm test ./test/scam.add.test.ts",
+		"test:scam.add": "npm test ./test/scam.add.test.ts",
 		"test:scam.get": "npm test ./test/scam.get.test.ts",
 		"test:scam.delete": "npm test ./test/scam.delete.test.ts",
 		"prepare": "husky"

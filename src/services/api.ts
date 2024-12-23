@@ -1,9 +1,9 @@
 import { BetSDKError } from "@/structures";
 import type {
-  APIEndpoint,
-  APIRequestArgs,
-  APIRequestOptions,
-  APIResponse,
+	APIEndpoint,
+	APIRequestArgs,
+	APIRequestOptions,
+	APIResponse,
 } from "@/types";
 import type { APIVersion } from "@quikcess/bet-api-types/v1";
 

@@ -1,6 +1,6 @@
 import type {
-  APIObjectAssertionProps,
-  LiteralAssertionProps,
+	APIObjectAssertionProps,
+	LiteralAssertionProps,
 } from "@/types/assertions";
 import type * as z from "zod";
 import { BetSDKError } from "../structures";

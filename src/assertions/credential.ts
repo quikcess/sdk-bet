@@ -9,7 +9,7 @@ const CredentialSchema = z.object({
 	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),
 	type: z.nativeEnum(CredentialType),
 	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
-  updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
 });
 
 export const GenerateApiKeySchema = z

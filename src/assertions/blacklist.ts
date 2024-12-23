@@ -1,7 +1,7 @@
 import { ISODateStringSchema } from "@/utils/date";
 import {
-  BlacklistStatus,
-  BlacklistTargetType,
+	BlacklistStatus,
+	BlacklistTargetType,
 } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { assertAPIObject } from "./common";
@@ -32,13 +32,13 @@ export function assertBlacklist(
 export const BlacklistSchemaPartial = BlacklistSchema.partial();
 
 export function assertPartialBlacklist(
-  value: unknown,
-  route?: string,
+	value: unknown,
+	route?: string,
 ): asserts value is z.infer<typeof BlacklistSchemaPartial> {
-  assertAPIObject({
-    schema: BlacklistSchemaPartial,
-    value,
-    code: "BLACKLIST",
-    route: route ?? "/blacklist/?",
-  });
+	assertAPIObject({
+		schema: BlacklistSchemaPartial,
+		value,
+		code: "BLACKLIST",
+		route: route ?? "/blacklist/?",
+	});
 }

@@ -7,9 +7,9 @@ import { BetMetrics } from "@/structures/bet/metric";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-  APIBet,
-  RESTGetAPIAllBetsQuery,
-  RESTGetAPIBetsPaginationQuery
+	APIBet,
+	RESTGetAPIAllBetsQuery,
+	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { BetData, Betting } from "..";
 

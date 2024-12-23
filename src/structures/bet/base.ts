@@ -1,12 +1,12 @@
 import { assertBet } from "@/assertions/bet";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-  APIBet,
-  BetGelType,
-  BetMode,
-  BetPlatform,
-  BetStatus,
-  BetType
+	APIBet,
+	BetGelType,
+	BetMode,
+	BetPlatform,
+	BetStatus,
+	BetType,
 } from "@quikcess/bet-api-types/v1";
 import { BetLog } from "./log";
 import { BetPlayer } from "./player";
@@ -28,7 +28,7 @@ export class BetEntity {
 	public readonly format: string;
 
 	/** Mode of the bet (e.g., 1v1, 2v2). */
-	public readonly mode: BetMode; 
+	public readonly mode: BetMode;
 
 	/** List of players involved in the bet. */
 	public readonly players: BetPlayer[];
@@ -90,8 +90,8 @@ export class BetEntity {
 	 * @param data - Raw API data representing the bet.
 	 */
 	constructor(data: APIBet) {
-    assertBet(data, "structures/bet/base");
-    
+		assertBet(data, "structures/bet/base");
+
 		this.guildId = data.guild_id;
 		this.betId = data.bet_id;
 		this.platform = data.platform;

@@ -1,9 +1,6 @@
 import { assertCredential } from "@/assertions/credential";
 import { toSnakeCase } from "@/utils/cases";
-import type {
-  APICredential,
-  CredentialType,
-} from "@quikcess/bet-api-types/v1";
+import type { APICredential, CredentialType } from "@quikcess/bet-api-types/v1";
 
 /**
  * Represents an api status

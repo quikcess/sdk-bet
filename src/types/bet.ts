@@ -1,9 +1,9 @@
 import type {
-  APIBet,
-  APIBetLog,
-  APIBetPlayer,
-  BetGelType,
-  ISODateString
+	APIBet,
+	APIBetLog,
+	APIBetPlayer,
+	BetGelType,
+	ISODateString,
 } from "@quikcess/bet-api-types/v1";
 
 export interface BetPlayerPayload extends Omit<APIBetPlayer, "user_id"> {
