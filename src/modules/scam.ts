@@ -22,6 +22,18 @@ export class ScamModule {
     return new Scam(response);
   }
 
+  async getSimilar(targetName: string): Promise<Collection<string, Scam>> {
+    assertString(targetName, "TARGET_NAME");
+
+    const { response } = await this.client.api.request(
+      Routes.scam.getSimilar(targetName),
+    );
+
+    return new Collection(
+      response.map((data) => [data.target_name, new Scam(data)]),
+    );
+  }
+
   async getAll(
     guildId?: string,
     options?: RESTGetAPIScamPaginationQuery,

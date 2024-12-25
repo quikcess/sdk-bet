@@ -5,7 +5,9 @@ import { assertAPIObject } from "./common";
 
 const ScamSchema = z.object({
 	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
-	target_name: z.string().regex(/^\d+$/, "TARGET_NAME_MUST_BE_NUMERIC_STRING"),
+	target_name: z
+		.string()
+		.regex(/^[^\d]+$/, "TARGET_NAME_MUST_NOT_CONTAIN_NUMBERS"),
 	type: z.nativeEnum(ScamType),
 	status: z.nativeEnum(ScamStatus),
 	details: z.string(),

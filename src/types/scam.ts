@@ -15,7 +15,7 @@ export type ScamData = Omit<
 > & {
 	guildId: string;
 	targetName: string;
-	reported_by: string;
+	reportedBy: string;
 	createdAt: ISODateString;
 	updatedAt: ISODateString;
   validatedAt?: ISODateString;
