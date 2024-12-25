@@ -1,6 +1,6 @@
 import {
-	assertBlacklist,
-	assertPartialBlacklist,
+  assertBlacklist,
+  assertPartialBlacklist,
 } from "@/assertions/blacklist";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
@@ -10,8 +10,8 @@ import { Collection } from "@/structures/collection";
 import type { BlacklistData } from "@/types/blacklist";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-	RESTGetAPIAllBlacklistQuery,
-	RESTGetAPIBlacklistPaginationQuery,
+  RESTGetAPIAllBlacklistQuery,
+  RESTGetAPIBlacklistPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
 
@@ -69,11 +69,11 @@ export class BlacklistModule {
 	}
 
 	async update(
-		betId: string,
+		targetId: string,
 		data: Partial<Omit<BlacklistData, "guildId" | "createdAt" | "updatedAt">>,
 		guildId?: string,
 	): Promise<Blacklist> {
-		assertString(betId);
+		assertString(targetId);
 		if (guildId) assertString(guildId);
 
 		const payload = toSnakeCase(data);
@@ -82,7 +82,7 @@ export class BlacklistModule {
 		const query = guildId ? { guild_id: guildId } : {};
 
 		const { response } = await this.client.api.request(
-			Routes.blacklist.update(betId),
+			Routes.blacklist.update(targetId),
 			{
 				method: "PATCH",
 				body: payload,
