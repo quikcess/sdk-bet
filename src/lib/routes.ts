@@ -28,7 +28,8 @@ export const Routes = {
     has: (targetId: string) => Route<"blacklist/has">(`api/v1/blacklist/has/${targetId}`),
   },
   scam: {
-    getById: (targetName: string) => Route<"scam/getById">(`api/v1/scam/${targetName}`),
+    getByName: (targetName: string) => Route<"scam/getById">(`api/v1/scam/${targetName}`),
+    getSimilar: (targetName: string) => Route<"scam/getSimilar">(`api/v1/scam/similar/${targetName}`),
     getAll: () => Route<"scam/getAll">("api/v1/scam"),
     add: () => Route<"scam/add">(`api/v1/scam`),
     update: (targetName: string) => Route<"scam/update">(`api/v1/scam/${targetName}`),
