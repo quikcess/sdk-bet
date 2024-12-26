@@ -1,9 +1,5 @@
-<div align="center">
-  <a href="https://ibb.co/Zc1w0Tq"><img src="https://i.ibb.co/gtFXxgk/banner-V1.png" alt="banner-V1" border="0"></a>
-</div>
-
 <h1 align="center">@quikcess/sdk-bet</h1>
-<p align="center">Software development kit for Quikcess betting bots.</p>
+<p align="center">Software development kit for Quikcess bet bots.</p>
 
 <div align="center">
   <div style="width: fit-content; display: flex; align-items: flex-start; gap: 4px;">
@@ -19,6 +15,10 @@
 
 ```bash
 npm install @quikcess/sdk-bet
+// or
+yarn add @quikcess/sdk-bet
+// or
+pnpm add @quikcess/sdk-bet
 ```
 
 ## Documentation

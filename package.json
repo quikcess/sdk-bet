@@ -1,12 +1,12 @@
 {
-	"name": "sdk-bet",
+	"name": "@quikcess/sdk-bet",
 	"private": false,
 	"version": "0.0.1",
-	"description": "Official Quikcess Betting SDK for NodeJS",
+	"description": "Official Quikcess Bet SDK for NodeJS",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
 	"module": "lib/index.mjs",
-	"author": "Eydrenn Araújo",
+	"homepage": "https://github.com/quikcess/sdk-bet#readme",
 	"scripts": {
 		"release": "npm run lint && npm run build && changeset publish",
 		"build": "tsup ./src",
@@ -37,6 +37,16 @@
 		"@quikcess/bet-api-types": "^0.0.2",
 		"ws": "^8.18.0",
 		"zod": "^3.23.8"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/quikcess/sdk-bet.git"
+	},
+	"keywords": ["quikcess", "api", "bet", "bet api", "sdk"],
+	"author": "Eydrenn Araujo",
+	"bugs": {
+		"url": "https://github.com/quikcess/sdk-bet/issues"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.6.4",
