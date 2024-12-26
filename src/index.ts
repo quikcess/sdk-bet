@@ -15,7 +15,7 @@ import { type APIEvents, TypedEventEmitter } from "./types";
  */
 export class Betting extends TypedEventEmitter<APIEvents> {
 	public static apiInfo = {
-		baseUrl: "http://localhost:80",
+		baseUrl: "https://api.quikcess.com",
 		version: "v1",
 	};
 
@@ -48,7 +48,7 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	}
 
 	private async websocket(apiKey: string) {
-		this.ws = new WebSocket("http://localhost:80", {
+		this.ws = new WebSocket("https://api.quikcess.com", {
 			headers: {
 				authorization: `Bearer ${apiKey}`,
 			},

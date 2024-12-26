@@ -1,14 +1,14 @@
 import { BetSDKError } from "@/structures";
 import type {
-	APIEndpoint,
-	APIRequestArgs,
-	APIRequestOptions,
-	APIResponse,
+  APIEndpoint,
+  APIRequestArgs,
+  APIRequestOptions,
+  APIResponse,
 } from "@/types";
 import type { APIVersion } from "@quikcess/bet-api-types/v1";
 
 export class APIService {
-	public readonly baseUrl = "http://localhost:80";
+	public readonly baseUrl = "https://api.quikcess.com";
 	public readonly version: APIVersion<1> = "v1";
 
 	constructor(protected readonly apiKey: string) {}

@@ -3,27 +3,27 @@ import { toSnakeCase } from "@/utils/cases";
 import type { APICredential, CredentialType } from "@quikcess/bet-api-types/v1";
 
 /**
- * Represents an api status
+ * Represents an API credential
  */
 export class Credential {
-	/** API response time */
+	/** The API key */
 	apiKey: string;
-	/** API response time */
+	/** The guild ID associated with the credential */
 	guildId: string;
-	/** API response time */
+	/** The user ID associated with the credential */
 	userId: string;
-	/** API response time */
+	/** The type of the credential */
 	type: CredentialType;
-	/** API response time */
+	/** The date the credential was created */
 	createdAt: Date;
-	/** API response time */
+	/** The date the credential was last updated */
 	updatedAt: Date;
 
 	/**
-	 * Represents an api status
+	 * Represents an API credential
 	 *
 	 * @constructor
-	 * @param data - The data from this status
+	 * @param data - The data for this credential
 	 */
 	constructor(data: APICredential) {
 		assertCredential(data, "structures/credential");

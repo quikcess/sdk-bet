@@ -34,6 +34,7 @@
 		"node": ">=18.0.0"
 	},
 	"dependencies": {
+		"@quikcess/bet-api-types": "^0.0.2",
 		"ws": "^8.18.0",
 		"zod": "^3.23.8"
 	},
