@@ -1,6 +1,6 @@
 import { bettingApi } from "./index.test";
 
-const betId = "1";
+const betId = Date.now().toString();
 console.time("create-bet");
 bettingApi.bets
 	.create({
@@ -40,5 +40,5 @@ bettingApi.bets
 			closedUrl: "",
 		},
 	})
-	.then(console.log);
+	.then(() => console.log("APOSTA CRIADA"));
 console.timeEnd("create-bet");

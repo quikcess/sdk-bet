@@ -1,7 +1,4 @@
-import type {
-  APIScam,
-  ISODateString
-} from "@quikcess/bet-api-types/v1";
+import type { APIScam, ISODateString } from "@quikcess/bet-api-types/v1";
 
 export type ScamData = Omit<
 	APIScam,
@@ -18,6 +15,6 @@ export type ScamData = Omit<
 	reportedBy: string;
 	createdAt: ISODateString;
 	updatedAt: ISODateString;
-  validatedAt?: ISODateString;
-  validatedBy?: string
+	validatedAt?: ISODateString;
+	validatedBy?: string;
 };
