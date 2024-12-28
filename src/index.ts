@@ -77,4 +77,3 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 
 export * from "./structures";
 export * from "./types";
-

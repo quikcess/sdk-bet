@@ -1,6 +1,6 @@
 import {
-  assertBlacklist,
-  assertPartialBlacklist,
+	assertBlacklist,
+	assertPartialBlacklist,
 } from "@/assertions/blacklist";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
@@ -10,8 +10,8 @@ import { Collection } from "@/structures/collection";
 import type { BlacklistData } from "@/types/blacklist";
 import { toSnakeCase } from "@/utils/cases";
 import type {
-  RESTGetAPIAllBlacklistQuery,
-  RESTGetAPIBlacklistPaginationQuery,
+	RESTGetAPIAllBlacklistQuery,
+	RESTGetAPIBlacklistPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
 
