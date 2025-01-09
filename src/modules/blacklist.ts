@@ -56,7 +56,9 @@ export class BlacklistModule {
 		});
 	}
 
-	async add(data: BlacklistData): Promise<Blacklist> {
+	async add(
+		data: Omit<BlacklistData, "createdAt" | "updatedAt">,
+	): Promise<Blacklist> {
 		const payload = toSnakeCase(data);
 		assertBlacklist(payload, "/blacklist/add");
 

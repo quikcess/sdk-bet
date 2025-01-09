@@ -29,8 +29,6 @@ bettingApi.bets
 		emulators: 0,
 		gelType: 1,
 		gelCount: 1,
-		createdAt: new Date().toISOString(),
-		updatedAt: new Date().toISOString(),
 		startedAt: new Date().toISOString(),
 		closedAt: null,
 		logs: {

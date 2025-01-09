@@ -75,7 +75,9 @@ export class BetModule {
 		});
 	}
 
-	async create(data: BetData): Promise<BetEntity> {
+	async create(
+		data: Omit<BetData, "createdAt" | "updatedAt">,
+	): Promise<BetEntity> {
 		const payload = toSnakeCase(data);
 		assertBet(payload, "/bets/create");
 
@@ -163,8 +165,11 @@ export class BetModule {
 		return new BetMetrics(response);
 	}
 
-	async bulkCreate(data: BetData[]): Promise<BetEntity[]> {
-		const payload: APIBet[] = toSnakeCase<BetData[]>(data);
+	async bulkCreate(
+		data: Omit<BetData, "createdAt" | "updatedAt">[],
+	): Promise<BetEntity[]> {
+		const payload: APIBet[] =
+			toSnakeCase<Omit<BetData, "createdAt" | "updatedAt">[]>(data);
 
 		assertBets(payload, "/bets/bulk/create");
 
