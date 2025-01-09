@@ -25,7 +25,7 @@ const APIBetLogSchema = z.object({
 
 const BetSchema = z.object({
 	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
-	bet_id: z.string().regex(/^\d+$/, "BET_ID_MUST_BE_NUMERIC_STRING"),
+	bet_id: z.string(),
 	platform: z.nativeEnum(BetPlatform),
 	format: z.string(),
 	mode: z.nativeEnum(BetMode),
