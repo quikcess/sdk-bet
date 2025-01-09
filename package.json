@@ -1,7 +1,7 @@
 {
 	"name": "@quikcess/sdk-bet",
 	"private": false,
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Official Quikcess Bet SDK for NodeJS",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
@@ -34,7 +34,7 @@
 		"node": ">=18.0.0"
 	},
 	"dependencies": {
-		"@quikcess/bet-api-types": "^0.0.2",
+		"@quikcess/bet-api-types": "^0.0.5",
 		"ws": "^8.18.0",
 		"zod": "^3.23.8"
 	},

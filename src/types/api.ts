@@ -6,10 +6,12 @@ import type {
 	APIBet,
 	APIBetAggregateMetrics,
 	APIBlacklist,
+	APIChannelIdsFromPlayerId,
 	APICredential,
 	APIPayload,
 	APIScam,
 	APIStatus,
+	RESTGetAPIAPIChannelIdsFromPlayerIdQuery,
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIAllBlacklistQuery,
 	RESTGetAPIAllScamsQuery,
@@ -101,6 +103,10 @@ export interface APIEndpoints {
 	};
 	"bets/getByChannelId": {
 		response: APIBet;
+	};
+	"bets/getChannelIdsFromPlayerId": {
+		response: APIChannelIdsFromPlayerId;
+		query: RESTGetAPIAPIChannelIdsFromPlayerIdQuery;
 	};
 	"bets/getAll": {
 		response: APIAllBets;

@@ -1,5 +1,5 @@
 import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet";
-import { assertString } from "@/assertions/literal";
+import { assertArrayOfStrings, assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsEntity } from "@/structures/bet/getAll";
@@ -9,7 +9,6 @@ import { toSnakeCase } from "@/utils/cases";
 import type {
 	APIBet,
 	RESTGetAPIAllBetsQuery,
-	RESTGetAPIBetsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { BetData, Betting } from "..";
 
@@ -34,9 +33,26 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
+	async getChannelIdByPlayerIds(
+		playerIds: string[],
+	): Promise<Record<string, string[]>> {
+		assertArrayOfStrings(playerIds, "PLAYER_IDS");
+
+		const { response } = await this.client.api.request(
+			Routes.bets.getChannelIdsFromPlayerId(),
+			{
+				query: {
+					player_ids: playerIds,
+				},
+			},
+		);
+
+		return response;
+	}
+
 	async getAll(
 		guildId?: string,
-		options?: RESTGetAPIBetsPaginationQuery,
+		options?: RESTGetAPIAllBetsQuery,
 	): Promise<AllBetsEntity> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 

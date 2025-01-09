@@ -39,6 +39,7 @@ export const Routes = {
   bets: {
     getById: (betId: string) => Route<"bets/getById">(`api/v1/bets/${betId}`),
     getByChannelId: (channelId: string) => Route<"bets/getByChannelId">(`api/v1/bets/channel/${channelId}`),
+    getChannelIdsFromPlayerId: () => Route<"bets/getChannelIdsFromPlayerId">(`api/v1/bets/channels/players`),
     getAll: () => Route<"bets/getAll">("api/v1/bets"),
     create: () => Route<"bets/create">(`api/v1/bets`),
     update: (betId: string) => Route<"bets/update">(`api/v1/bets/${betId}`),
