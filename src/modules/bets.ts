@@ -168,20 +168,29 @@ export class BetModule {
 	async bulkCreate(
 		data: Omit<BetData, "createdAt" | "updatedAt">[],
 	): Promise<BetEntity[]> {
+		const MAX_BATCH_SIZE = 25;
+		const results: BetEntity[] = [];
+
 		const payload: APIBet[] =
 			toSnakeCase<Omit<BetData, "createdAt" | "updatedAt">[]>(data);
 
 		assertBets(payload, "/bets/bulk/create");
 
-		const { response } = await this.client.api.request(
-			Routes.bets.bulk.create(),
-			{
-				method: "POST",
-				body: payload,
-			},
-		);
+		for (let i = 0; i < payload.length; i += MAX_BATCH_SIZE) {
+			const batch = payload.slice(i, i + MAX_BATCH_SIZE);
 
-		return response.map((bet) => new BetEntity(bet));
+			const { response } = await this.client.api.request(
+				Routes.bets.bulk.create(),
+				{
+					method: "POST",
+					body: batch,
+				},
+			);
+
+			results.push(...response.map((bet) => new BetEntity(bet)));
+		}
+
+		return results;
 	}
 
 	async bulkDelete(betIds: string[]): Promise<BetEntity[]> {
