@@ -185,14 +185,23 @@ export class BetModule {
 	}
 
 	async bulkDelete(betIds: string[]): Promise<BetEntity[]> {
-		const { response } = await this.client.api.request(
-			Routes.bets.bulk.delete(),
-			{
-				method: "DELETE",
-				body: betIds,
-			},
-		);
+		const MAX_BATCH_SIZE = 75;
+		const results: BetEntity[] = [];
 
-		return response.map((bet) => new BetEntity(bet));
+		for (let i = 0; i < betIds.length; i += MAX_BATCH_SIZE) {
+			const batch = betIds.slice(i, i + MAX_BATCH_SIZE);
+
+			const { response } = await this.client.api.request(
+				Routes.bets.bulk.delete(),
+				{
+					method: "DELETE",
+					body: batch,
+				},
+			);
+
+			results.push(...response.map((bet) => new BetEntity(bet)));
+		}
+
+		return results;
 	}
 }

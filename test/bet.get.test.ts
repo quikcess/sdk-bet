@@ -1,5 +1,6 @@
 import { bettingApi } from "./index.test";
 
-const data = bettingApi.bets
-	.getChannelIdByPlayerIds(["1", "2"])
-	.then(console.log);
+bettingApi.bets.getById("1327042047416336595").then((data) => {
+	const dataJson = data.toJSON();
+	console.log(dataJson);
+});
