@@ -1,10 +1,16 @@
 # @quikcess/bet-api-types
 
+## 0.0.7
+
+### Patch Changes
+
+- c1fa9ff: creation of the wait route for thread creation synchronization
+
 ## 0.0.6
 
 ### Patch Changes
 
-- 401ccf1: Adjusted batch rate limit when creating and deleting multiple bets with bulk routes.
+- 401ccf1: Adjusted batch rate limit when creating and deleting multiple bets with bulk routes
 
 ## 0.0.5
 
