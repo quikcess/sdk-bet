@@ -213,4 +213,12 @@ export class BetModule {
 
 		return results;
 	}
+
+	async getThreadWaitTime(guildId: string): Promise<number> {
+		assertString(guildId);
+		const { response } = await this.client.api.request(
+			Routes.bets.getThreadWaitTime(guildId),
+		);
+		return response;
+	}
 }

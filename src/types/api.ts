@@ -150,6 +150,9 @@ export interface APIEndpoints {
 		response: APIBet[];
 		body: string[];
 	};
+	"bets/getThreadWaitTime": {
+		response: number;
+	};
 }
 
 export type APIEndpoint = keyof APIEndpoints;

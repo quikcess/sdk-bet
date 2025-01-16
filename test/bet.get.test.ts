@@ -1,6 +1,13 @@
 import { bettingApi } from "./index.test";
 
-bettingApi.bets.getById("1327042047416336595").then((data) => {
-	const dataJson = data.toJSON();
-	console.log(dataJson);
+bettingApi.bets.getThreadWaitTime("1184968366323138660").then((time) => {
+	console.log(time);
+});
+
+bettingApi.bets.getThreadWaitTime("1184968366323138660").then((time) => {
+	console.log(time);
+});
+
+bettingApi.bets.getThreadWaitTime("1184968366323138660").then((time) => {
+	console.log(time);
 });

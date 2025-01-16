@@ -50,6 +50,7 @@ export const Routes = {
     bulk: {
       create: () => Route<"bets/bulkCreate">(`api/v1/bets/bulk/create`),
       delete:  () => Route<"bets/bulkDelete">(`api/v1/bets/bulk/delete`),
-    }
+    },
+    getThreadWaitTime: (guildId: string) => Route<"bets/getThreadWaitTime">(`api/v1/bets/${guildId}/threads/wait-time`),
   },
 } satisfies IRoutes;
