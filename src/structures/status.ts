@@ -16,6 +16,7 @@ export class Status {
 	 *
 	 * - 'healthy'
 	 * - 'degraded'
+	 * - 'unknown'
 	 */
 	public status: APIStatusType;
 	/** Data from external api services */
