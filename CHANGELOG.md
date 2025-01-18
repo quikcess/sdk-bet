@@ -1,10 +1,16 @@
 # @quikcess/bet-api-types
 
+## 0.0.8
+
+### Patch Changes
+
+- 4eebea4: Updates in status type
+
 ## 0.0.7
 
 ### Patch Changes
 
-- c1fa9ff: creation of the wait route for thread creation synchronization
+- c1fa9ff: Creation of the wait route for thread creation synchronization
 
 ## 0.0.6
 
