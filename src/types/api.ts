@@ -68,33 +68,33 @@ export interface APIEndpoints {
 		response: boolean;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
-	"scam/getById": {
+	"scams/getById": {
 		response: APIScam;
 	};
-	"scam/getSimilar": {
+	"scams/getSimilar": {
 		response: APIScam[];
 	};
-	"scam/getAll": {
+	"scams/getAll": {
 		response: APIAllScams;
 		query: RESTGetAPIAllScamsQuery;
 	};
-	"scam/add": {
+	"scams/add": {
 		method: "POST";
 		response: APIScam;
 		body: RESTPostAPIScamCreateBody;
 	};
-	"scam/update": {
+	"scams/update": {
 		method: "PATCH";
 		response: APIScam;
 		body: RESTPatchAPIScamUpdateBody;
 		query: RESTGetAPIScamBaseQuery;
 	};
-	"scam/delete": {
+	"scams/delete": {
 		method: "DELETE";
 		response: APIScam;
 		query: RESTGetAPIScamBaseQuery;
 	};
-	"scam/has": {
+	"scams/has": {
 		response: boolean;
 		query: RESTGetAPIScamBaseQuery;
 	};
