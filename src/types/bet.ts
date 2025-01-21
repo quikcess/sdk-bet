@@ -6,6 +6,11 @@ import type {
 	ISODateString,
 } from "@quikcess/bet-api-types/v1";
 
+export type BetUpdateData = Partial<
+	Omit<BetData, "guildId" | "createdAt" | "updatedAt">
+>;
+export type BetCreateData = Omit<BetData, "createdAt" | "updatedAt">;
+
 export interface BetPlayerPayload extends Omit<APIBetPlayer, "user_id"> {
 	userId: string;
 }
@@ -15,10 +20,10 @@ export interface BetLogPayload
 		APIBetLog,
 		"closed_url" | "victory_url" | "started_url" | "created_url"
 	> {
-	closedUrl: string;
-	victoryUrl: string;
-	startedUrl: string;
-	createdUrl: string;
+	closedUrl: string | null;
+	victoryUrl: string | null;
+	startedUrl: string | null;
+	createdUrl: string | null;
 }
 
 export type BetData = Omit<

@@ -4,7 +4,7 @@ import { Routes } from "@/lib/routes.js";
 import { Collection } from "@/structures/collection.js";
 import { Scam } from "@/structures/scam/base.js";
 import { AllScams } from "@/structures/scam/index.js";
-import type { ScamData } from "@/types/scam.js";
+import type { ScamData, ScamUpdateData } from "@/types/scam.js";
 import { toSnakeCase } from "@/utils/cases/index.js";
 import type {
 	RESTGetAPIAllScamsQuery,
@@ -76,7 +76,7 @@ export class ScamModule {
 
 	async update(
 		targetName: string,
-		data: Partial<Omit<ScamData, "guildId" | "createdAt" | "updatedAt">>,
+		data: ScamUpdateData,
 		guildId?: string,
 	): Promise<Scam> {
 		assertString(targetName);

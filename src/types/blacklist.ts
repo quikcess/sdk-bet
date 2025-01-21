@@ -4,6 +4,11 @@ import type {
 	ISODateString,
 } from "@quikcess/bet-api-types/v1";
 
+export type BlacklistUpdateData = Partial<
+	Omit<BlacklistData, "guildId" | "createdAt" | "updatedAt">
+>;
+export type BlacklistAddData = Omit<BlacklistData, "createdAt" | "updatedAt">;
+
 export type BlacklistData = Omit<
 	APIBlacklist,
 	| "guild_id"

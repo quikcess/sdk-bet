@@ -9,12 +9,13 @@
 		"source.addMissingImports": "always",
 		"source.organizeImports": "always"
 	},
-
 	"[json]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
-
 	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[typescript]": {
 		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"explorer.fileNesting.enabled": true,

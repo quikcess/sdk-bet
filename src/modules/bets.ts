@@ -10,7 +10,7 @@ import type {
 	APIBet,
 	RESTGetAPIAllBetsQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { BetData, Betting } from "../index.js";
+import type { BetCreateData, BetUpdateData, Betting } from "../index.js";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -75,9 +75,7 @@ export class BetModule {
 		});
 	}
 
-	async create(
-		data: Omit<BetData, "createdAt" | "updatedAt">,
-	): Promise<BetEntity> {
+	async create(data: BetCreateData): Promise<BetEntity> {
 		const payload = toSnakeCase(data);
 		assertBet(payload, "/bets/create");
 
@@ -91,7 +89,7 @@ export class BetModule {
 
 	async update(
 		betId: string,
-		data: Partial<Omit<BetData, "guildId" | "createdAt" | "updatedAt">>,
+		data: BetUpdateData,
 		guildId?: string,
 	): Promise<BetEntity> {
 		assertString(betId);
@@ -165,9 +163,7 @@ export class BetModule {
 		return new BetMetrics(response);
 	}
 
-	async bulkCreate(
-		data: Omit<BetData, "createdAt" | "updatedAt">[],
-	): Promise<BetEntity[]> {
+	async bulkCreate(data: BetCreateData[]): Promise<BetEntity[]> {
 		const MAX_BATCH_SIZE = 25;
 		const results: BetEntity[] = [];
 

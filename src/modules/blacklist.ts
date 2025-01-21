@@ -7,7 +7,7 @@ import { Routes } from "@/lib/routes.js";
 import { Blacklist } from "@/structures/blacklist/base.js";
 import { AllBlacklist } from "@/structures/blacklist/index.js";
 import { Collection } from "@/structures/collection.js";
-import type { BlacklistData } from "@/types/index.js";
+import type { BlacklistAddData, BlacklistUpdateData } from "@/types/index.js";
 import { toSnakeCase } from "@/utils/cases/index.js";
 import type {
 	RESTGetAPIAllBlacklistQuery,
@@ -56,9 +56,7 @@ export class BlacklistModule {
 		});
 	}
 
-	async add(
-		data: Omit<BlacklistData, "createdAt" | "updatedAt">,
-	): Promise<Blacklist> {
+	async add(data: BlacklistAddData): Promise<Blacklist> {
 		const payload = toSnakeCase(data);
 		assertBlacklist(payload, "/blacklist/add");
 
@@ -72,7 +70,7 @@ export class BlacklistModule {
 
 	async update(
 		targetId: string,
-		data: Partial<Omit<BlacklistData, "guildId" | "createdAt" | "updatedAt">>,
+		data: BlacklistUpdateData,
 		guildId?: string,
 	): Promise<Blacklist> {
 		assertString(targetId);
