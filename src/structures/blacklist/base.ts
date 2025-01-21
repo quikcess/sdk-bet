@@ -1,5 +1,5 @@
-import { assertBlacklist } from "@/assertions/blacklist";
-import { toSnakeCase } from "@/utils/cases";
+import { assertBlacklist } from "@/assertions/blacklist.js";
+import { toSnakeCase } from "@/utils/cases/index.js";
 import type {
 	APIBlacklist,
 	BlacklistStatus,
@@ -62,7 +62,7 @@ export class Blacklist {
 	 * @returns The APIBlacklist object representation of this instance.
 	 */
 	public toJSON(): APIBlacklist {
-		const data: APIBlacklist = toSnakeCase<Blacklist>(this);
+		const data: APIBlacklist = toSnakeCase<Blacklist, APIBlacklist>(this);
 		return data;
 	}
 }

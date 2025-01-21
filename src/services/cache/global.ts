@@ -1,4 +1,4 @@
-import { BaseCacheService } from "./base";
+import { BaseCacheService } from "./base.js";
 
 export interface GlobalCache {
 	readonly betsCount?: number;

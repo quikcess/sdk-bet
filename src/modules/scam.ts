@@ -1,16 +1,16 @@
-import { assertString } from "@/assertions/literal";
-import { assertPartialScam, assertScam } from "@/assertions/scam";
-import { Routes } from "@/lib/routes";
-import { Collection } from "@/structures/collection";
-import { AllScams } from "@/structures/scam";
-import { Scam } from "@/structures/scam/base";
-import type { ScamData } from "@/types/scam";
-import { toSnakeCase } from "@/utils/cases";
+import { assertString } from "@/assertions/literal.js";
+import { assertPartialScam, assertScam } from "@/assertions/scam.js";
+import { Routes } from "@/lib/routes.js";
+import { Collection } from "@/structures/collection.js";
+import { Scam } from "@/structures/scam/base.js";
+import { AllScams } from "@/structures/scam/index.js";
+import type { ScamData } from "@/types/scam.js";
+import { toSnakeCase } from "@/utils/cases/index.js";
 import type {
 	RESTGetAPIAllScamsQuery,
 	RESTGetAPIScamPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { Betting } from "..";
+import type { Betting } from "../index.js";
 
 export class ScamModule {
 	constructor(private readonly client: Betting) {}
@@ -19,7 +19,7 @@ export class ScamModule {
 		assertString(targetName, "TARGET_NAME");
 
 		const { response } = await this.client.api.request(
-			Routes.scam.getByName(targetName),
+			Routes.scams.getByName(targetName),
 		);
 
 		return new Scam(response);
@@ -29,7 +29,7 @@ export class ScamModule {
 		assertString(targetName, "TARGET_NAME");
 
 		const { response } = await this.client.api.request(
-			Routes.scam.getSimilar(targetName),
+			Routes.scams.getSimilar(targetName),
 		);
 
 		return new Collection(
@@ -46,7 +46,7 @@ export class ScamModule {
 		const query: RESTGetAPIAllScamsQuery = options ? options : {};
 		if (guildId) query.guild_id = guildId;
 
-		const { response } = await this.client.api.request(Routes.scam.getAll(), {
+		const { response } = await this.client.api.request(Routes.scams.getAll(), {
 			query,
 		});
 
@@ -66,7 +66,7 @@ export class ScamModule {
 		const payload = toSnakeCase(data);
 		assertScam(payload, "/scam/add");
 
-		const { response } = await this.client.api.request(Routes.scam.add(), {
+		const { response } = await this.client.api.request(Routes.scams.add(), {
 			method: "POST",
 			body: payload,
 		});
@@ -88,7 +88,7 @@ export class ScamModule {
 		const query = guildId ? { guild_id: guildId } : {};
 
 		const { response } = await this.client.api.request(
-			Routes.scam.update(targetName),
+			Routes.scams.update(targetName),
 			{
 				method: "PATCH",
 				body: payload,
@@ -106,7 +106,7 @@ export class ScamModule {
 		const query = guildId ? { guild_id: guildId } : {};
 
 		const { response } = await this.client.api.request(
-			Routes.scam.delete(targetName),
+			Routes.scams.delete(targetName),
 			{ method: "DELETE", query },
 		);
 
@@ -120,7 +120,7 @@ export class ScamModule {
 		const query = guildId ? { guild_id: guildId } : {};
 
 		const { response } = await this.client.api.request(
-			Routes.scam.has(targetName),
+			Routes.scams.has(targetName),
 			{
 				query,
 			},

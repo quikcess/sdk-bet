@@ -1,5 +1,5 @@
-import { assertCredential } from "@/assertions/credential";
-import { toSnakeCase } from "@/utils/cases";
+import { assertCredential } from "@/assertions/credential.js";
+import { toSnakeCase } from "@/utils/cases/index.js";
 import type { APICredential, CredentialType } from "@quikcess/bet-api-types/v1";
 
 /**
@@ -43,7 +43,7 @@ export class Credential {
 	}
 
 	public toJSON(): APICredential {
-		const data: APICredential = toSnakeCase<Credential>(this);
+		const data: APICredential = toSnakeCase<Credential, APICredential>(this);
 		return data;
 	}
 }

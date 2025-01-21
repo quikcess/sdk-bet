@@ -1,5 +1,12 @@
 # @quikcess/bet-api-types
 
+## 0.0.9
+
+### Patch Changes
+
+- X: Update in scam (now scams)
+- X: Upd
+
 ## 0.0.8
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { BaseCacheService } from "./base";
+import { BaseCacheService } from "./base.js";
 
 export interface BetCache {
 	readonly logs?: string;

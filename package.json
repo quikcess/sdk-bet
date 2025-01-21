@@ -1,5 +1,6 @@
 {
 	"name": "@quikcess/sdk-bet",
+	"type": "module",
 	"private": false,
 	"version": "0.0.8",
 	"description": "Official Quikcess Bet SDK for NodeJS",
@@ -12,6 +13,8 @@
 		"build": "tsup ./src",
 		"check": "tsc --noEmit",
 		"lint": "biome check --write .",
+		"format": "biome format .",
+		"fix": "biome fix .",
 		"test": "node --env-file=.env -r ts-node/register -r tsconfig-paths/register",
 		"test:status": "npm test ./test/status.test.ts",
 		"test:credential": "npm test ./test/credential.test.ts",

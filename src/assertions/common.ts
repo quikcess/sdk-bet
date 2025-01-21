@@ -1,9 +1,9 @@
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
-} from "@/types/assertions";
+} from "@/types/assertions.js";
 import type * as z from "zod";
-import { BetSDKError } from "../structures";
+import { BetSDKError } from "../structures/index.js";
 
 export function assertLiteral({
 	schema,

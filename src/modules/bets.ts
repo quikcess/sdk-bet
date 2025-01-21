@@ -1,16 +1,16 @@
-import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet";
-import { assertArrayOfStrings, assertString } from "@/assertions/literal";
-import { Routes } from "@/lib/routes";
-import { BetEntity } from "@/structures/bet/base";
-import { AllBetsEntity } from "@/structures/bet/getAll";
-import { BetMetrics } from "@/structures/bet/metric";
-import { Collection } from "@/structures/collection";
-import { toSnakeCase } from "@/utils/cases";
+import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet.js";
+import { assertArrayOfStrings, assertString } from "@/assertions/literal.js";
+import { Routes } from "@/lib/routes.js";
+import { BetEntity } from "@/structures/bet/base.js";
+import { AllBetsEntity } from "@/structures/bet/getAll.js";
+import { BetMetrics } from "@/structures/bet/metric.js";
+import { Collection } from "@/structures/collection.js";
+import { toSnakeCase } from "@/utils/cases/index.js";
 import type {
 	APIBet,
 	RESTGetAPIAllBetsQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { BetData, Betting } from "..";
+import type { BetData, Betting } from "../index.js";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}
@@ -171,9 +171,7 @@ export class BetModule {
 		const MAX_BATCH_SIZE = 25;
 		const results: BetEntity[] = [];
 
-		const payload: APIBet[] =
-			toSnakeCase<Omit<BetData, "createdAt" | "updatedAt">[]>(data);
-
+		const payload: APIBet[] = toSnakeCase(data);
 		assertBets(payload, "/bets/bulk/create");
 
 		for (let i = 0; i < payload.length; i += MAX_BATCH_SIZE) {

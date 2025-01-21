@@ -1,4 +1,4 @@
-import { assertStatus } from "@/assertions/status";
+import { assertStatus } from "@/assertions/status.js";
 import type {
 	APIStatus,
 	APIStatusServices,

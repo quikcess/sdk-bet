@@ -1,5 +1,5 @@
-import { assertScam } from "@/assertions/scam";
-import { toSnakeCase } from "@/utils/cases";
+import { assertScam } from "@/assertions/scam.js";
+import { toSnakeCase } from "@/utils/cases/index.js";
 import type { APIScam, ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
 
 /**
@@ -69,7 +69,7 @@ export class Scam {
 	 * @returns The APIScam object representation of this instance.
 	 */
 	public toJSON(): APIScam {
-		const data: APIScam = toSnakeCase<Scam>(this);
+		const data: APIScam = toSnakeCase<Scam, APIScam>(this);
 		return data;
 	}
 }

@@ -1,5 +1,9 @@
 import type { APIScam, ISODateString } from "@quikcess/bet-api-types/v1";
 
+export type ScamUpdateData = Partial<
+	Omit<APIScam, "guild_id" | "created_at" | "updated_at">
+>;
+
 export type ScamData = Omit<
 	APIScam,
 	| "guild_id"

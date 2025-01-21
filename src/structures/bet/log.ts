@@ -5,16 +5,16 @@ import type { APIBetLog } from "@quikcess/bet-api-types/v1";
  */
 export class BetLog {
 	/** The URL for the closed bet log. */
-	public readonly closedUrl: string;
+	public readonly closedUrl: string | null;
 
 	/** The URL for the created bet log. */
-	public readonly createdUrl: string;
+	public readonly createdUrl: string | null;
 
 	/** The URL for the started bet log. */
-	public readonly startedUrl: string;
+	public readonly startedUrl: string | null;
 
 	/** The URL for the victory bet log. */
-	public readonly victoryUrl: string;
+	public readonly victoryUrl: string | null;
 
 	/**
 	 * Initializes the BetLog object with API data.
@@ -38,7 +38,7 @@ export class BetLog {
 	 */
 	public getLogUrl(
 		event: "created" | "started" | "closed" | "victory",
-	): string {
+	): string | null {
 		switch (event) {
 			case "created":
 				return this.createdUrl;

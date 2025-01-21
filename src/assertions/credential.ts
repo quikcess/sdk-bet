@@ -1,7 +1,7 @@
-import { ISODateStringSchema } from "@/utils/date";
+import { ISODateStringSchema } from "@/utils/date/index.js";
 import { CredentialType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { assertAPIObject } from "./common";
+import { assertAPIObject } from "./common.js";
 
 const CredentialSchema = z.object({
 	api_key: z.string(),

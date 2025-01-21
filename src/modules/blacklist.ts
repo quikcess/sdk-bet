@@ -1,19 +1,19 @@
 import {
 	assertBlacklist,
 	assertPartialBlacklist,
-} from "@/assertions/blacklist";
-import { assertString } from "@/assertions/literal";
-import { Routes } from "@/lib/routes";
-import { AllBlacklist } from "@/structures/blacklist";
-import { Blacklist } from "@/structures/blacklist/base";
-import { Collection } from "@/structures/collection";
-import type { BlacklistData } from "@/types/blacklist";
-import { toSnakeCase } from "@/utils/cases";
+} from "@/assertions/blacklist.js";
+import { assertString } from "@/assertions/literal.js";
+import { Routes } from "@/lib/routes.js";
+import { Blacklist } from "@/structures/blacklist/base.js";
+import { AllBlacklist } from "@/structures/blacklist/index.js";
+import { Collection } from "@/structures/collection.js";
+import type { BlacklistData } from "@/types/index.js";
+import { toSnakeCase } from "@/utils/cases/index.js";
 import type {
 	RESTGetAPIAllBlacklistQuery,
 	RESTGetAPIBlacklistPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { Betting } from "..";
+import type { Betting } from "../index.js";
 
 export class BlacklistModule {
 	constructor(private readonly client: Betting) {}

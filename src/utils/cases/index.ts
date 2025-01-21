@@ -3,9 +3,9 @@
  * @param obj The object whose keys should be converted.
  * @returns The new object with keys in snake_case.
  */
-export function toSnakeCase<T>(obj: T): any {
+export function toSnakeCase<T, U>(obj: T): U {
 	if (Array.isArray(obj)) {
-		return obj.map(toSnakeCase);
+		return obj.map(toSnakeCase) as unknown as any;
 	}
 
 	if (obj && typeof obj === "object") {
@@ -14,10 +14,10 @@ export function toSnakeCase<T>(obj: T): any {
 				key.replace(/([A-Z])/g, "_$1").toLowerCase(),
 				toSnakeCase(value),
 			]),
-		);
+		) as unknown as U;
 	}
 
-	return obj;
+	return obj as unknown as U;
 }
 
 /**

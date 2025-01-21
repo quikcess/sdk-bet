@@ -1,5 +1,5 @@
-import { Collection } from "@/structures/collection";
-import type { BetEntity } from "./base";
+import { Collection } from "@/structures/collection.js";
+import type { BetEntity } from "./base.js";
 
 /**
  * Represents the result of all bets, including pagination and a collection of bet data.

@@ -1,2 +1,2 @@
-export * from "./base";
-export * from "./getAll";
+export * from "./base.js";
+export * from "./getAll.js";
