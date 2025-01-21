@@ -11,11 +11,11 @@ export type BetUpdateData = Partial<
 >;
 export type BetCreateData = Omit<BetData, "createdAt" | "updatedAt">;
 
-export interface BetPlayerPayload extends Omit<APIBetPlayer, "user_id"> {
+export interface BetPlayerData extends Omit<APIBetPlayer, "user_id"> {
 	userId: string;
 }
 
-export interface BetLogPayload
+export interface BetLogData
 	extends Omit<
 		APIBetLog,
 		"closed_url" | "victory_url" | "started_url" | "created_url"
@@ -45,7 +45,7 @@ export type BetData = Omit<
 > & {
 	guildId: string;
 	betId: string;
-	players: BetPlayerPayload[];
+	players: BetPlayerData[];
 	roomId: number;
 	queueChannelId: string;
 	channelId: string;
@@ -56,5 +56,5 @@ export type BetData = Omit<
 	updatedAt: ISODateString;
 	startedAt: ISODateString;
 	closedAt: ISODateString | null;
-	logs: BetLogPayload;
+	logs: BetLogData;
 };

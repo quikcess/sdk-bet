@@ -5,7 +5,8 @@
 ### Patch Changes
 
 - X: Update in scam (now scams)
-- X: Upd
+- X: Update in update and create types of bet, scam and blacklist
+- X: Update in type of bet log and player
 
 ## 0.0.8
 
