@@ -1,5 +1,3 @@
-import { bettingApi } from "./index.test";
-
 // bettingApi.bets.bulkCreate([
 //   {
 //     betId: "098",
@@ -74,5 +72,7 @@ import { bettingApi } from "./index.test";
 // ]).then((data)=> {
 //   console.log(data)
 // });
+
+import { bettingApi } from "./index.test.js";
 
 bettingApi.bets.bulkDelete(["098", "099"]).then(console.log);

@@ -1,5 +1,5 @@
 import { BlacklistStatus } from "@quikcess/bet-api-types/v1";
-import { bettingApi } from "./index.test";
+import { bettingApi } from "./index.test.js";
 
 bettingApi.blacklist
 	.update("2", {

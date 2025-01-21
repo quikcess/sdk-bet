@@ -1,0 +1,18 @@
+{
+	"test": "node --env-file=.env -r ts-node/register -r tsconfig-paths/register",
+	"test:status": "npm test ./test/status.test.ts",
+	"test:credential": "npm test ./test/credential.test.ts",
+	"test:credential.generate": "npm test ./test/credential.generate.test.ts",
+	"test:bet": "npm test ./test/bet.test.ts",
+	"test:bet.get": "npm test ./test/bet.get.test.ts",
+	"test:bet.create": "npm test ./test/bet.create.test.ts",
+	"test:bet.delete": "npm test ./test/bet.delete.test.ts",
+	"test:bet.update": "npm test ./test/bet.update.test.ts",
+	"test:bet.bulk": "npm test ./test/bet.bulk.test.ts",
+	"test:bl.add": "npm test ./test/bl.add.test.ts",
+	"test:bl.get": "npm test ./test/bl.get.test.ts",
+	"test:bl.delete": "npm test ./test/bl.delete.test.ts",
+	"test:scam.add": "npm test ./test/scam.add.test.ts",
+	"test:scam.get": "npm test ./test/scam.get.test.ts",
+	"test:scam.delete": "npm test ./test/scam.delete.test.ts"
+}

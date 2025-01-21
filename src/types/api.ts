@@ -32,11 +32,11 @@ export interface APIEndpoints {
 	status: {
 		response: APIStatus;
 	};
-	"credential/get": {
+	"credentials/get": {
 		response: APICredential;
 		query: RESTGetAPICredentialBaseQuery;
 	};
-	"credential/generate": {
+	"credentials/generate": {
 		method: "POST";
 		response: APICredential;
 		body: RESTPostAPICredentialJSONBody;

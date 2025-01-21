@@ -25,9 +25,9 @@ export function toSnakeCase<T, U>(obj: T): U {
  * @param obj The object whose keys should be converted.
  * @returns The new object with keys in camelCase.
  */
-export function toCamelCase<T>(obj: T): any {
+export function toCamelCase<T, U>(obj: T): U {
 	if (Array.isArray(obj)) {
-		return obj.map(toCamelCase);
+		return obj.map(toCamelCase) as unknown as U;
 	}
 
 	if (obj && typeof obj === "object") {
@@ -36,8 +36,8 @@ export function toCamelCase<T>(obj: T): any {
 				key.replace(/(_\w)/g, (match) => match[1].toUpperCase()),
 				toCamelCase(value),
 			]),
-		);
+		) as unknown as U;
 	}
 
-	return obj;
+	return obj as unknown as U;
 }

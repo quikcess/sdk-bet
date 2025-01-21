@@ -13,10 +13,10 @@ export const Routes = {
   },
   credentials: {
     get: () => {
-      return Route<"credential/get">("api/v1/credentials");
+      return Route<"credentials/get">("api/v1/credentials");
     },
     generate: () => {
-      return Route<"credential/generate">("api/v1/credentials/generate-api-key");
+      return Route<"credentials/generate">("api/v1/credentials/generate-api-key");
     }
   },
   blacklist: {

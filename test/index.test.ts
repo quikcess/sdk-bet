@@ -1,4 +1,4 @@
-import { BetEntity, Betting } from "../src";
+import { BetEntity, Betting } from "../src/index";
 
 const API_KEY = process.env.API_KEY as string;
 export const bettingApi = new Betting(API_KEY);

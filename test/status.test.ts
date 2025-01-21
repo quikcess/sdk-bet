@@ -1,4 +1,4 @@
-import { bettingApi } from "./index.test";
+import { bettingApi } from "./index.test.js";
 
 console.time("status");
 bettingApi.status().then(console.log);
