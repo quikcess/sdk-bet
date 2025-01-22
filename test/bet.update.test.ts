@@ -1,4 +1,4 @@
-import { bettingApi } from "./index.test.js";
+import { bettingApi } from "./index.test";
 
 const betId = "1734389535673";
 

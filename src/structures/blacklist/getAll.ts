@@ -1,5 +1,5 @@
-import { Collection } from "@/structures/collection.js";
-import type { Blacklist } from "./base.js";
+import { Collection } from "@/structures/collection";
+import type { Blacklist } from "./base";
 
 /**
  * Represents the result of all blacklist entries, including pagination and a collection of blacklist data.

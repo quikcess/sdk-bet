@@ -1,17 +1,17 @@
 import WebSocket from "ws";
-import { assertString } from "./assertions/literal.js";
-import { Routes } from "./lib/routes.js";
-import { BetModule } from "./modules/bets.js";
-import { BlacklistModule } from "./modules/blacklist.js";
-import { CredentialModule } from "./modules/credentials.js";
-import { ScamModule } from "./modules/scam.js";
-import { GlobalCacheService } from "./services/cache/global.js";
-import { APIService } from "./services/index.js";
-import { Status } from "./structures/index.js";
-import { type APIEvents, TypedEventEmitter } from "./types/index.js";
+import { assertString } from "./assertions/literal";
+import { Routes } from "./lib/routes";
+import { BetModule } from "./modules/bets";
+import { BlacklistModule } from "./modules/blacklist";
+import { CredentialModule } from "./modules/credentials";
+import { ScamModule } from "./modules/scam";
+import { GlobalCacheService } from "./services/cache/global";
+import { APIService } from "./services/index";
+import { Status } from "./structures/index";
+import { type APIEvents, TypedEventEmitter } from "./types/index";
 
-export * from "./structures/index.js";
-export * from "./types/index.js";
+export * from "./structures/index";
+export * from "./types/index";
 
 /**
  * Betting - Manages communication with the API, including WebSocket for real-time events.
@@ -51,7 +51,7 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	}
 
 	private async websocket(apiKey: string) {
-		this.ws = new WebSocket("https://api.quikcess.com", {
+		this.ws = new WebSocket(Betting.apiInfo.baseUrl, {
 			headers: {
 				authorization: `Bearer ${apiKey}`,
 			},

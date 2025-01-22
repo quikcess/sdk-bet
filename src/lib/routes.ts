@@ -1,4 +1,4 @@
-import { APIEndpoint } from "@/types/index.js";
+import { APIEndpoint } from "@/types/index";
 
 export type Route<T extends APIEndpoint> = string & { __route: T };
 export const Route = <T extends APIEndpoint>(route: string) => route as Route<T>;

@@ -4,22 +4,20 @@
 		"forceConsistentCasingInFileNames": true,
 		"strictFunctionTypes": true,
 		"strictNullChecks": true,
-		"noEmit": true,
+		"noEmit": false,
 
 		"declaration": true,
 		"sourceMap": true,
 
-		"lib": ["ESNext"],
+		"lib": ["DOM", "ESNext"],
 		"target": "ESNext",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 
-		"rootDir": "./src",
 		"outDir": "./lib",
 		"paths": {
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["src/**/*", "../test/**/*.ts"],
-	"exclude": ["./lib/", "tsup.config.ts"]
+	"exclude": ["./test/", "./lib/", "tsup.config.ts"]
 }

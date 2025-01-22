@@ -1,16 +1,16 @@
-import { assertString } from "@/assertions/literal.js";
-import { assertPartialScam, assertScam } from "@/assertions/scam.js";
-import { Routes } from "@/lib/routes.js";
-import { Collection } from "@/structures/collection.js";
-import { Scam } from "@/structures/scam/base.js";
-import { AllScams } from "@/structures/scam/index.js";
-import type { ScamData, ScamUpdateData } from "@/types/scam.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertString } from "@/assertions/literal";
+import { assertPartialScam, assertScam } from "@/assertions/scam";
+import { Routes } from "@/lib/routes";
+import { Collection } from "@/structures/collection";
+import { Scam } from "@/structures/scam/base";
+import { AllScams } from "@/structures/scam/index";
+import type { ScamData, ScamUpdateData } from "@/types/scam";
+import { toSnakeCase } from "@/utils/cases/index";
 import type {
 	RESTGetAPIAllScamsQuery,
 	RESTGetAPIScamPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { Betting } from "../index.js";
+import type { Betting } from "../index";
 
 export class ScamModule {
 	constructor(private readonly client: Betting) {}

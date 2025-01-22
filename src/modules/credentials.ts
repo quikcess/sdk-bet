@@ -1,9 +1,9 @@
-import { assertGenerateCredentialKey } from "@/assertions/credential.js";
-import { assertString } from "@/assertions/literal.js";
-import { Routes } from "@/lib/routes.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertGenerateCredentialKey } from "@/assertions/credential";
+import { assertString } from "@/assertions/literal";
+import { Routes } from "@/lib/routes";
+import { toSnakeCase } from "@/utils/cases/index";
 import type { CredentialType } from "@quikcess/bet-api-types/v1";
-import { type Betting, Credential } from "../index.js";
+import { type Betting, Credential } from "../index";
 
 export class CredentialModule {
 	constructor(private readonly client: Betting) {}

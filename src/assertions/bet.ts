@@ -1,4 +1,4 @@
-import { ISODateStringSchema, isISODateString } from "@/utils/date/index.js";
+import { ISODateStringSchema, isISODateString } from "@/utils/date/index";
 import {
 	BetGelType,
 	BetMode,
@@ -7,7 +7,7 @@ import {
 	BetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
-import { assertAPIObject } from "./common.js";
+import { assertAPIObject } from "./common";
 
 const APIBetPlayerSchema = z.object({
 	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),

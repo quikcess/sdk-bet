@@ -1,5 +1,5 @@
-import { assertCredential } from "@/assertions/credential.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertCredential } from "@/assertions/credential";
+import { toSnakeCase } from "@/utils/cases/index";
 import type { APICredential, CredentialType } from "@quikcess/bet-api-types/v1";
 
 /**

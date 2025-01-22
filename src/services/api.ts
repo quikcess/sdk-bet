@@ -1,10 +1,10 @@
-import { BetSDKError } from "@/structures/index.js";
+import { BetSDKError } from "@/structures";
 import type {
 	APIEndpoint,
 	APIRequestArgs,
 	APIRequestOptions,
 	APIResponse,
-} from "@/types/index.js";
+} from "@/types/index";
 import type { APIVersion } from "@quikcess/bet-api-types/v1";
 
 export class APIService {

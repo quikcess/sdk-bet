@@ -1,5 +1,5 @@
-import { assertScam } from "@/assertions/scam.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertScam } from "@/assertions/scam";
+import { toSnakeCase } from "@/utils/cases/index";
 import type { APIScam, ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
 
 /**

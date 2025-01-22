@@ -1,16 +1,16 @@
-import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet.js";
-import { assertArrayOfStrings, assertString } from "@/assertions/literal.js";
-import { Routes } from "@/lib/routes.js";
-import { BetEntity } from "@/structures/bet/base.js";
-import { AllBetsEntity } from "@/structures/bet/getAll.js";
-import { BetMetrics } from "@/structures/bet/metric.js";
-import { Collection } from "@/structures/collection.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet";
+import { assertArrayOfStrings, assertString } from "@/assertions/literal";
+import { Routes } from "@/lib/routes";
+import { BetEntity } from "@/structures/bet/base";
+import { AllBetsEntity } from "@/structures/bet/getAll";
+import { BetMetrics } from "@/structures/bet/metric";
+import { Collection } from "@/structures/collection";
+import { toSnakeCase } from "@/utils/cases/index";
 import type {
 	APIBet,
 	RESTGetAPIAllBetsQuery,
 } from "@quikcess/bet-api-types/v1";
-import type { BetCreateData, BetUpdateData, Betting } from "../index.js";
+import type { BetCreateData, BetUpdateData, Betting } from "../index";
 
 export class BetModule {
 	constructor(private readonly client: Betting) {}

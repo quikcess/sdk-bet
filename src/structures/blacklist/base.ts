@@ -1,5 +1,5 @@
-import { assertBlacklist } from "@/assertions/blacklist.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertBlacklist } from "@/assertions/blacklist";
+import { toSnakeCase } from "@/utils/cases/index";
 import type {
 	APIBlacklist,
 	BlacklistStatus,

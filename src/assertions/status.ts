@@ -1,6 +1,6 @@
 import { APIServicesType, APIStatusType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { assertAPIObject } from "./common.js";
+import { assertAPIObject } from "./common";
 
 const StatusSchema = z.object({
 	status: z.nativeEnum(APIStatusType),

@@ -1,5 +1,5 @@
-import { assertBet } from "@/assertions/bet.js";
-import { toSnakeCase } from "@/utils/cases/index.js";
+import { assertBet } from "@/assertions/bet";
+import { toSnakeCase } from "@/utils/cases/index";
 import type {
 	APIBet,
 	BetGelType,
@@ -8,8 +8,8 @@ import type {
 	BetStatus,
 	BetType,
 } from "@quikcess/bet-api-types/v1";
-import { BetLog } from "./log.js";
-import { BetPlayer } from "./player.js";
+import { BetLog } from "./log";
+import { BetPlayer } from "./player";
 
 /**
  * Represents a detailed betting entity with utility methods and access to API-related data.

@@ -1,5 +1,5 @@
-import { Collection } from "@/structures/collection.js";
-import type { Scam } from "./base.js";
+import { Collection } from "@/structures/collection";
+import type { Scam } from "./base";
 
 /**
  * Represents the result of all scam entries, including pagination and a collection of scam data.

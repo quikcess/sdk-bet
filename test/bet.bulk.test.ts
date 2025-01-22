@@ -73,6 +73,6 @@
 //   console.log(data)
 // });
 
-import { bettingApi } from "./index.test.js";
+import { bettingApi } from "./index.test";
 
 bettingApi.bets.bulkDelete(["098", "099"]).then(console.log);

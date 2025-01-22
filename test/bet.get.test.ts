@@ -1,3 +1,9 @@
-import { bettingApi } from "./index.test.js";
+import { bettingApi } from "./index.test";
 
-await bettingApi.bets.has("123");
+async function test() {
+	console.time("bet");
+	await bettingApi.bets.has("123");
+	console.timeEnd("bet");
+}
+
+test();

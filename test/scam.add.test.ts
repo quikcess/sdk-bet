@@ -1,5 +1,5 @@
 import { ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
-import { bettingApi } from "./index.test.js";
+import { bettingApi } from "./index.test";
 
 bettingApi.scam
 	.add({
