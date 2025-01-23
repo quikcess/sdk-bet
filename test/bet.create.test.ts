@@ -6,14 +6,20 @@ async function test() {
 	console.time("create-bet");
 	const data = await bettingApi.bets.create({
 		betId,
-		channelId: "123",
+		channelId: betId,
 		guildId: "123",
 		platform: 1,
 		format: "Normal",
 		mode: "1x1",
 		players: [
 			{
-				userId: "1",
+				userId: "123456789098765432",
+				wins: 0,
+				loses: 0,
+				consecutives: 0,
+			},
+			{
+				userId: "0987654321123456781",
 				wins: 0,
 				loses: 0,
 				consecutives: 0,
@@ -22,7 +28,7 @@ async function test() {
 		status: 1,
 		type: 1,
 		roomId: 0,
-		value: 3,
+		value: "20/10",
 		queueChannelId: "123",
 		mediatorId: "123",
 		wo: false,

@@ -7,7 +7,7 @@ import type {
 } from "@quikcess/bet-api-types/v1";
 
 export type BetUpdateData = Partial<
-	Omit<BetData, "guildId" | "createdAt" | "updatedAt">
+	Omit<BetData, "betId" | "guildId" | "createdAt" | "updatedAt">
 >;
 export type BetCreateData = Omit<BetData, "createdAt" | "updatedAt">;
 

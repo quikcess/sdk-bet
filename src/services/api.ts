@@ -8,6 +8,7 @@ import type {
 import type { APIVersion } from "@quikcess/bet-api-types/v1";
 
 export class APIService {
+	// public readonly baseUrl = "https://bet.squareweb.app";
 	public readonly baseUrl = "http://localhost:80";
 	// public readonly baseUrl = "https://api.quikcess.com";
 	public readonly version: APIVersion<1> = "v1";
@@ -23,10 +24,6 @@ export class APIService {
 			throw new BetSDKError(err.code, err.message);
 		});
 
-		if (response.status === 404) {
-			throw new BetSDKError("NOT_FOUND", "Route does not exist");
-		}
-
 		if (response.status === 413) {
 			throw new BetSDKError("PAYLOAD_TOO_LARGE", "Payload too large");
 		}
@@ -39,9 +36,9 @@ export class APIService {
 			throw new BetSDKError("SERVER_UNAVAILABLE", "Server unavailable");
 		}
 
-		const data = (await response.json().catch(() => {
+		const data = await response.json().catch(() => {
 			throw new BetSDKError("CANNOT_PARSE_RESPONSE", "Try again later");
-		})) as APIResponse<T>;
+		});
 
 		if (!data || data.status === "error" || !response.ok) {
 			throw new BetSDKError(data?.code || "COMMON_ERROR");

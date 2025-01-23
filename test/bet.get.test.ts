@@ -1,9 +1,10 @@
 import { bettingApi } from "./index.test";
 
 async function test() {
-	console.time("bet");
-	await bettingApi.bets.has("123");
-	console.timeEnd("bet");
+	console.time("get-bet");
+	const data = await bettingApi.bets.getById("1737574691848");
+	console.log(data);
+	console.timeEnd("get-bet");
 }
 
 test();

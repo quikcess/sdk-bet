@@ -46,7 +46,6 @@ export const Routes = {
     delete: (betId: string) => Route<"bets/delete">(`api/v1/bets/${betId}`),
     metrics: () => Route<"bets/metrics">(`api/v1/bets/metrics`),
     count: () => Route<"bets/count">("api/v1/bets/count"),
-    has: (betId: string) => Route<"bets/has">(`api/v1/bets/has/${betId}`),
     bulk: {
       create: () => Route<"bets/bulkCreate">(`api/v1/bets/bulk/create`),
       delete:  () => Route<"bets/bulkDelete">(`api/v1/bets/bulk/delete`),

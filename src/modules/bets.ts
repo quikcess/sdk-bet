@@ -126,19 +126,6 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-	async has(betId: string, guildId?: string): Promise<boolean> {
-		assertString(betId);
-		if (guildId) assertString(guildId);
-
-		const query = guildId ? { guild_id: guildId } : {};
-
-		const { response } = await this.client.api.request(Routes.bets.has(betId), {
-			query,
-		});
-
-		return response;
-	}
-
 	async count(guildId?: string): Promise<number> {
 		if (guildId) assertString(guildId);
 
