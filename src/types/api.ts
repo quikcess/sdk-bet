@@ -64,10 +64,6 @@ export interface APIEndpoints {
 		response: APIBlacklist;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
-	"blacklist/has": {
-		response: boolean;
-		query: RESTGetAPIBlacklistBaseQuery;
-	};
 	"scams/getById": {
 		response: APIScam;
 	};
@@ -92,10 +88,6 @@ export interface APIEndpoints {
 	"scams/delete": {
 		method: "DELETE";
 		response: APIScam;
-		query: RESTGetAPIScamBaseQuery;
-	};
-	"scams/has": {
-		response: boolean;
 		query: RESTGetAPIScamBaseQuery;
 	};
 	"bets/getById": {
@@ -134,10 +126,6 @@ export interface APIEndpoints {
 	};
 	"bets/count": {
 		response: number;
-		query: RESTGetAPIBetBaseQuery;
-	};
-	"bets/has": {
-		response: boolean;
 		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/bulkCreate": {

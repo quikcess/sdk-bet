@@ -106,20 +106,4 @@ export class BlacklistModule {
 
 		return new Blacklist(response);
 	}
-
-	async has(targetId: string, guildId?: string): Promise<boolean> {
-		assertString(targetId);
-		if (guildId) assertString(guildId);
-
-		const query = guildId ? { guild_id: guildId } : {};
-
-		const { response } = await this.client.api.request(
-			Routes.blacklist.has(targetId),
-			{
-				query,
-			},
-		);
-
-		return response;
-	}
 }
