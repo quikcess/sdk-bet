@@ -30,8 +30,8 @@ export const Routes = {
   scams: {
     getByName: (targetName: string) => Route<"scams/getById">(`api/v1/scams/${targetName}`),
     getSimilar: (targetName: string) => Route<"scams/getSimilar">(`api/v1/scams/similar/${targetName}`),
-    getAll: () => Route<"scams/getAll">("api/v1/scam"),
-    add: () => Route<"scams/add">(`api/v1/scam`),
+    getAll: () => Route<"scams/getAll">("api/v1/scams"),
+    add: () => Route<"scams/add">("api/v1/scams"),
     update: (targetName: string) => Route<"scams/update">(`api/v1/scams/${targetName}`),
     delete: (targetName: string) => Route<"scams/delete">(`api/v1/scams/${targetName}`),
     has: (targetName: string) => Route<"scams/has">(`api/v1/scams/has/${targetName}`),

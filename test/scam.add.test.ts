@@ -4,7 +4,7 @@ import { bettingApi } from "./index.test";
 bettingApi.scam
 	.add({
 		guildId: "123",
-		targetName: "cleber",
+		targetName: "Piqué Jr PereIra",
 		type: ScamType.Refund,
 		status: ScamStatus.Pending,
 		details: "Andou realizando reembolsos.",

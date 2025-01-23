@@ -1,78 +1,115 @@
-// bettingApi.bets.bulkCreate([
-//   {
-//     betId: "098",
-//     channelId: "123",
-//     guildId: "123", // Err
-//     platform: "mobile",
-//     format: "Normal",
-//     mode: "1v1",
-//     players: [{
-//       userId: "1",
-//       wins: 0,
-//       loses: 0,
-//       consecutives: 0,
-//     }],
-//     status: "pending",
-//     type: "customized",
-//     roomId: 0,
-//     value: 3,
-//     queueChannelId: "123",
-//     mediatorId: "123",
-//     wo: false,
-//     revenge: false,
-//     emulators: 0,
-//     gelType: "normal",
-//     gelCount: 1,
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     startedAt: new Date().toISOString(),
-//     closedAt: null,
-//     logs: {
-//       createdUrl: "",
-//       startedUrl: "",
-//       victoryUrl: "",
-//       closedUrl: "",
-//     },
-//   },
-//   {
-//     betId: "099",
-//     channelId: "123",
-//     guildId: "123", // Err
-//     platform: "mobile",
-//     format: "Normal",
-//     mode: "1v1",
-//     players: [{
-//       userId: "1",
-//       wins: 0,
-//       loses: 0,
-//       consecutives: 0,
-//     }],
-//     status: "pending",
-//     type: "customized",
-//     roomId: 0,
-//     value: 3,
-//     queueChannelId: "123",
-//     mediatorId: "123",
-//     wo: false,
-//     revenge: false,
-//     emulators: 0,
-//     gelType: "normal",
-//     gelCount: 0,
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     startedAt: new Date().toISOString(),
-//     closedAt: null,
-//     logs: {
-//       createdUrl: "",
-//       startedUrl: "",
-//       victoryUrl: "",
-//       closedUrl: "",
-//     },
-//   }
-// ]).then((data)=> {
-//   console.log(data)
-// });
-
+import { BetPlatform, BetStatus } from "@quikcess/bet-api-types/v1";
 import { bettingApi } from "./index.test";
 
-bettingApi.bets.bulkDelete(["098", "099"]).then(console.log);
+// bettingApi.bets
+// 	.bulkCreate([
+// 		{
+// 			betId: "098",
+// 			channelId: "123",
+// 			guildId: "123", // Err
+// 			platform: BetPlatform.Mobile,
+// 			format: "Normal",
+// 			mode: "1x1",
+// 			players: [
+// 				{
+// 					userId: "1",
+// 					wins: 0,
+// 					loses: 0,
+// 					consecutives: 0,
+// 				},
+// 			],
+// 			status: BetStatus.Pending,
+// 			type: 1,
+// 			roomId: 0,
+// 			value: 3,
+// 			queueChannelId: "123",
+// 			mediatorId: "123",
+// 			wo: false,
+// 			revenge: false,
+// 			emulators: 0,
+// 			gelType: 1,
+// 			gelCount: 1,
+// 			startedAt: new Date().toISOString(),
+// 			closedAt: null,
+// 			logs: {
+// 				createdUrl: "",
+// 				startedUrl: "",
+// 				victoryUrl: "",
+// 				closedUrl: "",
+// 			},
+// 		},
+//     {
+// 			betId: "0981",
+// 			channelId: "1234",
+// 			guildId: "123", // Err
+// 			platform: BetPlatform.Mobile,
+// 			format: "Normal",
+// 			mode: "1x1",
+// 			players: [
+// 				{
+// 					userId: "1",
+// 					wins: 0,
+// 					loses: 0,
+// 					consecutives: 0,
+// 				},
+// 			],
+// 			status: BetStatus.Pending,
+// 			type: 1,
+// 			roomId: 0,
+// 			value: 3,
+// 			queueChannelId: "123",
+// 			mediatorId: "123",
+// 			wo: false,
+// 			revenge: false,
+// 			emulators: 0,
+// 			gelType: 1,
+// 			gelCount: 1,
+// 			startedAt: new Date().toISOString(),
+// 			closedAt: null,
+// 			logs: {
+// 				createdUrl: "",
+// 				startedUrl: "",
+// 				victoryUrl: "",
+// 				closedUrl: "",
+// 			},
+// 		},{
+// 			betId: "0982",
+// 			channelId: "1235",
+// 			guildId: "123", // Err
+// 			platform: BetPlatform.Mobile,
+// 			format: "Normal",
+// 			mode: "1x1",
+// 			players: [
+// 				{
+// 					userId: "1",
+// 					wins: 0,
+// 					loses: 0,
+// 					consecutives: 0,
+// 				},
+// 			],
+// 			status: BetStatus.Pending,
+// 			type: 1,
+// 			roomId: 0,
+// 			value: 3,
+// 			queueChannelId: "123",
+// 			mediatorId: "123",
+// 			wo: false,
+// 			revenge: false,
+// 			emulators: 0,
+// 			gelType: 1,
+// 			gelCount: 1,
+// 			startedAt: new Date().toISOString(),
+// 			closedAt: null,
+// 			logs: {
+// 				createdUrl: "",
+// 				startedUrl: "",
+// 				victoryUrl: "",
+// 				closedUrl: "",
+// 			},
+// 		},
+// 	])
+// 	.then((data) => {
+// 		console.log(data);
+// 	});
+
+bettingApi.bets.bulkDelete(["098", "0981", "0982"]).then(console.log);

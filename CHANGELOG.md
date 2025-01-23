@@ -7,7 +7,7 @@
 - X: Update in scam (now scams)
 - X: Update in update and create types of bet, scam and blacklist
 - X: Update in type of bet log and player
-- X: BetModule `has` removed
+- X: In BetModule and ScamModule the `has` removed
 
 ## 0.0.8
 

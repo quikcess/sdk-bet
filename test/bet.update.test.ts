@@ -1,6 +1,6 @@
 import { bettingApi } from "./index.test";
 
-const betId = "1737575262259";
+const betId = "1737614816654";
 
 console.time("update-bet");
 bettingApi.bets

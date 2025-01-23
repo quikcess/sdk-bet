@@ -25,9 +25,9 @@ export class Scam {
 	/** The timestamp when the scam entry was last updated. */
 	updatedAt: Date;
 	/** The timestamp when the scam entry was validated (optional). */
-	validatedAt?: Date;
+	validatedAt: Date | null;
 	/** The ID of the user who validated this scam entry (optional). */
-	validatedBy?: string;
+	validatedBy: string | null;
 
 	/**
 	 * Constructs a new instance of a scam entry.
@@ -47,9 +47,7 @@ export class Scam {
 		this.evidences = data.evidences;
 		this.createdAt = new Date(data.created_at);
 		this.updatedAt = new Date(data.updated_at);
-		this.validatedAt = data.validated_at
-			? new Date(data.validated_at)
-			: undefined;
+		this.validatedAt = data.validated_at ? new Date(data.validated_at) : null;
 		this.validatedBy = data.validated_by;
 	}
 

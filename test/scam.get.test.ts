@@ -4,6 +4,6 @@ import { bettingApi } from "./index.test";
 // 	console.log(data);
 // });
 
-bettingApi.scam.getSimilar("endrey").then((data) => {
+bettingApi.scam.getSimilar("pique").then((data) => {
 	console.log(data);
 });

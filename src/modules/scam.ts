@@ -112,20 +112,4 @@ export class ScamModule {
 
 		return new Scam(response);
 	}
-
-	async has(targetName: string, guildId?: string): Promise<boolean> {
-		assertString(targetName);
-		if (guildId) assertString(guildId);
-
-		const query = guildId ? { guild_id: guildId } : {};
-
-		const { response } = await this.client.api.request(
-			Routes.scams.has(targetName),
-			{
-				query,
-			},
-		);
-
-		return response;
-	}
 }
