@@ -15,31 +15,37 @@ import type { BetCreateData, BetUpdateData, Betting } from "../index";
 export class BetModule {
 	constructor(private readonly client: Betting) {}
 
-	async getById(betId: string): Promise<BetEntity> {
+	// Rota getById global /bets
+
+	async getById(guildId: string, betId: string): Promise<BetEntity> {
+		assertString(guildId, "GUILD_ID");
 		assertString(betId, "BET_ID");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getById(betId),
+			Routes.bets.getById(guildId, betId),
 		);
 		return new BetEntity(response);
 	}
 
-	async getByChannelId(channelId: string): Promise<BetEntity> {
+	async getByChannelId(guildId: string, channelId: string): Promise<BetEntity> {
+		assertString(guildId, "GUILD_ID");
 		assertString(channelId, "CHANNEL_ID");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getByChannelId(channelId),
+			Routes.bets.getByChannelId(guildId, channelId),
 		);
 		return new BetEntity(response);
 	}
 
 	async getChannelIdByPlayerIds(
+		guildId: string,
 		playerIds: string[],
 	): Promise<Record<string, string[]>> {
+		assertString(guildId, "GUILD_ID");
 		assertArrayOfStrings(playerIds, "PLAYER_IDS");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getChannelIdsFromPlayerId(),
+			Routes.bets.getChannelIdsFromPlayerId(guildId),
 			{
 				query: {
 					player_ids: playerIds,
@@ -50,18 +56,19 @@ export class BetModule {
 		return response;
 	}
 
-	async getAll(
-		guildId?: string,
-		options?: RESTGetAPIAllBetsQuery,
-	): Promise<AllBetsEntity> {
-		if (guildId) assertString(guildId, "GUILD_ID");
+	// fetchAll -> rota global
 
-		const query: RESTGetAPIAllBetsQuery = options ? options : {};
-		if (guildId) query.guild_id = guildId;
+	async getAll(guildId: string, playerIds?: string[]): Promise<AllBetsEntity> {
+		assertString(guildId, "GUILD_ID");
 
-		const { response } = await this.client.api.request(Routes.bets.getAll(), {
-			query,
-		});
+		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
+
+		const { response } = await this.client.api.request(
+			Routes.bets.getAll(guildId),
+			{
+				query,
+			},
+		);
 
 		const transformedData = new Collection(
 			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
@@ -79,78 +86,79 @@ export class BetModule {
 		const payload = toSnakeCase(data);
 		assertBet(payload, "/bets/create");
 
-		const { response } = await this.client.api.request(Routes.bets.create(), {
-			method: "POST",
-			body: payload,
-		});
-
-		return new BetEntity(response);
-	}
-
-	async update(
-		betId: string,
-		data: BetUpdateData,
-		guildId?: string,
-	): Promise<BetEntity> {
-		assertString(betId);
-		if (guildId) assertString(guildId);
-
-		const payload = toSnakeCase(data);
-		assertPartialBet(payload, "/bets/update");
-
-		const query = guildId ? { guild_id: guildId } : {};
-
 		const { response } = await this.client.api.request(
-			Routes.bets.update(betId),
+			Routes.bets.create(data.guildId),
 			{
-				method: "PATCH",
+				method: "POST",
 				body: payload,
-				query,
 			},
 		);
 
 		return new BetEntity(response);
 	}
 
-	async delete(betId: string, guildId?: string): Promise<BetEntity> {
+	async update(
+		guildId: string,
+		betId: string,
+		data: BetUpdateData,
+	): Promise<BetEntity> {
+		assertString(guildId);
 		assertString(betId);
-		if (guildId) assertString(guildId);
 
-		const query = guildId ? { guild_id: guildId } : {};
+		const payload = toSnakeCase(data);
+		assertPartialBet(payload, "/bets/update");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.delete(betId),
-			{ method: "DELETE", query },
+			Routes.bets.update(guildId, betId),
+			{
+				method: "PATCH",
+				body: payload,
+			},
 		);
 
 		return new BetEntity(response);
 	}
 
-	async count(guildId?: string): Promise<number> {
-		if (guildId) assertString(guildId);
+	async delete(guildId: string, betId: string): Promise<BetEntity> {
+		assertString(guildId);
+		assertString(betId);
 
-		const query = guildId ? { guild_id: guildId } : {};
+		const { response } = await this.client.api.request(
+			Routes.bets.delete(guildId, betId),
+			{ method: "DELETE" },
+		);
 
-		const { response } = await this.client.api.request(Routes.bets.count(), {
-			query,
-		});
+		return new BetEntity(response);
+	}
+
+	// Rota de analytics global /bets
+
+	async count(guildId: string): Promise<number> {
+		assertString(guildId);
+
+		const { response } = await this.client.api.request(
+			Routes.bets.count(guildId),
+		);
 
 		return response;
 	}
 
-	async metrics(guildId?: string): Promise<BetMetrics> {
-		if (guildId) assertString(guildId);
+	async metrics(guildId: string): Promise<BetMetrics> {
+		assertString(guildId);
 
-		const query = guildId ? { guild_id: guildId } : {};
-
-		const { response } = await this.client.api.request(Routes.bets.metrics(), {
-			query,
-		});
+		const { response } = await this.client.api.request(
+			Routes.bets.metrics(guildId),
+		);
 
 		return new BetMetrics(response);
 	}
 
-	async bulkCreate(data: BetCreateData[]): Promise<BetEntity[]> {
+	async bulkCreate(
+		guildId: string,
+		data: BetCreateData[],
+	): Promise<BetEntity[]> {
+		assertString(guildId);
+
 		const MAX_BATCH_SIZE = 25;
 		const results: BetEntity[] = [];
 
@@ -161,7 +169,7 @@ export class BetModule {
 			const batch = payload.slice(i, i + MAX_BATCH_SIZE);
 
 			const { response } = await this.client.api.request(
-				Routes.bets.bulk.create(),
+				Routes.bets.bulk.create(guildId),
 				{
 					method: "POST",
 					body: batch,
@@ -174,7 +182,9 @@ export class BetModule {
 		return results;
 	}
 
-	async bulkDelete(betIds: string[]): Promise<BetEntity[]> {
+	async bulkDelete(guildId: string, betIds: string[]): Promise<BetEntity[]> {
+		assertString(guildId);
+
 		const MAX_BATCH_SIZE = 75;
 		const results: BetEntity[] = [];
 
@@ -182,7 +192,7 @@ export class BetModule {
 			const batch = betIds.slice(i, i + MAX_BATCH_SIZE);
 
 			const { response } = await this.client.api.request(
-				Routes.bets.bulk.delete(),
+				Routes.bets.bulk.delete(guildId),
 				{
 					method: "DELETE",
 					body: batch,

@@ -15,7 +15,6 @@ import type {
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIAllBlacklistQuery,
 	RESTGetAPIAllScamsQuery,
-	RESTGetAPIBetBaseQuery,
 	RESTGetAPIBlacklistBaseQuery,
 	RESTGetAPICredentialBaseQuery,
 	RESTGetAPIScamBaseQuery,
@@ -113,20 +112,16 @@ export interface APIEndpoints {
 		method: "PATCH";
 		response: APIBet;
 		body: RESTPatchAPIBetUpdateBody;
-		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/delete": {
 		method: "DELETE";
 		response: APIBet;
-		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/metrics": {
 		response: APIBetAggregateMetrics;
-		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/count": {
 		response: number;
-		query: RESTGetAPIBetBaseQuery;
 	};
 	"bets/bulkCreate": {
 		method: "POST";
