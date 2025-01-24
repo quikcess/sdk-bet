@@ -35,14 +35,18 @@ export const Routes = {
     delete: (targetName: string) => Route<"scams/delete">(`api/v1/scams/${targetName}`),
   },
   bets: {
+    // fetch: (betId: string) => Route<"bets/fetch">(`api/v1/bets/${betId}`),
     getById: (guildId: string,betId: string) => Route<"bets/getById">(`api/v1/guilds/${guildId}/bets/${betId}`),
     getByChannelId: (guildId: string,channelId: string) => Route<"bets/getByChannelId">(`api/v1/guilds/${guildId}/bets/channel/${channelId}`),
     getChannelIdsFromPlayerId: (guildId: string) => Route<"bets/getChannelIdsFromPlayerId">(`api/v1/guilds/${guildId}/bets/channels/players`),
     getAll: (guildId: string) => Route<"bets/getAll">(`api/v1/guilds/${guildId}/bets`),
+    // fetchAll: () => Route<"bets/fetchAll">(`api/v1/bets`),
     create: (guildId: string) => Route<"bets/create">(`api/v1/guilds/${guildId}/bets`),
     update: (guildId: string, betId: string) => Route<"bets/update">(`api/v1/guilds/${guildId}/bets/${betId}`),
     delete: (guildId: string, betId: string) => Route<"bets/delete">(`api/v1/guilds/${guildId}/bets/${betId}`),
+    // fetchMetrics: () => Route<"bets/fetchMetrics">(`api/v1/bets/metrics`),
     metrics: (guildId: string) => Route<"bets/metrics">(`api/v1/guilds/${guildId}/bets/metrics`),
+    // fetchCount: () => Route<"bets/fetchCount">(`api/v1/bets/count`),
     count: (guildId: string) => Route<"bets/count">(`api/v1/guilds/${guildId}/bets/count`),
     bulk: {
       create: (guildId: string) => Route<"bets/bulkCreate">(`api/v1/guilds/${guildId}/bets/bulk/create`),

@@ -8,6 +8,7 @@
 - X: Update in update and create types of bet, scam and blacklist
 - X: Update in type of bet log and player
 - X: The `has` method has been removed completely from modules
+- X: The `bet` routes adjusteds
 
 ## 0.0.8
 
