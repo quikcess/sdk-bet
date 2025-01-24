@@ -89,51 +89,51 @@ export interface APIEndpoints {
 		response: APIScam;
 		query: RESTGetAPIScamBaseQuery;
 	};
-	"bets/getById": {
+	"guilds/bets/getById": {
 		response: APIBet;
 	};
-	"bets/getByChannelId": {
+	"guilds/bets/getByChannelId": {
 		response: APIBet;
 	};
-	"bets/getChannelIdsFromPlayerId": {
+	"guilds/bets/getChannelIdsFromPlayerId": {
 		response: APIChannelIdsFromPlayerId;
 		query: RESTGetAPIAPIChannelIdsFromPlayerIdQuery;
 	};
-	"bets/getAll": {
+	"guilds/bets/getAll": {
 		response: APIAllBets;
 		query: RESTGetAPIAllBetsQuery;
 	};
-	"bets/create": {
+	"guilds/bets/create": {
 		method: "POST";
 		response: APIBet;
 		body: RESTPostAPIBetCreateBody;
 	};
-	"bets/update": {
+	"guilds/bets/update": {
 		method: "PATCH";
 		response: APIBet;
 		body: RESTPatchAPIBetUpdateBody;
 	};
-	"bets/delete": {
+	"guilds/bets/delete": {
 		method: "DELETE";
 		response: APIBet;
 	};
-	"bets/metrics": {
+	"guilds/bets/metrics": {
 		response: APIBetAggregateMetrics;
 	};
-	"bets/count": {
+	"guilds/bets/count": {
 		response: number;
 	};
-	"bets/bulkCreate": {
+	"guilds/bets/bulkCreate": {
 		method: "POST";
 		response: APIBet[];
 		body: RESTPostAPIBetCreateBody[];
 	};
-	"bets/bulkDelete": {
+	"guilds/bets/bulkDelete": {
 		method: "DELETE";
 		response: APIBet[];
 		body: string[];
 	};
-	"bets/getThreadWaitTime": {
+	"guilds/bets/getThreadWaitTime": {
 		response: number;
 	};
 }
