@@ -15,14 +15,21 @@ import type { BetCreateData, BetUpdateData, Betting } from "../index";
 export class BetModule {
 	constructor(private readonly client: Betting) {}
 
-	// Rota getById global /bets
-
-	async getById(guildId: string, betId: string): Promise<BetEntity> {
+	async get(guildId: string, betId: string): Promise<BetEntity> {
 		assertString(guildId, "GUILD_ID");
 		assertString(betId, "BET_ID");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getById(guildId, betId),
+			Routes.bets.get(guildId, betId),
+		);
+		return new BetEntity(response);
+	}
+
+	async fetch(betId: string): Promise<BetEntity> {
+		assertString(betId, "BET_ID");
+
+		const { response } = await this.client.api.request(
+			Routes.bets.fetch(betId),
 		);
 		return new BetEntity(response);
 	}
@@ -56,8 +63,6 @@ export class BetModule {
 		return response;
 	}
 
-	// fetchAll -> rota global
-
 	async getAll(guildId: string, playerIds?: string[]): Promise<AllBetsEntity> {
 		assertString(guildId, "GUILD_ID");
 
@@ -69,6 +74,25 @@ export class BetModule {
 				query,
 			},
 		);
+
+		const transformedData = new Collection(
+			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
+		);
+
+		return new AllBetsEntity({
+			currentPage: response.current_page,
+			totalPages: response.total_pages,
+			totalBets: response.total_bets,
+			data: transformedData,
+		});
+	}
+
+	async fetchAll(playerIds?: string[]): Promise<AllBetsEntity> {
+		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
+
+		const { response } = await this.client.api.request(Routes.bets.fetchAll(), {
+			query,
+		});
 
 		const transformedData = new Collection(
 			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
@@ -131,23 +155,37 @@ export class BetModule {
 		return new BetEntity(response);
 	}
 
-	// Rota de analytics global /bets
-
-	async count(guildId: string): Promise<number> {
-		assertString(guildId);
-
+	async fetchCount(): Promise<number> {
 		const { response } = await this.client.api.request(
-			Routes.bets.count(guildId),
+			Routes.bets.fetchCount(),
 		);
 
 		return response;
 	}
 
-	async metrics(guildId: string): Promise<BetMetrics> {
+	async getCount(guildId: string): Promise<number> {
 		assertString(guildId);
 
 		const { response } = await this.client.api.request(
-			Routes.bets.metrics(guildId),
+			Routes.bets.getCount(guildId),
+		);
+
+		return response;
+	}
+
+	async fetchMetrics(): Promise<BetMetrics> {
+		const { response } = await this.client.api.request(
+			Routes.bets.fetchMetrics(),
+		);
+
+		return new BetMetrics(response);
+	}
+
+	async getMetrics(guildId: string): Promise<BetMetrics> {
+		assertString(guildId);
+
+		const { response } = await this.client.api.request(
+			Routes.bets.getMetrics(guildId),
 		);
 
 		return new BetMetrics(response);

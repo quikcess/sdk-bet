@@ -89,7 +89,10 @@ export interface APIEndpoints {
 		response: APIScam;
 		query: RESTGetAPIScamBaseQuery;
 	};
-	"guilds/bets/getById": {
+	"guilds/bets/get": {
+		response: APIBet;
+	};
+	"bets/fetch": {
 		response: APIBet;
 	};
 	"guilds/bets/getByChannelId": {
@@ -100,6 +103,10 @@ export interface APIEndpoints {
 		query: RESTGetAPIAPIChannelIdsFromPlayerIdQuery;
 	};
 	"guilds/bets/getAll": {
+		response: APIAllBets;
+		query: RESTGetAPIAllBetsQuery;
+	};
+	"bets/fetchAll": {
 		response: APIAllBets;
 		query: RESTGetAPIAllBetsQuery;
 	};
@@ -117,10 +124,16 @@ export interface APIEndpoints {
 		method: "DELETE";
 		response: APIBet;
 	};
-	"guilds/bets/metrics": {
+	"guilds/bets/getMetrics": {
 		response: APIBetAggregateMetrics;
 	};
-	"guilds/bets/count": {
+	"bets/fetchMetrics": {
+		response: APIBetAggregateMetrics;
+	};
+	"guilds/bets/getCount": {
+		response: number;
+	};
+	"bets/fetchCount": {
 		response: number;
 	};
 	"guilds/bets/bulkCreate": {
