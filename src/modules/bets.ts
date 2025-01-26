@@ -3,7 +3,7 @@ import { assertArrayOfStrings, assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { BetEntity } from "@/structures/bet/base";
 import { AllBetsEntity } from "@/structures/bet/getAll";
-import { BetMetrics } from "@/structures/bet/metric";
+import { BetStats } from "@/structures/bet/stats";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases/index";
 import type {
@@ -173,15 +173,15 @@ export class BetModule {
 		return response;
 	}
 
-	async fetchStats(): Promise<BetMetrics> {
+	async fetchStats(): Promise<BetStats> {
 		const { response } = await this.client.api.request(
 			Routes.bets.fetchStats(),
 		);
 
-		return new BetMetrics(response);
+		return new BetStats(response);
 	}
 
-	async getStats(guildId: string): Promise<BetMetrics> {
+	async getStats(guildId: string): Promise<BetStats> {
 		assertString(guildId);
 
 		const { response } = await this.client.api.request(
@@ -190,7 +190,7 @@ export class BetModule {
 
 		console.log(response);
 
-		return new BetMetrics(response);
+		return new BetStats(response);
 	}
 
 	async bulkCreate(
