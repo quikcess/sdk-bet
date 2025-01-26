@@ -44,6 +44,7 @@ async function test() {
 			victoryUrl: null,
 			closedUrl: null,
 		},
+		roomPrice: 1.8,
 	});
 
 	console.log(data);

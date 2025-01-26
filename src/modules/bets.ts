@@ -173,20 +173,22 @@ export class BetModule {
 		return response;
 	}
 
-	async fetchMetrics(): Promise<BetMetrics> {
+	async fetchStats(): Promise<BetMetrics> {
 		const { response } = await this.client.api.request(
-			Routes.bets.fetchMetrics(),
+			Routes.bets.fetchStats(),
 		);
 
 		return new BetMetrics(response);
 	}
 
-	async getMetrics(guildId: string): Promise<BetMetrics> {
+	async getStats(guildId: string): Promise<BetMetrics> {
 		assertString(guildId);
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getMetrics(guildId),
+			Routes.bets.getStats(guildId),
 		);
+
+		console.log(response);
 
 		return new BetMetrics(response);
 	}

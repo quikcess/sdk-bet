@@ -1,10 +1,10 @@
 import { bettingApi } from "./index.test";
 
-const betId = "1737618683929";
+const betId = "1737903158915";
 
 console.time("delete-bet");
 bettingApi.bets
-	.delete(betId)
+	.delete("123", betId)
 	.then((result) => {
 		console.log(result);
 		console.timeEnd("delete-bet");

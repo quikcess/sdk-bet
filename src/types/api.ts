@@ -124,10 +124,10 @@ export interface APIEndpoints {
 		method: "DELETE";
 		response: APIBet;
 	};
-	"guilds/bets/getMetrics": {
+	"guilds/bets/getStats": {
 		response: APIBetAggregateMetrics;
 	};
-	"bets/fetchMetrics": {
+	"bets/fetchStats": {
 		response: APIBetAggregateMetrics;
 	};
 	"guilds/bets/getCount": {

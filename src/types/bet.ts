@@ -32,6 +32,7 @@ export type BetData = Omit<
 	| "bet_id"
 	| "players"
 	| "room_id"
+	| "room_price"
 	| "queue_channel_id"
 	| "channel_id"
 	| "mediator_id"
@@ -47,6 +48,7 @@ export type BetData = Omit<
 	betId: string;
 	players: BetPlayerData[];
 	roomId: number;
+	roomPrice: number;
 	queueChannelId: string;
 	channelId: string;
 	mediatorId: string;
