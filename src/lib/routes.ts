@@ -11,6 +11,13 @@ export const Routes = {
   status: () => {
     return Route<"status">("api/v1/status");
   },
+  guilds: {
+    get: (guildId: string) => Route<"guilds/get">(`api/v1/guilds/${guildId}`),
+    getAll: () => Route<"guilds/getAll">(`api/v1/guilds`),
+    stats: () => Route<"guilds/stats">(`api/v1/guilds/stats`),
+    create: () => Route<"guilds/create">(`api/v1/guilds`),
+    update: (guildId: string) => Route<"guilds/update">(`api/v1/guilds/${guildId}`),
+  },
   credentials: {
     get: () => {
       return Route<"credentials/get">("api/v1/credentials");

@@ -45,6 +45,10 @@ async function test() {
 			closedUrl: null,
 		},
 		roomPrice: 1.8,
+		playersWhoConfirmed: [],
+		cancelledBy: null,
+		abandonedBy: null,
+		givenUpBy: null,
 	});
 
 	console.log(data);

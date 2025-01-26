@@ -42,11 +42,20 @@ export type BetData = Omit<
 	| "updated_at"
 	| "started_at"
 	| "closed_at"
+	| "players_who_confirmed"
+	| "cancelled_by"
+	| "abandoned_by"
+	| "given_up_by"
+	| "room_price"
 	| "logs"
 > & {
 	guildId: string;
 	betId: string;
 	players: BetPlayerData[];
+	playersWhoConfirmed: BetPlayerData[];
+	cancelledBy: string | null;
+	abandonedBy: string | null;
+	givenUpBy: string | null;
 	roomId: number;
 	roomPrice: number;
 	queueChannelId: string;

@@ -1,4 +1,4 @@
-import type { APIBetAggregateMetrics } from "@quikcess/bet-api-types/v1";
+import type { APIBetStats } from "@quikcess/bet-api-types/v1";
 
 /**
  * Represents aggregated metrics for bets, including totals and statuses.
@@ -25,7 +25,7 @@ export class BetMetrics {
 	 *
 	 * @param data - The raw API data containing bet metrics.
 	 */
-	constructor(data: APIBetAggregateMetrics) {
+	constructor(data: APIBetStats) {
 		this.total = data.total;
 		this.opened = data.opened;
 		this.closed = data.closed;

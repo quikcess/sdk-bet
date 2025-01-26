@@ -38,9 +38,21 @@ const BetSchema = z.object({
 				new Set(players.map((p) => p.user_id)).size === players.length,
 			{ message: "DUPLICATE_USER_ID_FOUND" },
 		),
+	players_who_confirmed: z
+		.array(z.string())
+		.max(2, { message: "MAXIMUM_TWO_PLAYERS_ALLOWED" })
+		.refine(
+			(players) =>
+				new Set(players.map((user_id) => user_id)).size === players.length,
+			{ message: "DUPLICATE_USER_ID_FOUND" },
+		),
+	cancelled_by: z.string(z.null()),
+	abandoned_by: z.string(z.null()),
+	given_up_by: z.string(z.null()),
 	status: z.nativeEnum(BetStatus),
 	type: z.nativeEnum(BetType),
 	room_id: z.number(),
+	room_price: z.number(),
 	value: z.union([
 		z.number(),
 		z

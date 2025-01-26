@@ -4,7 +4,7 @@ import type {
 	APIAllBlacklist,
 	APIAllScams,
 	APIBet,
-	APIBetAggregateMetrics,
+	APIBetStats,
 	APIBlacklist,
 	APIChannelIdsFromPlayerId,
 	APICredential,
@@ -14,16 +14,21 @@ import type {
 	RESTGetAPIAPIChannelIdsFromPlayerIdQuery,
 	RESTGetAPIAllBetsQuery,
 	RESTGetAPIAllBlacklistQuery,
+	RESTGetAPIAllGuildsResponse,
 	RESTGetAPIAllScamsQuery,
 	RESTGetAPIBlacklistBaseQuery,
 	RESTGetAPICredentialBaseQuery,
+	RESTGetAPIGuildResponse,
+	RESTGetAPIGuildStatsResponse,
 	RESTGetAPIScamBaseQuery,
 	RESTPatchAPIBetUpdateBody,
 	RESTPatchAPIBlacklistUpdateBody,
+	RESTPatchAPIGuildUpdateBody,
 	RESTPatchAPIScamUpdateBody,
 	RESTPostAPIBetCreateBody,
 	RESTPostAPIBlacklistCreateBody,
 	RESTPostAPICredentialJSONBody,
+	RESTPostAPIGuildCreateBody,
 	RESTPostAPIScamCreateBody,
 } from "@quikcess/bet-api-types/v1";
 
@@ -125,10 +130,10 @@ export interface APIEndpoints {
 		response: APIBet;
 	};
 	"guilds/bets/getStats": {
-		response: APIBetAggregateMetrics;
+		response: APIBetStats;
 	};
 	"bets/fetchStats": {
-		response: APIBetAggregateMetrics;
+		response: APIBetStats;
 	};
 	"guilds/bets/getCount": {
 		response: number;
@@ -148,6 +153,25 @@ export interface APIEndpoints {
 	};
 	"guilds/bets/getThreadWaitTime": {
 		response: number;
+	};
+	"guilds/get": {
+		response: RESTGetAPIGuildResponse;
+	};
+	"guilds/getAll": {
+		response: RESTGetAPIAllGuildsResponse;
+	};
+	"guilds/stats": {
+		response: RESTGetAPIGuildStatsResponse;
+	};
+	"guilds/create": {
+		method: "POST";
+		response: RESTGetAPIGuildResponse;
+		body: RESTPostAPIGuildCreateBody;
+	};
+	"guilds/update": {
+		method: "PATCH";
+		response: RESTGetAPIGuildResponse;
+		body: RESTPatchAPIGuildUpdateBody;
 	};
 }
 
