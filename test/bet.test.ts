@@ -1,6 +1,5 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
-bettingApi.bets.getById("1734392680743").then((data) => {
-	console.log(data);
-	console.log(data.toJSON());
-});
+const guild = client.guilds.get("123");
+const getBet = guild.bets.cache.get("123");
+const fetchBet = client.bets.fetch("123");

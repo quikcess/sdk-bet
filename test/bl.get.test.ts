@@ -1,5 +1,5 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
-bettingApi.blacklist.getAll().then((data) => {
+client.blacklist.getAll().then((data) => {
 	console.log(data);
 });

@@ -1,7 +1,6 @@
-import { BetPlatform, BetStatus } from "@quikcess/bet-api-types/v1";
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
-// bettingApi.bets
+// client.bets
 // 	.bulkCreate([
 // 		{
 // 			betId: "098",
@@ -112,4 +111,4 @@ import { bettingApi } from "./index.test";
 // 		console.log(data);
 // 	});
 
-bettingApi.bets.bulkDelete(["098", "0981", "0982"]).then(console.log);
+client.bets.bulkDelete(["098", "0981", "0982"]).then(console.log);

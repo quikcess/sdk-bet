@@ -1,20 +1,19 @@
 import { BetEntity, Betting } from "../src/index";
 
 const API_KEY = process.env.API_KEY as string;
-console.log(API_KEY);
-export const bettingApi = new Betting(API_KEY);
+export const client = new Betting(API_KEY);
 
-bettingApi.on("betCreate", async (data) => {
+client.on("betCreate", async (data) => {
 	const bet = new BetEntity(data);
 	console.log(`Veja Mais: ${bet.channelId}`, bet);
 });
 
-bettingApi.on("betUpdate", async (data) => {
+client.on("betUpdate", async (data) => {
 	console.log(data);
 	const bet = data ? new BetEntity(data) : undefined;
 	console.log(`Veja Mais: ${bet?.channelId}`, bet);
 });
 
-bettingApi.on("betDelete", async (data) => {
+client.on("betDelete", async (data) => {
 	console.log(data);
 });

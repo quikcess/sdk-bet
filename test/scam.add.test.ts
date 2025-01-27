@@ -1,7 +1,7 @@
 import { ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
-bettingApi.scam
+client.scam
 	.add({
 		guildId: "123",
 		targetName: "Piqué Jr PereIra",

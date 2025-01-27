@@ -1,18 +1,33 @@
-export class BaseCacheService<
-	Struct extends object,
-	Keys extends keyof Struct = keyof Struct,
-> {
-	protected cache: Struct;
+import { Collection } from "@/structures/collection";
 
-	set<T extends Keys>(key: T, value: Struct[T]) {
-		Reflect.set(this, key, value);
+export class Cache<T> {
+	private readonly store: Collection<string, T>;
+
+	constructor() {
+		this.store = new Collection();
 	}
 
-	get<T extends Keys>(key: T): Struct[T] {
-		return this.cache[key];
+	get(id: string): T | undefined {
+		return this.store.get(id);
 	}
 
-	remove<T extends Keys>(key: T) {
-		Reflect.set(this.cache, key, undefined);
+	set(id: string, value: T): void {
+		this.store.set(id, value);
+	}
+
+	remove(id: string): void {
+		this.store.delete(id);
+	}
+
+	clear(): void {
+		this.store.clear();
+	}
+
+	has(id: string): boolean {
+		return this.store.has(id);
+	}
+
+	size(): number {
+		return this.store.size;
 	}
 }

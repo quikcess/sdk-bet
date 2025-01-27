@@ -1,10 +1,10 @@
 import { BetStatus } from "@quikcess/bet-api-types/v1";
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
 const betId = "1737919368974";
 
 console.time("update-bet");
-bettingApi.bets
+client.bets
 	.update("123", betId, {
 		status: BetStatus.InProgress,
 		players: [

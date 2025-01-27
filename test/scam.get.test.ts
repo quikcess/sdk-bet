@@ -1,9 +1,9 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
-// bettingApi.scam.getAll().then((data) => {
+// client.scam.getAll().then((data) => {
 // 	console.log(data);
 // });
 
-bettingApi.scam.getSimilar("123").then((data) => {
-	console.log(data);
-});
+// client.scam.getSimilar("123").then((data) => {
+// 	console.log(data);
+// });

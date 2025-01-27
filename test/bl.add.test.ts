@@ -1,7 +1,7 @@
 import { BlacklistStatus } from "@quikcess/bet-api-types/v1";
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
-bettingApi.blacklist
+client.blacklist
 	.update("2", {
 		status: BlacklistStatus.Validated,
 	})

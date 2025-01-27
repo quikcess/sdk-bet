@@ -1,5 +1,5 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
 console.time("get-credential");
-bettingApi.credentials.get().then(console.log);
+client.credentials.get().then(console.log);
 console.timeEnd("get-credential");

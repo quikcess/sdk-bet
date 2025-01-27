@@ -33,5 +33,5 @@ Visit our [official API documentation](https://docs.quikcess.com/sdk-bet-referen
 import { Betting } from "@quikcess/sdk-bet";
 // CommonJS => const { Betting } = require("@quikcess/sdk-bet");
 
-const bettingApi = new Betting("Your API Key");
+const client = new Betting("Your API Key");
 ```

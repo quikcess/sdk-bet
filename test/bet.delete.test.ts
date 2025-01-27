@@ -1,9 +1,9 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
 const betId = "1737903158915";
 
 console.time("delete-bet");
-bettingApi.bets
+client.bets
 	.delete("123", betId)
 	.then((result) => {
 		console.log(result);

@@ -1,10 +1,10 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
 async function test() {
 	const betId = Date.now().toString();
 
 	console.time("create-bet");
-	const data = await bettingApi.bets.create({
+	const data = await client.bets.create({
 		betId,
 		channelId: betId,
 		guildId: "123",

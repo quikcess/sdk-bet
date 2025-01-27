@@ -1,11 +1,8 @@
 import WebSocket from "ws";
 import { assertString } from "./assertions/literal";
 import { Routes } from "./lib/routes";
-import { BetModule } from "./modules/bets";
-import { BlacklistModule } from "./modules/blacklist";
-import { CredentialModule } from "./modules/credentials";
-import { ScamModule } from "./modules/scam";
-import { GlobalCacheService } from "./services/cache/global";
+import { BetManager } from "./managers/bet";
+import { GuildManager } from "./managers/guild";
 import { APIService } from "./services/index";
 import { Status } from "./structures/index";
 import { type APIEvents, TypedEventEmitter } from "./types/index";
@@ -26,16 +23,10 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	private ws: WebSocket;
 	/** API service */
 	public readonly api: APIService;
-	/** Credentials module */
-	public readonly credentials = new CredentialModule(this);
-	/** Bets module */
-	public readonly bets = new BetModule(this);
-	/** Scam module */
-	public readonly scam = new ScamModule(this);
-	/** Blacklist module */
-	public readonly blacklist = new BlacklistModule(this);
-	/** Global cache service */
-	public readonly cache = new GlobalCacheService();
+
+	public readonly bets: BetManager;
+
+	public readonly guilds: GuildManager;
 
 	constructor(apiKey: string) {
 		super();
@@ -48,6 +39,11 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 
 		// Initialize API service
 		this.api = new APIService(apiKey);
+
+		this.bets = new BetManager(this);
+
+		// Inicializar o gerenciador de guildas
+		this.guilds = new GuildManager(this);
 	}
 
 	private async websocket(apiKey: string) {
@@ -77,3 +73,12 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 		return new Status(response);
 	}
 }
+
+const client = new Betting("12");
+const guild = client.guilds.cache.get("123");
+if (!guild) throw new Error("1");
+
+const bet = client.bets.fetch("123");
+const data = guild.bets.cache.get("123");
+client.bets.fetch("123");
+guild.bets.fetch("123");

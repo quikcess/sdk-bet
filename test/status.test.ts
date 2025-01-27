@@ -1,5 +1,5 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
 console.time("status");
-bettingApi.status().then(console.log);
+client.status().then(console.log);
 console.timeEnd("status");

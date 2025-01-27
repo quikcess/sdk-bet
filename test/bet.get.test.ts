@@ -1,8 +1,8 @@
-import { bettingApi } from "./index.test";
+import { client } from "./index.test";
 
 async function test() {
 	console.time("get-bet");
-	const data = await bettingApi.bets.getStats("123");
+	const data = await client.bets.getStats("123");
 	console.log(data);
 	console.timeEnd("get-bet");
 }

@@ -188,8 +188,6 @@ export class BetModule {
 			Routes.guilds.bets.getStats(guildId),
 		);
 
-		console.log(response);
-
 		return new BetStats(response);
 	}
 
