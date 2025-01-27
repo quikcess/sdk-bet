@@ -1,158 +1,180 @@
 import type { Route } from "@/lib/routes";
 import type {
-	APIAllBets,
-	APIAllBlacklist,
-	APIAllScams,
-	APIBet,
-	APIBetStats,
-	APIBlacklist,
-	APIChannelIdsFromPlayerId,
-	APICredential,
-	APIPayload,
-	APIScam,
-	APIStatus,
 	RESTGetAPIAPIChannelIdsFromPlayerIdQuery,
 	RESTGetAPIAllBetsQuery,
+	RESTGetAPIAllBetsResponse,
 	RESTGetAPIAllBlacklistQuery,
+	RESTGetAPIAllBlacklistResponse,
 	RESTGetAPIAllGuildsResponse,
+	RESTGetAPIAllMediatorsResponse,
 	RESTGetAPIAllScamsQuery,
+	RESTGetAPIAllScamsResponse,
+	RESTGetAPIAllUsersResponse,
+	RESTGetAPIBetBulkResponse,
+	RESTGetAPIBetCountResponse,
+	RESTGetAPIBetResponse,
+	RESTGetAPIBetStatsResponse,
+	RESTGetAPIBetThreadWaitTimeResponse,
 	RESTGetAPIBlacklistBaseQuery,
+	RESTGetAPIBlacklistStatsResponse,
+	RESTGetAPIChannelIdsFromPlayerIdResponse,
 	RESTGetAPICredentialBaseQuery,
+	RESTGetAPICredentialResponse,
 	RESTGetAPIGuildResponse,
 	RESTGetAPIGuildStatsResponse,
+	RESTGetAPIMediatorResponse,
+	RESTGetAPIMediatorStatsResponse,
 	RESTGetAPIScamBaseQuery,
+	RESTGetAPIScamResponse,
+	RESTGetAPIScamStatsResponse,
+	RESTGetAPISimilarScamsResponse,
+	RESTGetAPIStatusResponse,
+	RESTGetAPIUserResponse,
+	RESTGetAPIUserStatsResponse,
 	RESTPatchAPIBetUpdateBody,
 	RESTPatchAPIBlacklistUpdateBody,
 	RESTPatchAPIGuildUpdateBody,
+	RESTPatchAPIMediatorUpdateBody,
 	RESTPatchAPIScamUpdateBody,
+	RESTPatchAPIUserUpdateBody,
 	RESTPostAPIBetCreateBody,
 	RESTPostAPIBlacklistCreateBody,
 	RESTPostAPICredentialJSONBody,
 	RESTPostAPIGuildCreateBody,
+	RESTPostAPIMediatorCreateBody,
 	RESTPostAPIScamCreateBody,
+	RESTPostAPIUserCreateBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
 	status: {
-		response: APIStatus;
+		response: RESTGetAPIStatusResponse;
 	};
 	"credentials/get": {
-		response: APICredential;
+		response: RESTGetAPICredentialResponse;
 		query: RESTGetAPICredentialBaseQuery;
 	};
 	"credentials/generate": {
 		method: "POST";
-		response: APICredential;
+		response: RESTGetAPICredentialResponse;
 		body: RESTPostAPICredentialJSONBody;
 	};
 	"blacklist/getById": {
-		response: APIBlacklist;
+		response: RESTGetAPIAllBlacklistResponse;
 	};
 	"blacklist/getAll": {
-		response: APIAllBlacklist;
+		response: RESTGetAPIAllBlacklistResponse;
 		query: RESTGetAPIAllBlacklistQuery;
 	};
 	"blacklist/add": {
 		method: "POST";
-		response: APIBlacklist;
+		response: RESTGetAPIAllBlacklistResponse;
 		body: RESTPostAPIBlacklistCreateBody;
 	};
 	"blacklist/update": {
 		method: "PATCH";
-		response: APIBlacklist;
+		response: RESTGetAPIAllBlacklistResponse;
 		body: RESTPatchAPIBlacklistUpdateBody;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
 	"blacklist/delete": {
 		method: "DELETE";
-		response: APIBlacklist;
+		response: RESTGetAPIAllBlacklistResponse;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
+	"blacklist/fetchStats": {
+		method: "GET";
+		response: RESTGetAPIBlacklistStatsResponse;
+	};
 	"scams/getById": {
-		response: APIScam;
+		response: RESTGetAPIScamResponse;
 	};
 	"scams/getSimilar": {
-		response: APIScam[];
+		response: RESTGetAPISimilarScamsResponse;
 	};
 	"scams/getAll": {
-		response: APIAllScams;
+		response: RESTGetAPIAllScamsResponse;
 		query: RESTGetAPIAllScamsQuery;
 	};
 	"scams/add": {
 		method: "POST";
-		response: APIScam;
+		response: RESTGetAPIScamResponse;
 		body: RESTPostAPIScamCreateBody;
 	};
 	"scams/update": {
 		method: "PATCH";
-		response: APIScam;
+		response: RESTGetAPIScamResponse;
 		body: RESTPatchAPIScamUpdateBody;
 		query: RESTGetAPIScamBaseQuery;
 	};
 	"scams/delete": {
 		method: "DELETE";
-		response: APIScam;
+		response: RESTGetAPIScamResponse;
 		query: RESTGetAPIScamBaseQuery;
 	};
+	"scams/fetchStats": {
+		method: "GET";
+		response: RESTGetAPIScamStatsResponse;
+	};
 	"guilds/bets/get": {
-		response: APIBet;
+		response: RESTGetAPIBetResponse;
 	};
 	"bets/fetch": {
-		response: APIBet;
+		response: RESTGetAPIBetResponse;
 	};
 	"guilds/bets/getByChannelId": {
-		response: APIBet;
+		response: RESTGetAPIBetResponse;
 	};
 	"guilds/bets/getChannelIdsFromPlayerId": {
-		response: APIChannelIdsFromPlayerId;
+		response: RESTGetAPIChannelIdsFromPlayerIdResponse;
 		query: RESTGetAPIAPIChannelIdsFromPlayerIdQuery;
 	};
 	"guilds/bets/getAll": {
-		response: APIAllBets;
+		response: RESTGetAPIAllBetsResponse;
 		query: RESTGetAPIAllBetsQuery;
 	};
 	"bets/fetchAll": {
-		response: APIAllBets;
+		response: RESTGetAPIAllBetsResponse;
 		query: RESTGetAPIAllBetsQuery;
 	};
 	"guilds/bets/create": {
 		method: "POST";
-		response: APIBet;
+		response: RESTGetAPIBetResponse;
 		body: RESTPostAPIBetCreateBody;
 	};
 	"guilds/bets/update": {
 		method: "PATCH";
-		response: APIBet;
+		response: RESTGetAPIBetResponse;
 		body: RESTPatchAPIBetUpdateBody;
 	};
 	"guilds/bets/delete": {
 		method: "DELETE";
-		response: APIBet;
+		response: RESTGetAPIBetResponse;
 	};
 	"guilds/bets/getStats": {
-		response: APIBetStats;
+		response: RESTGetAPIBetStatsResponse;
 	};
 	"bets/fetchStats": {
-		response: APIBetStats;
+		response: RESTGetAPIBetStatsResponse;
 	};
 	"guilds/bets/getCount": {
-		response: number;
+		response: RESTGetAPIBetCountResponse;
 	};
 	"bets/fetchCount": {
-		response: number;
+		response: RESTGetAPIBetCountResponse;
 	};
 	"guilds/bets/bulkCreate": {
 		method: "POST";
-		response: APIBet[];
+		response: RESTGetAPIBetBulkResponse;
 		body: RESTPostAPIBetCreateBody[];
 	};
 	"guilds/bets/bulkDelete": {
 		method: "DELETE";
-		response: APIBet[];
+		response: RESTGetAPIBetBulkResponse;
 		body: string[];
 	};
 	"guilds/bets/getThreadWaitTime": {
-		response: number;
+		response: RESTGetAPIBetThreadWaitTimeResponse;
 	};
 	"guilds/get": {
 		response: RESTGetAPIGuildResponse;
@@ -160,7 +182,7 @@ export interface APIEndpoints {
 	"guilds/getAll": {
 		response: RESTGetAPIAllGuildsResponse;
 	};
-	"guilds/stats": {
+	"guilds/getStats": {
 		response: RESTGetAPIGuildStatsResponse;
 	};
 	"guilds/create": {
@@ -172,6 +194,82 @@ export interface APIEndpoints {
 		method: "PATCH";
 		response: RESTGetAPIGuildResponse;
 		body: RESTPatchAPIGuildUpdateBody;
+	};
+	"guilds/delete": {
+		method: "DELETE";
+		response: RESTGetAPIGuildResponse;
+	};
+	"guilds/scams/getStats": {
+		method: "GET";
+		response: RESTGetAPIScamStatsResponse;
+	};
+	"guilds/blacklist/getStats": {
+		method: "GET";
+		response: RESTGetAPIBlacklistStatsResponse;
+	};
+	"guilds/users/get": {
+		response: RESTGetAPIUserResponse;
+	};
+	"users/fetch": {
+		response: RESTGetAPIUserResponse;
+	};
+	"guilds/users/getAll": {
+		response: RESTGetAPIAllUsersResponse;
+	};
+	"users/fetchAll": {
+		response: RESTGetAPIAllUsersResponse;
+	};
+	"guilds/users/getStats": {
+		response: RESTGetAPIUserStatsResponse;
+	};
+	"users/fetchStats": {
+		response: RESTGetAPIUserStatsResponse;
+	};
+	"guilds/users/create": {
+		method: "POST";
+		response: RESTGetAPIUserResponse;
+		body: RESTPostAPIUserCreateBody;
+	};
+	"guilds/users/update": {
+		method: "PATCH";
+		response: RESTGetAPIUserResponse;
+		body: RESTPatchAPIUserUpdateBody;
+	};
+	"guilds/users/delete": {
+		method: "DELETE";
+		response: RESTGetAPIMediatorResponse;
+	};
+	"guilds/mediators/get": {
+		response: RESTGetAPIMediatorResponse;
+	};
+	"mediators/fetch": {
+		response: RESTGetAPIMediatorResponse;
+	};
+	"guilds/mediators/getAll": {
+		response: RESTGetAPIAllMediatorsResponse;
+	};
+	"mediators/fetchAll": {
+		response: RESTGetAPIAllMediatorsResponse;
+	};
+	"guilds/mediators/getStats": {
+		response: RESTGetAPIMediatorStatsResponse;
+	};
+	"guilds/mediators/create": {
+		method: "POST";
+		response: RESTGetAPIMediatorResponse;
+		body: RESTPostAPIMediatorCreateBody;
+	};
+	"guilds/mediators/update": {
+		method: "PATCH";
+		response: RESTGetAPIMediatorResponse;
+		body: RESTPatchAPIMediatorUpdateBody;
+	};
+	"guilds/mediators/delete": {
+		method: "DELETE";
+		response: RESTGetAPIMediatorResponse;
+	};
+	"mediators/fetchStats": {
+		response: RESTGetAPIMediatorStatsResponse;
 	};
 }
 
@@ -185,9 +283,7 @@ export type APIRequestOptions<T extends APIEndpoint> = {
 	headers?: HeadersInit;
 } & Omit<APIEndpoints[T], "response">;
 
-export type APIResponse<T extends APIEndpoint> = APIPayload<
-	APIEndpoints[T]["response"]
->;
+export type APIResponse<T extends APIEndpoint> = APIEndpoints[T]["response"];
 
 export type QueryOrBody =
 	| { query: any }

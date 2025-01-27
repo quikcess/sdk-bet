@@ -26,6 +26,7 @@ const APIGuildChannels = z.object({
 const APIGuildLogsSystems = z.object({
 	alerts: z.string().or(z.null()),
 	reports: z.string().or(z.null()),
+	resets: z.string().or(z.null()),
 });
 
 const APIGuildLogsManagements = z.object({

@@ -46,15 +46,15 @@ export class BetStats {
 	 */
 	constructor(data: APIBetStats) {
 		this.total = data.total;
-		this.started = data.started_bets;
-		this.closed = data.closed_bets;
-		this.pending = data.pending_bets;
-		this.inProgress = data.in_progress_bets;
-		this.cancelled = data.cancelled_bets;
-		this.abandoned = data.abandoned_bets;
-		this.played = data.played_bets;
-		this.walkover = data.walkover_bets;
-		this.revenged = data.revenged_bets;
+		this.started = data.started;
+		this.closed = data.closed;
+		this.pending = data.pending;
+		this.inProgress = data.in_progress;
+		this.cancelled = data.cancelled;
+		this.abandoned = data.abandoned;
+		this.played = data.played;
+		this.walkover = data.walkover;
+		this.revenged = data.revenged;
 		this.billed = new BetBilled(data.billed);
 	}
 }

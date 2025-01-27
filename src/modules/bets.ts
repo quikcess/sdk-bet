@@ -20,7 +20,7 @@ export class BetModule {
 		assertString(betId, "BET_ID");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.get(guildId, betId),
+			Routes.guilds.bets.get(guildId, betId),
 		);
 		return new BetEntity(response);
 	}
@@ -39,7 +39,7 @@ export class BetModule {
 		assertString(channelId, "CHANNEL_ID");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getByChannelId(guildId, channelId),
+			Routes.guilds.bets.getByChannelId(guildId, channelId),
 		);
 		return new BetEntity(response);
 	}
@@ -52,7 +52,7 @@ export class BetModule {
 		assertArrayOfStrings(playerIds, "PLAYER_IDS");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getChannelIdsFromPlayerId(guildId),
+			Routes.guilds.bets.getChannelIdsFromPlayerId(guildId),
 			{
 				query: {
 					player_ids: playerIds,
@@ -69,7 +69,7 @@ export class BetModule {
 		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getAll(guildId),
+			Routes.guilds.bets.getAll(guildId),
 			{
 				query,
 			},
@@ -111,7 +111,7 @@ export class BetModule {
 		assertBet(payload, "/bets/create");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.create(data.guildId),
+			Routes.guilds.bets.create(data.guildId),
 			{
 				method: "POST",
 				body: payload,
@@ -133,7 +133,7 @@ export class BetModule {
 		assertPartialBet(payload, "/bets/update");
 
 		const { response } = await this.client.api.request(
-			Routes.bets.update(guildId, betId),
+			Routes.guilds.bets.update(guildId, betId),
 			{
 				method: "PATCH",
 				body: payload,
@@ -148,7 +148,7 @@ export class BetModule {
 		assertString(betId);
 
 		const { response } = await this.client.api.request(
-			Routes.bets.delete(guildId, betId),
+			Routes.guilds.bets.delete(guildId, betId),
 			{ method: "DELETE" },
 		);
 
@@ -167,7 +167,7 @@ export class BetModule {
 		assertString(guildId);
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getCount(guildId),
+			Routes.guilds.bets.getCount(guildId),
 		);
 
 		return response;
@@ -185,7 +185,7 @@ export class BetModule {
 		assertString(guildId);
 
 		const { response } = await this.client.api.request(
-			Routes.bets.getStats(guildId),
+			Routes.guilds.bets.getStats(guildId),
 		);
 
 		console.log(response);
@@ -209,7 +209,7 @@ export class BetModule {
 			const batch = payload.slice(i, i + MAX_BATCH_SIZE);
 
 			const { response } = await this.client.api.request(
-				Routes.bets.bulk.create(guildId),
+				Routes.guilds.bets.bulk.create(guildId),
 				{
 					method: "POST",
 					body: batch,
@@ -232,7 +232,7 @@ export class BetModule {
 			const batch = betIds.slice(i, i + MAX_BATCH_SIZE);
 
 			const { response } = await this.client.api.request(
-				Routes.bets.bulk.delete(guildId),
+				Routes.guilds.bets.bulk.delete(guildId),
 				{
 					method: "DELETE",
 					body: batch,
@@ -248,7 +248,7 @@ export class BetModule {
 	async getThreadWaitTime(guildId: string): Promise<number> {
 		assertString(guildId);
 		const { response } = await this.client.api.request(
-			Routes.bets.getThreadWaitTime(guildId),
+			Routes.guilds.bets.getThreadWaitTime(guildId),
 		);
 		return response;
 	}

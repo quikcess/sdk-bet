@@ -34,15 +34,15 @@ const APIMediatorBilled = z.object({
 
 const APIMediatorStats = z.object({
 	total: z.number(),
-	started_bets: z.number(),
-	closed_bets: z.number(),
-	pending_bets: z.number(),
-	in_progress_bets: z.number(),
-	cancelled_bets: z.number(),
-	abandoned_bets: z.number(),
-	played_bets: z.number(),
-	walkover_bets: z.number(),
-	revenged_bets: z.number(),
+	started: z.number(),
+	closed: z.number(),
+	pending: z.number(),
+	in_progress: z.number(),
+	cancelled: z.number(),
+	abandoned: z.number(),
+	played: z.number(),
+	walkover: z.number(),
+	revenged: z.number(),
 	billed: APIMediatorBilled,
 });
 
