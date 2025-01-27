@@ -2,27 +2,27 @@ import { assertBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { Cache } from "@/services/cache/base";
-import { BetEntity } from "@/structures";
+import { GuildBet } from "@/structures";
 import { toSnakeCase } from "@/utils/cases";
 import type { BetCreateData, Betting } from "..";
 
 // Isso é bets global
 export class BetManager {
-	public readonly cache: Cache<BetEntity>;
+	public readonly cache: Cache<GuildBet>;
 
 	constructor(public readonly client: Betting) {
 		this.cache = new Cache();
 	}
 
 	// ex.: client.bets.fetch("123") -> acesso sem guildId
-	async fetch(betId: string): Promise<BetEntity> {
+	async fetch(betId: string): Promise<GuildBet> {
 		assertString(betId, "BET_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.bets.fetch(betId),
 		);
 
-		const bet = new BetEntity(response);
+		const bet = new GuildBet(response);
 		this.cache.set(bet.betId, bet);
 		return bet;
 	}
@@ -30,7 +30,7 @@ export class BetManager {
 
 // Isso é bets por guild
 export class GuildBetManager {
-	public readonly cache: Cache<BetEntity>;
+	public readonly cache: Cache<GuildBet>;
 
 	constructor(
 		public readonly client: Betting,
@@ -40,7 +40,7 @@ export class GuildBetManager {
 		this.cache = new Cache();
 	}
 
-	async create(data: BetCreateData): Promise<BetEntity> {
+	async create(data: BetCreateData): Promise<GuildBet> {
 		const payload = toSnakeCase(data);
 		assertBet(payload, "/bets/create");
 
@@ -52,7 +52,7 @@ export class GuildBetManager {
 			},
 		);
 
-		const bet = new BetEntity(response);
+		const bet = new GuildBet(response);
 		this.cache.set(bet.betId, bet);
 		return bet;
 	}
@@ -63,7 +63,7 @@ export class GuildBetManager {
 		options?: {
 			cache?: boolean;
 		},
-	): Promise<BetEntity> {
+	): Promise<GuildBet> {
 		assertString(betId, "BET_ID");
 		const { cache = false } = options || {};
 
@@ -78,7 +78,7 @@ export class GuildBetManager {
 			Routes.guilds.bets.get(this.guildId, betId),
 		);
 
-		const bet = new BetEntity(response);
+		const bet = new GuildBet(response);
 		this.cache.set(bet.betId, bet);
 		return bet;
 	}

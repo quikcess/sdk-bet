@@ -14,7 +14,7 @@ import { BetPlayer } from "./player";
 /**
  * Represents a detailed betting entity with utility methods and access to API-related data.
  */
-export class BetEntity {
+export class GuildBet {
 	/** The ID of the guild where the bet was created. */
 	public readonly guildId: string;
 
@@ -117,12 +117,12 @@ export class BetEntity {
 		this.logs = new BetLog(data.logs);
 	}
 
-	public static from(data: APIBet): BetEntity {
-		return new BetEntity(data);
+	public static from(data: APIBet): GuildBet {
+		return new GuildBet(data);
 	}
 
 	public toJSON(): APIBet {
-		const data: APIBet = toSnakeCase<BetEntity, APIBet>(this);
+		const data: APIBet = toSnakeCase<GuildBet, APIBet>(this);
 		return data;
 	}
 }

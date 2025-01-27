@@ -1,8 +1,8 @@
 import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet";
 import { assertArrayOfStrings, assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
-import { BetEntity } from "@/structures/bet/base";
-import { AllBetsEntity } from "@/structures/bet/getAll";
+import { GuildBet } from "@/structures/bet/base";
+import { GuildAllBets } from "@/structures/bet/getAll";
 import { BetStats } from "@/structures/bet/stats";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases/index";
@@ -15,33 +15,33 @@ import type { BetCreateData, BetUpdateData, Betting } from "../index";
 export class BetModule {
 	constructor(private readonly client: Betting) {}
 
-	async get(guildId: string, betId: string): Promise<BetEntity> {
+	async get(guildId: string, betId: string): Promise<GuildBet> {
 		assertString(guildId, "GUILD_ID");
 		assertString(betId, "BET_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.get(guildId, betId),
 		);
-		return new BetEntity(response);
+		return new GuildBet(response);
 	}
 
-	async fetch(betId: string): Promise<BetEntity> {
+	async fetch(betId: string): Promise<GuildBet> {
 		assertString(betId, "BET_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.bets.fetch(betId),
 		);
-		return new BetEntity(response);
+		return new GuildBet(response);
 	}
 
-	async getByChannelId(guildId: string, channelId: string): Promise<BetEntity> {
+	async getByChannelId(guildId: string, channelId: string): Promise<GuildBet> {
 		assertString(guildId, "GUILD_ID");
 		assertString(channelId, "CHANNEL_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.getByChannelId(guildId, channelId),
 		);
-		return new BetEntity(response);
+		return new GuildBet(response);
 	}
 
 	async getChannelIdByPlayerIds(
@@ -63,7 +63,7 @@ export class BetModule {
 		return response;
 	}
 
-	async getAll(guildId: string, playerIds?: string[]): Promise<AllBetsEntity> {
+	async getAll(guildId: string, playerIds?: string[]): Promise<GuildAllBets> {
 		assertString(guildId, "GUILD_ID");
 
 		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
@@ -76,10 +76,10 @@ export class BetModule {
 		);
 
 		const transformedData = new Collection(
-			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
+			response.data.map((data) => [data.bet_id, new GuildBet(data)]),
 		);
 
-		return new AllBetsEntity({
+		return new GuildAllBets({
 			currentPage: response.current_page,
 			totalPages: response.total_pages,
 			totalBets: response.total_bets,
@@ -87,7 +87,7 @@ export class BetModule {
 		});
 	}
 
-	async fetchAll(playerIds?: string[]): Promise<AllBetsEntity> {
+	async fetchAll(playerIds?: string[]): Promise<GuildAllBets> {
 		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
 
 		const { response } = await this.client.api.request(Routes.bets.fetchAll(), {
@@ -95,10 +95,10 @@ export class BetModule {
 		});
 
 		const transformedData = new Collection(
-			response.data.map((data) => [data.bet_id, new BetEntity(data)]),
+			response.data.map((data) => [data.bet_id, new GuildBet(data)]),
 		);
 
-		return new AllBetsEntity({
+		return new GuildAllBets({
 			currentPage: response.current_page,
 			totalPages: response.total_pages,
 			totalBets: response.total_bets,
@@ -106,7 +106,7 @@ export class BetModule {
 		});
 	}
 
-	async create(data: BetCreateData): Promise<BetEntity> {
+	async create(data: BetCreateData): Promise<GuildBet> {
 		const payload = toSnakeCase(data);
 		assertBet(payload, "/bets/create");
 
@@ -118,14 +118,14 @@ export class BetModule {
 			},
 		);
 
-		return new BetEntity(response);
+		return new GuildBet(response);
 	}
 
 	async update(
 		guildId: string,
 		betId: string,
 		data: BetUpdateData,
-	): Promise<BetEntity> {
+	): Promise<GuildBet> {
 		assertString(guildId);
 		assertString(betId);
 
@@ -140,10 +140,10 @@ export class BetModule {
 			},
 		);
 
-		return new BetEntity(response);
+		return new GuildBet(response);
 	}
 
-	async delete(guildId: string, betId: string): Promise<BetEntity> {
+	async delete(guildId: string, betId: string): Promise<GuildBet> {
 		assertString(guildId);
 		assertString(betId);
 
@@ -152,7 +152,7 @@ export class BetModule {
 			{ method: "DELETE" },
 		);
 
-		return new BetEntity(response);
+		return new GuildBet(response);
 	}
 
 	async fetchCount(): Promise<number> {
@@ -194,11 +194,11 @@ export class BetModule {
 	async bulkCreate(
 		guildId: string,
 		data: BetCreateData[],
-	): Promise<BetEntity[]> {
+	): Promise<GuildBet[]> {
 		assertString(guildId);
 
 		const MAX_BATCH_SIZE = 25;
-		const results: BetEntity[] = [];
+		const results: GuildBet[] = [];
 
 		const payload: APIBet[] = toSnakeCase(data);
 		assertBets(payload, "/bets/bulk/create");
@@ -214,17 +214,17 @@ export class BetModule {
 				},
 			);
 
-			results.push(...response.map((bet) => new BetEntity(bet)));
+			results.push(...response.map((bet) => new GuildBet(bet)));
 		}
 
 		return results;
 	}
 
-	async bulkDelete(guildId: string, betIds: string[]): Promise<BetEntity[]> {
+	async bulkDelete(guildId: string, betIds: string[]): Promise<GuildBet[]> {
 		assertString(guildId);
 
 		const MAX_BATCH_SIZE = 75;
-		const results: BetEntity[] = [];
+		const results: GuildBet[] = [];
 
 		for (let i = 0; i < betIds.length; i += MAX_BATCH_SIZE) {
 			const batch = betIds.slice(i, i + MAX_BATCH_SIZE);
@@ -237,7 +237,7 @@ export class BetModule {
 				},
 			);
 
-			results.push(...response.map((bet) => new BetEntity(bet)));
+			results.push(...response.map((bet) => new GuildBet(bet)));
 		}
 
 		return results;

@@ -1,10 +1,10 @@
 import { Collection } from "@/structures/collection";
-import type { BetEntity } from "./base";
+import type { GuildBet } from "./base";
 
 /**
  * Represents the result of all bets, including pagination and a collection of bet data.
  */
-export class AllBetsEntity {
+export class GuildAllBets {
 	/** The current page number of the paginated results, or null if not applicable. */
 	currentPage: number | null;
 
@@ -15,10 +15,10 @@ export class AllBetsEntity {
 	totalBets: number;
 
 	/** A collection of bets, mapped by their string identifier. */
-	data: Collection<string, BetEntity>;
+	data: Collection<string, GuildBet>;
 
 	/**
-	 * Initializes the AllBetsEntity object.
+	 * Initializes the GuildAllBets object.
 	 *
 	 * @param currentPage - The current page number of the paginated results.
 	 * @param totalPages - The total number of pages in the result set.
@@ -29,8 +29,8 @@ export class AllBetsEntity {
 		currentPage = null,
 		totalPages = null,
 		totalBets = 0,
-		data = new Collection<string, BetEntity>(),
-	}: Partial<AllBetsEntity>) {
+		data = new Collection<string, GuildBet>(),
+	}: Partial<GuildAllBets>) {
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
 		this.totalBets = totalBets;
@@ -38,9 +38,9 @@ export class AllBetsEntity {
 	}
 
 	/**
-	 * Serializes the AllBetsEntity object into a plain JSON object.
+	 * Serializes the GuildAllBets object into a plain JSON object.
 	 *
-	 * @returns A plain object representation of the AllBetsEntity.
+	 * @returns A plain object representation of the GuildAllBets.
 	 */
 	toJSON() {
 		return {
@@ -52,12 +52,12 @@ export class AllBetsEntity {
 	}
 
 	/**
-	 * Returns a string representation of the AllBetsEntity for debugging purposes.
+	 * Returns a string representation of the GuildAllBets for debugging purposes.
 	 *
-	 * @returns A string representation of the AllBetsEntity.
+	 * @returns A string representation of the GuildAllBets.
 	 */
 	toString() {
-		return `AllBetsEntity {
+		return `GuildAllBets {
       currentPage: ${this.currentPage},
       totalPages: ${this.totalPages},
       totalBets: ${this.totalBets},
