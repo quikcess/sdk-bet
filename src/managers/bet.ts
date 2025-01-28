@@ -1,7 +1,7 @@
 import { assertBet } from "@/assertions/bet";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
-import { Cache } from "@/services/cache/base";
+import { Cache } from "@/services/cache";
 import { GuildBet } from "@/structures";
 import { toSnakeCase } from "@/utils/cases";
 import type { BetCreateData, Betting } from "..";

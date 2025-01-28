@@ -1,7 +1,7 @@
 import { assertGuild } from "@/assertions/guild";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
-import { Cache } from "@/services/cache/base";
+import { Cache } from "@/services/cache";
 import { toSnakeCase } from "@/utils/cases";
 import type { APIGuild } from "@quikcess/bet-api-types/v1";
 import type { Betting } from "..";
