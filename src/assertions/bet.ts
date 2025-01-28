@@ -11,9 +11,7 @@ import { assertAPIObject } from "./common";
 
 const APIBetPlayerSchema = z.object({
 	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),
-	wins: z.number(),
-	loses: z.number(),
-	consecutives: z.number(),
+	winner: z.boolean().or(z.null()),
 });
 
 const APIBetLogSchema = z.object({

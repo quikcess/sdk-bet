@@ -26,7 +26,7 @@ const APIMediatorBilledRooms = z.object({
 	profit: z.number(),
 });
 
-const APIMediatorBilled = z.object({
+const APIGuildMediatorBilled = z.object({
 	profit: z.number(),
 	fee_only: z.number(),
 	rooms: APIMediatorBilledRooms,

@@ -11,10 +11,10 @@ export class BetBilledRooms {
 	public readonly sold: number;
 
 	/** Total revenue generated from selling rooms. */
-	public readonly invoicing: number;
+	public readonly revenue: number;
 
 	/** Total cost incurred to purchase the rooms. */
-	public readonly investment: number;
+	public readonly expenses: number;
 
 	/** Net profit calculated as invoicing minus investment. */
 	public readonly profit: number;
@@ -27,9 +27,9 @@ export class BetBilledRooms {
 	 */
 	constructor(data: APIBetBilledRooms) {
 		this.sold = data.sold;
-		this.invoicing = data.invoicing;
-		this.investment = data.investment;
 		this.profit = data.profit;
+		this.expenses = data.expenses;
+		this.revenue = data.revenue;
 	}
 }
 
