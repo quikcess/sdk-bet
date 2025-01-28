@@ -1,4 +1,4 @@
-import type { APIBetStats } from "@quikcess/bet-api-types/v1";
+import type { APIGuildBetStats } from "@quikcess/bet-api-types/v1";
 import { BetBilled } from "./billed";
 
 /**
@@ -44,7 +44,7 @@ export class BetStats {
 	 *
 	 * @param data - The raw API data containing bet metrics.
 	 */
-	constructor(data: APIBetStats) {
+	constructor(data: APIGuildBetStats) {
 		this.total = data.total;
 		this.started = data.started;
 		this.closed = data.closed;

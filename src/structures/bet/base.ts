@@ -1,7 +1,7 @@
 import { assertBet } from "@/assertions/bet";
 import { toSnakeCase } from "@/utils/cases/index";
 import type {
-	APIBet,
+	APIGuildBet,
 	BetGelType,
 	BetMode,
 	BetPlatform,
@@ -89,7 +89,7 @@ export class GuildBet {
 	 *
 	 * @param data - Raw API data representing the bet.
 	 */
-	constructor(data: APIBet) {
+	constructor(data: APIGuildBet) {
 		assertBet(data, "structures/bet/base");
 
 		this.guildId = data.guild_id;
@@ -117,12 +117,12 @@ export class GuildBet {
 		this.logs = new BetLog(data.logs);
 	}
 
-	public static from(data: APIBet): GuildBet {
+	public static from(data: APIGuildBet): GuildBet {
 		return new GuildBet(data);
 	}
 
-	public toJSON(): APIBet {
-		const data: APIBet = toSnakeCase<GuildBet, APIBet>(this);
+	public toJSON(): APIGuildBet {
+		const data: APIGuildBet = toSnakeCase<GuildBet, APIGuildBet>(this);
 		return data;
 	}
 }

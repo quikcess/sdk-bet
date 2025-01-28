@@ -1,7 +1,7 @@
 import type {
-	APIBet,
 	APIBetLog,
 	APIBetPlayer,
+	APIGuildBet,
 	BetGelType,
 	ISODateString,
 } from "@quikcess/bet-api-types/v1";
@@ -27,7 +27,7 @@ export interface BetLogData
 }
 
 export type BetData = Omit<
-	APIBet,
+	APIGuildBet,
 	| "guild_id"
 	| "bet_id"
 	| "players"

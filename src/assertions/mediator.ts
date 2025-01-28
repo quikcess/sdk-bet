@@ -2,18 +2,18 @@ import { ISODateStringSchema } from "@/utils/date/index.js";
 import { z } from "zod";
 import { assertAPIObject } from "./common.js";
 
-const APIMediatorLimiter = z.object({
+const APIGuildMediatorLimiter = z.object({
 	simultaneous: z.number(),
 	daily: z.number(),
 });
 
-const APIMediatorSignature = z.object({
+const APIGuildMediatorSignature = z.object({
 	role_id: z.string().or(z.null()),
 	expiration_time: z.number().or(z.null()),
 	autorole: z.boolean().default(false),
 });
 
-const APIMediatorPix = z.object({
+const APIGuildMediatorPix = z.object({
 	key: z.string().or(z.null()),
 	name: z.string().or(z.null()),
 	message: z.string().or(z.null()),
@@ -32,7 +32,7 @@ const APIMediatorBilled = z.object({
 	rooms: APIMediatorBilledRooms,
 });
 
-const APIMediatorStats = z.object({
+const APIGuildMediatorStats = z.object({
 	total: z.number(),
 	started: z.number(),
 	closed: z.number(),
@@ -43,20 +43,20 @@ const APIMediatorStats = z.object({
 	played: z.number(),
 	walkover: z.number(),
 	revenged: z.number(),
-	billed: APIMediatorBilled,
+	billed: APIGuildMediatorBilled,
 });
 
 const MediatorSchema = z.object({
 	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),
 	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
 	category_id: z.string().or(z.null()),
-	pix: APIMediatorPix,
+	pix: APIGuildMediatorPix,
 	virtual_accounts: z.number(),
 	uptime: z.number(),
 	last_entry: z.number().or(z.null()),
-	signature: APIMediatorSignature,
-	limiter: APIMediatorLimiter,
-	stats: APIMediatorStats,
+	signature: APIGuildMediatorSignature,
+	limiter: APIGuildMediatorLimiter,
+	stats: APIGuildMediatorStats,
 	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
 	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
 });

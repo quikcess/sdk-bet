@@ -2,17 +2,17 @@ import { ISODateStringSchema } from "@/utils/date/index.js";
 import { z } from "zod";
 import { assertAPIObject } from "./common.js";
 
-const APIUserScores = z.object({
+const APIGuildUserScores = z.object({
 	wins: z.number(),
 	loses: z.number(),
 	consecutives: z.number(),
 });
 
-const APIUserWallet = z.object({
+const APIGuildUserWallet = z.object({
 	credits: z.number(),
 });
 
-const APIUserNotifications = z.object({
+const APIGuildUserNotifications = z.object({
 	events: z.boolean(),
 	waiting_bets: z.boolean(),
 });
@@ -22,13 +22,13 @@ const APIUserBilledRooms = z.object({
 	investment: z.number(), // Money invested
 });
 
-const APIUserBilled = z.object({
+const APIGuildUserBilled = z.object({
 	fee_only: z.number(),
 	profit: z.number(),
 	rooms: APIUserBilledRooms,
 });
 
-const APIUserStats = z.object({
+const APIGuildUserStats = z.object({
 	total: z.number(),
 	started: z.number(),
 	closed: z.number(),
@@ -42,16 +42,16 @@ const APIUserStats = z.object({
 	revenged: z.number(),
 	won: z.number(),
 	lost: z.number(),
-	billed: APIUserBilled,
+	billed: APIGuildUserBilled,
 });
 
 const UserSchema = z.object({
 	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),
 	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
-	wallet: APIUserWallet,
-	stats: APIUserStats,
-	scores: APIUserScores,
-	notifications: APIUserNotifications,
+	wallet: APIGuildUserWallet,
+	stats: APIGuildUserStats,
+	scores: APIGuildUserScores,
+	notifications: APIGuildUserNotifications,
 	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
 	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
 });

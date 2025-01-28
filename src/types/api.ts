@@ -1,49 +1,49 @@
 import type { Route } from "@/lib/routes";
 import type {
-	RESTGetAPIAPIChannelIdsFromPlayerIdQuery,
-	RESTGetAPIAllBetsQuery,
-	RESTGetAPIAllBetsResponse,
 	RESTGetAPIAllBlacklistQuery,
 	RESTGetAPIAllBlacklistResponse,
 	RESTGetAPIAllGuildsResponse,
-	RESTGetAPIAllMediatorsResponse,
 	RESTGetAPIAllScamsQuery,
 	RESTGetAPIAllScamsResponse,
-	RESTGetAPIAllUsersResponse,
-	RESTGetAPIBetBulkResponse,
-	RESTGetAPIBetCountResponse,
-	RESTGetAPIBetResponse,
-	RESTGetAPIBetStatsResponse,
-	RESTGetAPIBetThreadWaitTimeResponse,
 	RESTGetAPIBlacklistBaseQuery,
 	RESTGetAPIBlacklistStatsResponse,
+	RESTGetAPIChannelIdsFromPlayerIdQuery,
 	RESTGetAPIChannelIdsFromPlayerIdResponse,
 	RESTGetAPICredentialBaseQuery,
 	RESTGetAPICredentialResponse,
+	RESTGetAPIGuildBetBulkResponse,
+	RESTGetAPIGuildBetCountResponse,
+	RESTGetAPIGuildBetResponse,
+	RESTGetAPIGuildBetStatsResponse,
+	RESTGetAPIGuildBetThreadWaitTimeResponse,
+	RESTGetAPIGuildBetsQuery,
+	RESTGetAPIGuildBetsResponse,
+	RESTGetAPIGuildMediatorResponse,
+	RESTGetAPIGuildMediatorsResponse,
 	RESTGetAPIGuildResponse,
 	RESTGetAPIGuildStatsResponse,
-	RESTGetAPIMediatorResponse,
+	RESTGetAPIGuildUserResponse,
+	RESTGetAPIGuildUserStatsResponse,
+	RESTGetAPIGuildUsersResponse,
 	RESTGetAPIMediatorStatsResponse,
 	RESTGetAPIScamBaseQuery,
 	RESTGetAPIScamResponse,
 	RESTGetAPIScamStatsResponse,
 	RESTGetAPISimilarScamsResponse,
 	RESTGetAPIStatusResponse,
-	RESTGetAPIUserResponse,
-	RESTGetAPIUserStatsResponse,
-	RESTPatchAPIBetUpdateBody,
 	RESTPatchAPIBlacklistUpdateBody,
+	RESTPatchAPIGuildBetUpdateBody,
+	RESTPatchAPIGuildMediatorUpdateBody,
 	RESTPatchAPIGuildUpdateBody,
-	RESTPatchAPIMediatorUpdateBody,
+	RESTPatchAPIGuildUserUpdateBody,
 	RESTPatchAPIScamUpdateBody,
-	RESTPatchAPIUserUpdateBody,
-	RESTPostAPIBetCreateBody,
 	RESTPostAPIBlacklistCreateBody,
 	RESTPostAPICredentialJSONBody,
+	RESTPostAPIGuildBetCreateBody,
 	RESTPostAPIGuildCreateBody,
-	RESTPostAPIMediatorCreateBody,
+	RESTPostAPIGuildMediatorCreateBody,
+	RESTPostAPIGuildUserCreateBody,
 	RESTPostAPIScamCreateBody,
-	RESTPostAPIUserCreateBody,
 } from "@quikcess/bet-api-types/v1";
 
 export interface APIEndpoints {
@@ -117,64 +117,64 @@ export interface APIEndpoints {
 		response: RESTGetAPIScamStatsResponse;
 	};
 	"guilds/bets/get": {
-		response: RESTGetAPIBetResponse;
+		response: RESTGetAPIGuildBetResponse;
 	};
 	"bets/fetch": {
-		response: RESTGetAPIBetResponse;
+		response: RESTGetAPIGuildBetResponse;
 	};
 	"guilds/bets/getByChannelId": {
-		response: RESTGetAPIBetResponse;
+		response: RESTGetAPIGuildBetResponse;
 	};
 	"guilds/bets/getChannelIdsFromPlayerId": {
 		response: RESTGetAPIChannelIdsFromPlayerIdResponse;
-		query: RESTGetAPIAPIChannelIdsFromPlayerIdQuery;
+		query: RESTGetAPIChannelIdsFromPlayerIdQuery;
 	};
 	"guilds/bets/getAll": {
-		response: RESTGetAPIAllBetsResponse;
-		query: RESTGetAPIAllBetsQuery;
+		response: RESTGetAPIGuildBetsResponse;
+		query: RESTGetAPIGuildBetsQuery;
 	};
 	"bets/fetchAll": {
-		response: RESTGetAPIAllBetsResponse;
-		query: RESTGetAPIAllBetsQuery;
+		response: RESTGetAPIGuildBetsResponse;
+		query: RESTGetAPIGuildBetsQuery;
 	};
 	"guilds/bets/create": {
 		method: "POST";
-		response: RESTGetAPIBetResponse;
-		body: RESTPostAPIBetCreateBody;
+		response: RESTGetAPIGuildBetResponse;
+		body: RESTPostAPIGuildBetCreateBody;
 	};
 	"guilds/bets/update": {
 		method: "PATCH";
-		response: RESTGetAPIBetResponse;
-		body: RESTPatchAPIBetUpdateBody;
+		response: RESTGetAPIGuildBetResponse;
+		body: RESTPatchAPIGuildBetUpdateBody;
 	};
 	"guilds/bets/delete": {
 		method: "DELETE";
-		response: RESTGetAPIBetResponse;
+		response: RESTGetAPIGuildBetResponse;
 	};
 	"guilds/bets/getStats": {
-		response: RESTGetAPIBetStatsResponse;
+		response: RESTGetAPIGuildBetStatsResponse;
 	};
 	"bets/fetchStats": {
-		response: RESTGetAPIBetStatsResponse;
+		response: RESTGetAPIGuildBetStatsResponse;
 	};
 	"guilds/bets/getCount": {
-		response: RESTGetAPIBetCountResponse;
+		response: RESTGetAPIGuildBetCountResponse;
 	};
 	"bets/fetchCount": {
-		response: RESTGetAPIBetCountResponse;
+		response: RESTGetAPIGuildBetCountResponse;
 	};
 	"guilds/bets/bulkCreate": {
 		method: "POST";
-		response: RESTGetAPIBetBulkResponse;
-		body: RESTPostAPIBetCreateBody[];
+		response: RESTGetAPIGuildBetBulkResponse;
+		body: RESTPostAPIGuildBetCreateBody[];
 	};
 	"guilds/bets/bulkDelete": {
 		method: "DELETE";
-		response: RESTGetAPIBetBulkResponse;
+		response: RESTGetAPIGuildBetBulkResponse;
 		body: string[];
 	};
 	"guilds/bets/getThreadWaitTime": {
-		response: RESTGetAPIBetThreadWaitTimeResponse;
+		response: RESTGetAPIGuildBetThreadWaitTimeResponse;
 	};
 	"guilds/get": {
 		response: RESTGetAPIGuildResponse;
@@ -208,65 +208,65 @@ export interface APIEndpoints {
 		response: RESTGetAPIBlacklistStatsResponse;
 	};
 	"guilds/users/get": {
-		response: RESTGetAPIUserResponse;
+		response: RESTGetAPIGuildUserResponse;
 	};
 	"users/fetch": {
-		response: RESTGetAPIUserResponse;
+		response: RESTGetAPIGuildUserResponse;
 	};
 	"guilds/users/getAll": {
-		response: RESTGetAPIAllUsersResponse;
+		response: RESTGetAPIGuildUsersResponse;
 	};
 	"users/fetchAll": {
-		response: RESTGetAPIAllUsersResponse;
+		response: RESTGetAPIGuildUsersResponse;
 	};
 	"guilds/users/getStats": {
-		response: RESTGetAPIUserStatsResponse;
+		response: RESTGetAPIGuildUserStatsResponse;
 	};
 	"users/fetchStats": {
-		response: RESTGetAPIUserStatsResponse;
+		response: RESTGetAPIGuildUserStatsResponse;
 	};
 	"guilds/users/create": {
 		method: "POST";
-		response: RESTGetAPIUserResponse;
-		body: RESTPostAPIUserCreateBody;
+		response: RESTGetAPIGuildUserResponse;
+		body: RESTPostAPIGuildUserCreateBody;
 	};
 	"guilds/users/update": {
 		method: "PATCH";
-		response: RESTGetAPIUserResponse;
-		body: RESTPatchAPIUserUpdateBody;
+		response: RESTGetAPIGuildUserResponse;
+		body: RESTPatchAPIGuildUserUpdateBody;
 	};
 	"guilds/users/delete": {
 		method: "DELETE";
-		response: RESTGetAPIMediatorResponse;
+		response: RESTGetAPIGuildMediatorResponse;
 	};
 	"guilds/mediators/get": {
-		response: RESTGetAPIMediatorResponse;
+		response: RESTGetAPIGuildMediatorResponse;
 	};
 	"mediators/fetch": {
-		response: RESTGetAPIMediatorResponse;
+		response: RESTGetAPIGuildMediatorResponse;
 	};
 	"guilds/mediators/getAll": {
-		response: RESTGetAPIAllMediatorsResponse;
+		response: RESTGetAPIGuildMediatorsResponse;
 	};
 	"mediators/fetchAll": {
-		response: RESTGetAPIAllMediatorsResponse;
+		response: RESTGetAPIGuildMediatorsResponse;
 	};
 	"guilds/mediators/getStats": {
 		response: RESTGetAPIMediatorStatsResponse;
 	};
 	"guilds/mediators/create": {
 		method: "POST";
-		response: RESTGetAPIMediatorResponse;
-		body: RESTPostAPIMediatorCreateBody;
+		response: RESTGetAPIGuildMediatorResponse;
+		body: RESTPostAPIGuildMediatorCreateBody;
 	};
 	"guilds/mediators/update": {
 		method: "PATCH";
-		response: RESTGetAPIMediatorResponse;
-		body: RESTPatchAPIMediatorUpdateBody;
+		response: RESTGetAPIGuildMediatorResponse;
+		body: RESTPatchAPIGuildMediatorUpdateBody;
 	};
 	"guilds/mediators/delete": {
 		method: "DELETE";
-		response: RESTGetAPIMediatorResponse;
+		response: RESTGetAPIGuildMediatorResponse;
 	};
 	"mediators/fetchStats": {
 		response: RESTGetAPIMediatorStatsResponse;

@@ -7,8 +7,8 @@ import { BetStats } from "@/structures/bet/stats";
 import { Collection } from "@/structures/collection";
 import { toSnakeCase } from "@/utils/cases/index";
 import type {
-	APIBet,
-	RESTGetAPIAllBetsQuery,
+	APIGuildBet,
+	RESTGetAPIGuildBetsQuery,
 } from "@quikcess/bet-api-types/v1";
 import type { BetCreateData, BetUpdateData, Betting } from "../index";
 
@@ -66,7 +66,7 @@ export class BetModule {
 	async getAll(guildId: string, playerIds?: string[]): Promise<GuildAllBets> {
 		assertString(guildId, "GUILD_ID");
 
-		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
+		const query: RESTGetAPIGuildBetsQuery = { player_ids: playerIds ?? [] };
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.getAll(guildId),
@@ -88,7 +88,7 @@ export class BetModule {
 	}
 
 	async fetchAll(playerIds?: string[]): Promise<GuildAllBets> {
-		const query: RESTGetAPIAllBetsQuery = { player_ids: playerIds ?? [] };
+		const query: RESTGetAPIGuildBetsQuery = { player_ids: playerIds ?? [] };
 
 		const { response } = await this.client.api.request(Routes.bets.fetchAll(), {
 			query,
@@ -200,7 +200,7 @@ export class BetModule {
 		const MAX_BATCH_SIZE = 25;
 		const results: GuildBet[] = [];
 
-		const payload: APIBet[] = toSnakeCase(data);
+		const payload: APIGuildBet[] = toSnakeCase(data);
 		assertBets(payload, "/bets/bulk/create");
 
 		for (let i = 0; i < payload.length; i += MAX_BATCH_SIZE) {
