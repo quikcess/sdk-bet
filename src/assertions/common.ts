@@ -1,9 +1,9 @@
-import { z } from "zod";
-import { APIError } from "#quikcess/structures/error.js";
+import { BetSDKError } from "@/structures/error.js";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
-} from "#quikcess/types/index.js";
+} from "@/types/assertions";
+import { z } from "zod";
 
 export const NumericStringSchema = (locale: string) =>
 	z.string().regex(/^\d+$/, `${locale.toUpperCase()}_MUST_BE_NUMERICAL_STRING`);
@@ -48,7 +48,7 @@ export function assertLiteral({
 	try {
 		schema.parse(value);
 	} catch {
-		throw new APIError(
+		throw new BetSDKError(
 			code ? `INVALID_${code}` : "VALIDATION_ERROR",
 			`Expect ${expect}, got ${typeof value}`,
 		);
@@ -71,7 +71,7 @@ export function assertAPIObject({
 			path: err.path.join(" > "),
 		}));
 
-		throw new APIError(
+		throw new BetSDKError(
 			`INVALID_API_${code}`,
 			`Invalid ${name} object received from API ${route}`,
 			{

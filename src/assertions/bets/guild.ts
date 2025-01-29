@@ -1,5 +1,5 @@
+import { isISODateString } from "@/utils/date/index.js";
 import { z } from "zod";
-import { isISODateString } from "#quikcess/utils/date/index.js";
 import {
 	EntityContextSchema,
 	ISODateStringSchema,
