@@ -1,5 +1,9 @@
-import { assertBet, assertBets, assertPartialBet } from "@/assertions/bet";
-import { assertArrayOfStrings, assertString } from "@/assertions/literal";
+import {
+	assertGuildBet,
+	assertGuildBets,
+	assertPartialGuildBet,
+} from "@/assertions/bets/assertions";
+import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { GuildBet } from "@/structures/bet/base";
 import { GuildAllBets } from "@/structures/bet/getAll";
@@ -42,25 +46,6 @@ export class BetModule {
 			Routes.guilds.bets.getByChannelId(guildId, channelId),
 		);
 		return new GuildBet(response);
-	}
-
-	async getChannelIdByPlayerIds(
-		guildId: string,
-		playerIds: string[],
-	): Promise<Record<string, string[]>> {
-		assertString(guildId, "GUILD_ID");
-		assertArrayOfStrings(playerIds, "PLAYER_IDS");
-
-		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getChannelIdsFromPlayerId(guildId),
-			{
-				query: {
-					player_ids: playerIds,
-				},
-			},
-		);
-
-		return response;
 	}
 
 	async getAll(guildId: string, playerIds?: string[]): Promise<GuildAllBets> {
@@ -108,7 +93,7 @@ export class BetModule {
 
 	async create(data: BetCreateData): Promise<GuildBet> {
 		const payload = toSnakeCase(data);
-		assertBet(payload, "/bets/create");
+		assertGuildBet(payload, "/bets/create");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.create(data.guildId),
@@ -130,7 +115,7 @@ export class BetModule {
 		assertString(betId);
 
 		const payload = toSnakeCase(data);
-		assertPartialBet(payload, "/bets/update");
+		assertPartialGuildBet(payload, "/bets/update");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.update(guildId, betId),
@@ -201,7 +186,7 @@ export class BetModule {
 		const results: GuildBet[] = [];
 
 		const payload: APIGuildBet[] = toSnakeCase(data);
-		assertBets(payload, "/bets/bulk/create");
+		assertGuildBets(payload, "/bets/bulk/create");
 
 		for (let i = 0; i < payload.length; i += MAX_BATCH_SIZE) {
 			const batch = payload.slice(i, i + MAX_BATCH_SIZE);

@@ -1,4 +1,4 @@
-import { assertBet } from "@/assertions/bet";
+import { assertGuildBet } from "@/assertions/bets/assertions";
 import { toSnakeCase } from "@/utils/cases/index";
 import type {
 	APIGuildBet,
@@ -90,7 +90,7 @@ export class GuildBet {
 	 * @param data - Raw API data representing the bet.
 	 */
 	constructor(data: APIGuildBet) {
-		assertBet(data, "structures/bet/base");
+		assertGuildBet(data, "structures/bet/base");
 
 		this.guildId = data.guild_id;
 		this.betId = data.bet_id;

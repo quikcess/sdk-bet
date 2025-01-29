@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { EntityContextSchema, TimestampSchema } from "../common.js";
+import { EntityContextSchema, TimestampSchema } from "../common";
 import {
 	MediatorLimiterSchema,
 	MediatorPixSchema,
 	MediatorSignatureSchema,
-} from "./schemas.js";
-import { MediatorStatsSchema } from "./stats.js";
+} from "./schemas";
+import { MediatorStatsSchema } from "./stats";
 
 export const GuildMediatorSchema = EntityContextSchema.extend({
 	category_id: z.string().nullable(),

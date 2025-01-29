@@ -1,4 +1,4 @@
-import { BetSDKError } from "@/structures/error.js";
+import { BetSDKError } from "@/structures/error";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,

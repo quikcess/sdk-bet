@@ -2,13 +2,10 @@ import type { Route } from "@/lib/routes";
 import type {
 	RESTGetAPIAllBlacklistQuery,
 	RESTGetAPIAllBlacklistResponse,
-	RESTGetAPIAllGuildsResponse,
 	RESTGetAPIAllScamsQuery,
 	RESTGetAPIAllScamsResponse,
 	RESTGetAPIBlacklistBaseQuery,
 	RESTGetAPIBlacklistStatsResponse,
-	RESTGetAPIChannelIdsFromPlayerIdQuery,
-	RESTGetAPIChannelIdsFromPlayerIdResponse,
 	RESTGetAPICredentialBaseQuery,
 	RESTGetAPICredentialResponse,
 	RESTGetAPIGuildBetBulkResponse,
@@ -25,6 +22,7 @@ import type {
 	RESTGetAPIGuildUserResponse,
 	RESTGetAPIGuildUserStatsResponse,
 	RESTGetAPIGuildUsersResponse,
+	RESTGetAPIGuildsResponse,
 	RESTGetAPIMediatorStatsResponse,
 	RESTGetAPIScamBaseQuery,
 	RESTGetAPIScamResponse,
@@ -125,10 +123,6 @@ export interface APIEndpoints {
 	"guilds/bets/getByChannelId": {
 		response: RESTGetAPIGuildBetResponse;
 	};
-	"guilds/bets/getChannelIdsFromPlayerId": {
-		response: RESTGetAPIChannelIdsFromPlayerIdResponse;
-		query: RESTGetAPIChannelIdsFromPlayerIdQuery;
-	};
 	"guilds/bets/getAll": {
 		response: RESTGetAPIGuildBetsResponse;
 		query: RESTGetAPIGuildBetsQuery;
@@ -180,7 +174,7 @@ export interface APIEndpoints {
 		response: RESTGetAPIGuildResponse;
 	};
 	"guilds/getAll": {
-		response: RESTGetAPIAllGuildsResponse;
+		response: RESTGetAPIGuildsResponse;
 	};
 	"guilds/getStats": {
 		response: RESTGetAPIGuildStatsResponse;

@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { EntityContextSchema, TimestampSchema } from "../common.js";
-import { MediatorStatsSchema } from "./stats.js";
+import { EntityContextSchema, TimestampSchema } from "../common";
+import { MediatorStatsSchema } from "./stats";
 
 export const GlobalMediatorSchema = EntityContextSchema.omit({ guild_id: true })
 	.extend({

@@ -21,7 +21,6 @@ export const Routes = {
     bets: {
       get: (guildId: string, betId: string) => Route<"guilds/bets/get">(`api/v1/guilds/${guildId}/bets/${betId}`),
       getByChannelId: (guildId: string,channelId: string) => Route<"guilds/bets/getByChannelId">(`api/v1/guilds/${guildId}/bets/channel/${channelId}`),
-      getChannelIdsFromPlayerId: (guildId: string) => Route<"guilds/bets/getChannelIdsFromPlayerId">(`api/v1/guilds/${guildId}/bets/channels/players`),
       getAll: (guildId: string) => Route<"guilds/bets/getAll">(`api/v1/guilds/${guildId}/bets`),
       create: (guildId: string) => Route<"guilds/bets/create">(`api/v1/guilds/${guildId}/bets`),
       update: (guildId: string, betId: string) => Route<"guilds/bets/update">(`api/v1/guilds/${guildId}/bets/${betId}`),

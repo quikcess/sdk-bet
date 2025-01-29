@@ -1,6 +1,6 @@
 import type { z } from "zod";
-import { createAssertion } from "../common.js";
-import { GuildSchema, PartialGuildSchema } from "./guild.js";
+import { createAssertion } from "../common";
+import { GuildSchema, PartialGuildSchema } from "./guild";
 
 // Assertions for guild
 export const assertGuild: (

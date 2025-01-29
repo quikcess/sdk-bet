@@ -1,17 +1,17 @@
-import { isISODateString } from "@/utils/date/index.js";
+import { isISODateString } from "@/utils/date/index";
 import { z } from "zod";
 import {
 	EntityContextSchema,
 	ISODateStringSchema,
 	NumericStringSchema,
 	TimestampSchema,
-} from "../common.js";
+} from "../common";
 import {
 	APIBetLogSchema,
 	GuildBetBasicSchema,
 	GuildBetOutcomeSchema,
 	GuildBetPlayerSchema,
-} from "./schemas.js";
+} from "./schemas";
 
 export const GuildBetSchema = EntityContextSchema.omit({ user_id: true })
 	.extend({

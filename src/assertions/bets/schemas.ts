@@ -6,7 +6,7 @@ import {
 	BetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
-import { NumericStringSchema } from "../common.js";
+import { NumericStringSchema } from "../common";
 
 export const APIBetPlayerSchema = z.object({
 	user_id: NumericStringSchema("user_id"),
@@ -14,10 +14,10 @@ export const APIBetPlayerSchema = z.object({
 });
 
 export const APIBetLogSchema = z.object({
-	created_url: z.string().nullable(),
-	started_url: z.string().nullable(),
-	victory_url: z.string().nullable(),
-	closed_url: z.string().nullable(),
+	created_url: z.string().nullable().default(null),
+	started_url: z.string().nullable().default(null),
+	victory_url: z.string().nullable().default(null),
+	closed_url: z.string().nullable().default(null),
 });
 
 export const GuildBetBasicSchema = z.object({
@@ -48,7 +48,8 @@ export const GuildBetPlayerSchema = z.object({
 			(players) =>
 				new Set(players.map((user_id) => user_id)).size === players.length,
 			{ message: "DUPLICATE_USER_ID_FOUND" },
-		),
+		)
+		.default([]),
 	emulators: z.number(),
 	gel_type: z.nativeEnum(BetGelType),
 	gel_count: z.number(),
@@ -57,7 +58,7 @@ export const GuildBetPlayerSchema = z.object({
 export const GuildBetOutcomeSchema = z.object({
 	wo: z.boolean(),
 	revenge: z.boolean(),
-	cancelled_by: z.string().nullable(),
-	abandoned_by: z.string().nullable(),
-	given_up_by: z.string().nullable(),
+	cancelled_by: z.string().nullable().default(null),
+	abandoned_by: z.string().nullable().default(null),
+	given_up_by: z.string().nullable().default(null),
 });

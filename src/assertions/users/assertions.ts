@@ -1,7 +1,7 @@
 import type { z } from "zod";
-import { createAssertion } from "../common.js";
-import { GlobalUserSchema, PartialGlobalUserSchema } from "./global.js";
-import { GuildUserSchema, PartialGuildUserSchema } from "./guild.js";
+import { createAssertion } from "../common";
+import { GlobalUserSchema, PartialGlobalUserSchema } from "./global";
+import { GuildUserSchema, PartialGuildUserSchema } from "./guild";
 
 // Assertions for guild users
 export const assertGuildUser: (

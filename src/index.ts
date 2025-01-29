@@ -74,11 +74,11 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	}
 }
 
-const client = new Betting("12");
-const guild = client.guilds.cache.get("123");
-if (!guild) throw new Error("1");
+// const client = new Betting("12");
+// const guild = client.guilds.cache.get("123");
+// if (!guild) throw new Error("1");
 
-const bet = client.bets.fetch("123");
-const data = guild.bets.cache.get("123");
-client.bets.fetch("123");
-guild.bets.fetch("123");
+// const bet = client.bets.fetch("123");
+// const data = guild.bets.cache.get("123");
+// client.bets.fetch("123");
+// guild.bets.fetch("123");

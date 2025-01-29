@@ -1,10 +1,10 @@
-import { EntityContextSchema, TimestampSchema } from "../common.js";
+import { EntityContextSchema, TimestampSchema } from "../common";
 import {
 	UserNotificationsSchema,
 	UserScoresSchema,
 	UserWalletSchema,
-} from "./schemas.js";
-import { UserStatsSchema } from "./stats.js";
+} from "./schemas";
+import { UserStatsSchema } from "./stats";
 
 export const GuildUserSchema = EntityContextSchema.extend({
 	wallet: UserWalletSchema,

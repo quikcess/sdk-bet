@@ -1,7 +1,7 @@
 import type { z } from "zod";
-import { createAssertion } from "../common.js";
-import { GlobalMediatorSchema, PartialGlobalMediatorSchema } from "./global.js";
-import { GuildMediatorSchema, PartialGuildMediatorSchema } from "./guild.js";
+import { createAssertion } from "../common";
+import { GlobalMediatorSchema, PartialGlobalMediatorSchema } from "./global";
+import { GuildMediatorSchema, PartialGuildMediatorSchema } from "./guild";
 
 // Assertions for guild mediators
 export const assertGuildMediator: (

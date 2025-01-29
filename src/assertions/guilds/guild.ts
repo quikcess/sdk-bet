@@ -1,10 +1,6 @@
 import { z } from "zod";
-import { EntityContextSchema, TimestampSchema } from "../common.js";
-import {
-	APIGuildChannels,
-	APIGuildLogs,
-	APIGuildPermission,
-} from "./schemas.js";
+import { EntityContextSchema, TimestampSchema } from "../common";
+import { APIGuildChannels, APIGuildLogs, APIGuildPermission } from "./schemas";
 
 export const GuildSchema = EntityContextSchema.omit({ user_id: true })
 	.extend({

@@ -1,4 +1,4 @@
-import { assertBet } from "@/assertions/bet";
+import { assertGuildBet } from "@/assertions/bets/assertions";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { Cache } from "@/services/cache";
@@ -26,6 +26,23 @@ export class BetManager {
 		this.cache.set(bet.betId, bet);
 		return bet;
 	}
+
+	async create(data: BetCreateData): Promise<GuildBet> {
+		const payload = toSnakeCase(data);
+		assertGuildBet(payload, "/bets/create");
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.bets.create(data.guildId),
+			{
+				method: "POST",
+				body: payload,
+			},
+		);
+
+		const bet = new GuildBet(response);
+		this.cache.set(bet.betId, bet);
+		return bet;
+	}
 }
 
 // Isso é bets por guild
@@ -42,7 +59,7 @@ export class GuildBetManager {
 
 	async create(data: BetCreateData): Promise<GuildBet> {
 		const payload = toSnakeCase(data);
-		assertBet(payload, "/bets/create");
+		assertGuildBet(payload, "/bets/create");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.create(data.guildId),

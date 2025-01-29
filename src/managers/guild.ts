@@ -1,4 +1,4 @@
-import { assertGuild } from "@/assertions/guild";
+import { assertGuild } from "@/assertions/guilds/assertions";
 import { assertString } from "@/assertions/literal";
 import { Routes } from "@/lib/routes";
 import { Cache } from "@/services/cache";
