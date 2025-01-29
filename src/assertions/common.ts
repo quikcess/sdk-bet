@@ -1,9 +1,43 @@
+import { z } from "zod";
+import { APIError } from "#quikcess/structures/error.js";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
-} from "@/types/assertions";
-import type * as z from "zod";
-import { BetSDKError } from "../structures/index";
+} from "#quikcess/types/index.js";
+
+export const NumericStringSchema = (locale: string) =>
+	z.string().regex(/^\d+$/, `${locale.toUpperCase()}_MUST_BE_NUMERICAL_STRING`);
+
+export const ISODateStringSchema = z
+	.string()
+	.refine((value: string) => !Number.isNaN(Date.parse(value)), {
+		message: "INVALID_ISO_DATE_STRING",
+	});
+
+export const TimestampSchema = z.object({
+	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
+});
+
+export const EntityContextSchema = z.object({
+	user_id: NumericStringSchema("user_id"),
+	guild_id: NumericStringSchema("guild_id"),
+});
+
+export function createAssertion<T extends z.ZodTypeAny>(
+	schema: T,
+	code: string,
+	defaultRoute: string,
+) {
+	return (value: unknown, route?: string): asserts value is z.infer<T> => {
+		assertAPIObject({
+			schema,
+			value,
+			code,
+			route: route ?? defaultRoute,
+		});
+	};
+}
 
 export function assertLiteral({
 	schema,
@@ -14,7 +48,7 @@ export function assertLiteral({
 	try {
 		schema.parse(value);
 	} catch {
-		throw new BetSDKError(
+		throw new APIError(
 			code ? `INVALID_${code}` : "VALIDATION_ERROR",
 			`Expect ${expect}, got ${typeof value}`,
 		);
@@ -37,7 +71,7 @@ export function assertAPIObject({
 			path: err.path.join(" > "),
 		}));
 
-		throw new BetSDKError(
+		throw new APIError(
 			`INVALID_API_${code}`,
 			`Invalid ${name} object received from API ${route}`,
 			{
