@@ -33,6 +33,9 @@ export class GuildBet {
 	/** List of players involved in the bet. */
 	public readonly players: BetPlayer[];
 
+	/** List of players involved in the bet. */
+	public readonly playersWhoConfirmed: string[];
+
 	/** Current status of the bet. */
 	public status: BetStatus;
 
@@ -81,6 +84,12 @@ export class GuildBet {
 	/** Timestamp of when the bet was closed, or null if not closed. */
 	public readonly closedAt: Date | null;
 
+	public readonly abandonedBy: string | null;
+
+	public readonly cancelledBy: string | null;
+
+	public readonly givenUpBy: string | null;
+
 	/** Logs associated with the bet. */
 	public readonly logs: BetLog;
 
@@ -98,6 +107,7 @@ export class GuildBet {
 		this.format = data.format;
 		this.mode = data.mode;
 		this.players = data.players.map((player) => new BetPlayer(player));
+		this.playersWhoConfirmed = data.players_who_confirmed;
 		this.status = data.status;
 		this.type = data.type;
 		this.roomId = data.room_id;
@@ -110,6 +120,9 @@ export class GuildBet {
 		this.emulators = data.emulators;
 		this.gelType = data.gel_type;
 		this.gelCount = data.gel_count;
+		this.abandonedBy = data.abandoned_by;
+		this.cancelledBy = data.cancelled_by;
+		this.givenUpBy = data.given_up_by;
 		this.createdAt = new Date(data.created_at);
 		this.updatedAt = new Date(data.updated_at);
 		this.startedAt = new Date(data.started_at);

@@ -7,7 +7,7 @@ async function test() {
 	const data = await client.bets.create({
 		betId,
 		channelId: `${betId}2`,
-		guildId: "1234",
+		guildId: "123",
 		platform: 1,
 		format: "Normal",
 		mode: "1x1",
@@ -18,7 +18,7 @@ async function test() {
 			},
 			{
 				userId: "0987654321123456781",
-				winner: null,
+				winner: true,
 			},
 		],
 		status: 1,
