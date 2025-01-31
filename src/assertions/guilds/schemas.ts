@@ -16,30 +16,30 @@ export const APIGuildQueueRules = z.array(
 
 export const APIGuildChannels = z.object({
 	parent_thread_ids: z.array(z.string()),
-	blacklist_id: z.string().or(z.null()),
+	blacklist_id: z.string().nullable(),
 	command_ids: z.array(z.string()),
 	queue_rules: APIGuildQueueRules,
 });
 
 export const APIGuildLogsSystems = z.object({
-	alerts: z.string().or(z.null()),
-	reports: z.string().or(z.null()),
-	resets: z.string().or(z.null()),
+	alerts: z.string().nullable(),
+	reports: z.string().nullable(),
+	resets: z.string().nullable(),
 });
 
 export const APIGuildLogsManagements = z.object({
-	wins: z.string().or(z.null()),
-	loses: z.string().or(z.null()),
-	credits: z.string().or(z.null()),
+	wins: z.string().nullable(),
+	loses: z.string().nullable(),
+	credits: z.string().nullable(),
 });
 
 export const APIGuildLogsBets = z.object({
-	created: z.string().or(z.null()),
-	cancelled: z.string().or(z.null()),
-	started: z.string().or(z.null()),
-	closed: z.string().or(z.null()),
-	victory_defined: z.string().or(z.null()),
-	updated: z.string().or(z.null()),
+	created: z.string().nullable(),
+	cancelled: z.string().nullable(),
+	started: z.string().nullable(),
+	closed: z.string().nullable(),
+	victory_defined: z.string().nullable(),
+	updated: z.string().nullable(),
 });
 
 export const APIGuildLogs = z.object({

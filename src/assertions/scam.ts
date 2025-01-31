@@ -1,10 +1,10 @@
-import { ISODateStringSchema } from "@/utils/date/index";
 import { ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { assertAPIObject } from "./common";
+import { ISODateStringSchema } from "#quikcess/utils/date/index";
+import { NumericStringSchema, assertAPIObject } from "./common";
 
 const ScamSchema = z.object({
-	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
+	guild_id: NumericStringSchema("guild_id"),
 	target_name: z
 		.string()
 		.min(2, "TARGET_NAME_TOO_SHORT")

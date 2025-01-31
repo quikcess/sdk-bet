@@ -1,5 +1,5 @@
-import { isISODateString } from "@/utils/date/index";
 import { z } from "zod";
+import { isISODateString } from "#quikcess/utils/date/index";
 import {
 	EntityContextSchema,
 	ISODateStringSchema,

@@ -1,10 +1,9 @@
-import { BetSDKError } from "@/structures/error";
+import { z } from "zod";
+import { BetSDKError } from "#quikcess/structures";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
-} from "@/types/assertions";
-import { z } from "zod";
-
+} from "#quikcess/types/assertions";
 export const NumericStringSchema = (locale: string) =>
 	z.string().regex(/^\d+$/, `${locale.toUpperCase()}_MUST_BE_NUMERICAL_STRING`);
 

@@ -1,12 +1,12 @@
-import { ISODateStringSchema } from "@/utils/date/index";
 import { CredentialType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { assertAPIObject } from "./common";
+import { ISODateStringSchema } from "#quikcess/utils/date/index";
+import { NumericStringSchema, assertAPIObject } from "./common";
 
 const CredentialSchema = z.object({
 	api_key: z.string(),
-	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
-	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERIC_STRING"),
+	guild_id: NumericStringSchema("guild_id"),
+	user_id: NumericStringSchema("user_id"),
 	type: z.nativeEnum(CredentialType),
 	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
 	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
@@ -14,10 +14,8 @@ const CredentialSchema = z.object({
 
 export const GenerateApiKeySchema = z
 	.object({
-		guild_id: z
-			.string()
-			.regex(/^\d+$/, { message: "GUILD_ID_MUST_BE_NUMERIC_STRING" }),
-		user_id: z.string({ message: "INVALID_USER_ID" }),
+		guild_id: NumericStringSchema("guild_id"),
+		user_id: NumericStringSchema("user_id"),
 		type: z.nativeEnum(CredentialType),
 	})
 	.superRefine((data, ctx) => {

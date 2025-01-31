@@ -23,6 +23,7 @@ export const UserStatsSchema = z.object({
 	played: z.number(),
 	walkover: z.number(),
 	revenged: z.number(),
+	punishments: z.number(),
 	won: z.number(),
 	lost: z.number(),
 	billed: UserBilledSchema,

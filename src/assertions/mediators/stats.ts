@@ -25,5 +25,6 @@ export const MediatorStatsSchema = z.object({
 	played: z.number(),
 	walkover: z.number(),
 	revenged: z.number(),
+	punishments: z.number(),
 	billed: MediatorBilledSchema,
 });

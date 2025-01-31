@@ -1,14 +1,14 @@
-import { ISODateStringSchema } from "@/utils/date/index";
 import {
 	BlacklistStatus,
 	BlacklistTargetType,
 } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { assertAPIObject } from "./common";
+import { ISODateStringSchema } from "#quikcess/utils/date/index";
+import { NumericStringSchema, assertAPIObject } from "./common";
 
 const BlacklistSchema = z.object({
-	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERIC_STRING"),
-	target_id: z.string().regex(/^\d+$/, "TARGET_ID_MUST_BE_NUMERIC_STRING"),
+	guild_id: NumericStringSchema("guild_id"),
+	target_id: NumericStringSchema("target_id"),
 	target_type: z.nativeEnum(BlacklistTargetType),
 	status: z.nativeEnum(BlacklistStatus),
 	added_by: z.string(),

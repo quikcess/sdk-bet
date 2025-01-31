@@ -10,7 +10,7 @@ import { NumericStringSchema } from "../common";
 
 export const APIBetPlayerSchema = z.object({
 	user_id: NumericStringSchema("user_id"),
-	winner: z.boolean().nullable(),
+	winner: z.boolean().nullable().default(null),
 });
 
 export const APIBetLogSchema = z.object({
