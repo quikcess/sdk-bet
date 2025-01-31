@@ -1,9 +1,9 @@
-import { assertGuild } from "@/assertions/guilds/assertions";
-import { assertString } from "@/assertions/literal";
-import { Routes } from "@/lib/routes";
-import { Cache } from "@/services/cache";
-import { toSnakeCase } from "@/utils/cases";
 import type { APIGuild } from "@quikcess/bet-api-types/v1";
+import { assertGuild } from "#quikcess/assertions/guilds/assertions";
+import { assertString } from "#quikcess/assertions/literal";
+import { Routes } from "#quikcess/lib/routes";
+import { Cache } from "#quikcess/services/cache";
+import { toSnakeCase } from "#quikcess/utils/cases";
 import type { Betting } from "..";
 import { GuildBetManager } from "./bet";
 

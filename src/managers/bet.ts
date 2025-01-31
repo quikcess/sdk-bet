@@ -1,10 +1,11 @@
-import { assertGuildBet } from "@/assertions/bets/assertions";
-import { assertString } from "@/assertions/literal";
-import { Routes } from "@/lib/routes";
-import { Cache } from "@/services/cache";
-import { GuildBet } from "@/structures";
-import { toSnakeCase } from "@/utils/cases";
-import type { BetCreateData, Betting } from "..";
+import { assertGuildBet } from "#quikcess/assertions/bets/assertions";
+import { assertString } from "#quikcess/assertions/literal";
+import { Routes } from "#quikcess/lib/routes";
+import { Cache } from "#quikcess/services/cache";
+import { GuildBet } from "#quikcess/structures";
+import type { BetCreateData } from "#quikcess/types";
+import { toSnakeCase } from "#quikcess/utils/cases";
+import type { Betting } from "..";
 
 // Isso é bets global
 export class BetManager {
@@ -18,9 +19,7 @@ export class BetManager {
 	async fetch(betId: string): Promise<GuildBet> {
 		assertString(betId, "BET_ID");
 
-		const { response } = await this.client.api.request(
-			Routes.bets.fetch(betId),
-		);
+		const { response } = await this.client.api.request(Routes.bets.get(betId));
 
 		const bet = new GuildBet(response);
 		this.cache.set(bet.betId, bet);
