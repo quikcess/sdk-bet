@@ -1,2 +1,2 @@
-export * from "./base";
-export * from "./getAll";
+export * from "./blacklist";
+export * from "./blacklists";

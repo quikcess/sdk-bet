@@ -1,2 +1,2 @@
-export * from "./base";
-export * from "./getAll";
+export * from "./scams";
+export * from "./scam";

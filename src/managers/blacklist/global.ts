@@ -1,25 +1,25 @@
-import type {
-	RESTGetAPIBlacklistsPaginationQuery,
-	RESTGetAPIBlacklistsQuery,
-} from "@quikcess/bet-api-types/v1";
-import {
-	assertBlacklist,
-	assertPartialBlacklist,
-} from "#quikcess/assertions/blacklist";
+import type { RESTGetAPIScamsQuery } from "@quikcess/bet-api-types/v1";
+import { assertBlacklist, assertPartialBlacklist } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
+import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
-import { Blacklist } from "#quikcess/structures/blacklist/blacklist";
-import { Blacklists } from "#quikcess/structures/blacklist/index";
+import { Cache } from "#quikcess/services";
+import { Blacklist, Blacklists } from "#quikcess/structures/blacklist";
 import { Collection } from "#quikcess/structures/collection";
 import type {
 	BlacklistAddData,
 	BlacklistUpdateData,
-} from "#quikcess/types/index";
-import { toSnakeCase } from "#quikcess/utils/cases/index";
-import type { Betting } from "../index";
+	BlacklistsQuery,
+} from "#quikcess/types";
+import type { ScamsQuery } from "#quikcess/types/scam";
+import { toSnakeCase } from "#quikcess/utils/cases";
 
-export class BlacklistModule {
-	constructor(private readonly client: Betting) {}
+export class BlacklistManager {
+	public readonly cache: Cache<Blacklist>;
+
+	constructor(public readonly client: Betting) {
+		this.cache = new Cache<Blacklist>();
+	}
 
 	async getById(targetId: string): Promise<Blacklist> {
 		assertString(targetId, "TARGET_ID");
@@ -31,20 +31,33 @@ export class BlacklistModule {
 		return new Blacklist(response);
 	}
 
-	async getAll(
-		guildId?: string,
-		options?: RESTGetAPIBlacklistsPaginationQuery,
-	): Promise<Blacklists> {
+	async getAll({
+		guildId,
+		dateStart,
+		dateEnd,
+		limit,
+		page,
+		skip,
+	}: BlacklistsQuery): Promise<Blacklists> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 
-		const query: RESTGetAPIBlacklistsQuery = options ? options : {};
-		if (guildId) query.guild_id = guildId;
+		const options = {
+			guildId,
+			dateStart,
+			dateEnd,
+			limit,
+			page,
+			skip,
+		};
+
+		const query: RESTGetAPIScamsQuery = toSnakeCase<
+			RESTGetAPIScamsQuery,
+			ScamsQuery
+		>(options);
 
 		const { response } = await this.client.api.request(
 			Routes.blacklist.getAll(),
-			{
-				query,
-			},
+			{ query },
 		);
 
 		const transformedData = new Collection(
