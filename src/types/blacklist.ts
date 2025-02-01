@@ -2,6 +2,7 @@ import type {
 	APIBlacklist,
 	BlacklistTargetType,
 	ISODateString,
+	RESTGetAPIBlacklistsQuery,
 } from "@quikcess/bet-api-types/v1";
 
 export type BlacklistUpdateData = Partial<
@@ -24,4 +25,13 @@ export type BlacklistData = Omit<
 	addedBy: string;
 	createdAt: ISODateString;
 	updatedAt: ISODateString;
+};
+
+export type BlacklistsQuery = Omit<
+	RESTGetAPIBlacklistsQuery,
+	"guild_id" | "date_start" | "date_end"
+> & {
+	guildId?: string;
+	dateStart?: ISODateString;
+	dateEnd?: ISODateString;
 };

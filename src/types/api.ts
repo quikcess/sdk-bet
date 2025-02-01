@@ -1,11 +1,10 @@
-import type { Route } from "@/lib/routes";
 import type {
-	RESTGetAPIAllBlacklistQuery,
-	RESTGetAPIAllBlacklistResponse,
-	RESTGetAPIAllScamsQuery,
-	RESTGetAPIAllScamsResponse,
+	RESTGetAPIBetStatsResponse,
 	RESTGetAPIBlacklistBaseQuery,
+	RESTGetAPIBlacklistResponse,
 	RESTGetAPIBlacklistStatsResponse,
+	RESTGetAPIBlacklistsQuery,
+	RESTGetAPIBlacklistsResponse,
 	RESTGetAPICredentialBaseQuery,
 	RESTGetAPICredentialResponse,
 	RESTGetAPIGuildBetBulkResponse,
@@ -15,20 +14,33 @@ import type {
 	RESTGetAPIGuildBetThreadWaitTimeResponse,
 	RESTGetAPIGuildBetsQuery,
 	RESTGetAPIGuildBetsResponse,
+	RESTGetAPIGuildBlacklistStatsResponse,
 	RESTGetAPIGuildMediatorResponse,
+	RESTGetAPIGuildMediatorStatsResponse,
+	RESTGetAPIGuildMediatorsPaginationQuery,
 	RESTGetAPIGuildMediatorsResponse,
 	RESTGetAPIGuildResponse,
+	RESTGetAPIGuildScamStatsResponse,
 	RESTGetAPIGuildStatsResponse,
 	RESTGetAPIGuildUserResponse,
 	RESTGetAPIGuildUserStatsResponse,
+	RESTGetAPIGuildUsersPaginationQuery,
 	RESTGetAPIGuildUsersResponse,
+	RESTGetAPIGuildsPaginationQuery,
 	RESTGetAPIGuildsResponse,
+	RESTGetAPIMediatorResponse,
 	RESTGetAPIMediatorStatsResponse,
+	RESTGetAPIMediatorsResponse,
 	RESTGetAPIScamBaseQuery,
 	RESTGetAPIScamResponse,
 	RESTGetAPIScamStatsResponse,
+	RESTGetAPIScamsQuery,
+	RESTGetAPIScamsResponse,
 	RESTGetAPISimilarScamsResponse,
 	RESTGetAPIStatusResponse,
+	RESTGetAPIUserResponse,
+	RESTGetAPIUserStatsResponse,
+	RESTGetAPIUsersResponse,
 	RESTPatchAPIBlacklistUpdateBody,
 	RESTPatchAPIGuildBetUpdateBody,
 	RESTPatchAPIGuildMediatorUpdateBody,
@@ -43,11 +55,11 @@ import type {
 	RESTPostAPIGuildUserCreateBody,
 	RESTPostAPIScamCreateBody,
 } from "@quikcess/bet-api-types/v1";
+import type { Route } from "#quikcess/lib/routes";
 
 export interface APIEndpoints {
-	status: {
-		response: RESTGetAPIStatusResponse;
-	};
+	status: { response: RESTGetAPIStatusResponse };
+
 	"credentials/get": {
 		response: RESTGetAPICredentialResponse;
 		query: RESTGetAPICredentialBaseQuery;
@@ -57,42 +69,37 @@ export interface APIEndpoints {
 		response: RESTGetAPICredentialResponse;
 		body: RESTPostAPICredentialJSONBody;
 	};
-	"blacklist/getById": {
-		response: RESTGetAPIAllBlacklistResponse;
-	};
+
+	"blacklist/getById": { response: RESTGetAPIBlacklistResponse };
 	"blacklist/getAll": {
-		response: RESTGetAPIAllBlacklistResponse;
-		query: RESTGetAPIAllBlacklistQuery;
+		response: RESTGetAPIBlacklistsResponse;
+		query: RESTGetAPIBlacklistsQuery;
 	};
 	"blacklist/add": {
 		method: "POST";
-		response: RESTGetAPIAllBlacklistResponse;
+		response: RESTGetAPIBlacklistResponse;
 		body: RESTPostAPIBlacklistCreateBody;
 	};
 	"blacklist/update": {
 		method: "PATCH";
-		response: RESTGetAPIAllBlacklistResponse;
+		response: RESTGetAPIBlacklistResponse;
 		body: RESTPatchAPIBlacklistUpdateBody;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
 	"blacklist/delete": {
 		method: "DELETE";
-		response: RESTGetAPIAllBlacklistResponse;
+		response: RESTGetAPIBlacklistResponse;
 		query: RESTGetAPIBlacklistBaseQuery;
 	};
-	"blacklist/fetchStats": {
-		method: "GET";
+	"blacklist/getStats": {
 		response: RESTGetAPIBlacklistStatsResponse;
 	};
-	"scams/getById": {
-		response: RESTGetAPIScamResponse;
-	};
-	"scams/getSimilar": {
-		response: RESTGetAPISimilarScamsResponse;
-	};
+
+	"scams/getById": { response: RESTGetAPIScamResponse };
+	"scams/getSimilar": { response: RESTGetAPISimilarScamsResponse };
 	"scams/getAll": {
-		response: RESTGetAPIAllScamsResponse;
-		query: RESTGetAPIAllScamsQuery;
+		response: RESTGetAPIScamsResponse;
+		query: RESTGetAPIScamsQuery;
 	};
 	"scams/add": {
 		method: "POST";
@@ -110,24 +117,38 @@ export interface APIEndpoints {
 		response: RESTGetAPIScamResponse;
 		query: RESTGetAPIScamBaseQuery;
 	};
-	"scams/fetchStats": {
-		method: "GET";
+	"scams/getStats": {
 		response: RESTGetAPIScamStatsResponse;
 	};
-	"guilds/bets/get": {
-		response: RESTGetAPIGuildBetResponse;
+
+	"guilds/get": { response: RESTGetAPIGuildResponse };
+	"guilds/getAll": {
+		response: RESTGetAPIGuildsResponse;
+		query: RESTGetAPIGuildsPaginationQuery;
 	};
-	"bets/fetch": {
-		response: RESTGetAPIGuildBetResponse;
+	"guilds/getStats": { response: RESTGetAPIGuildStatsResponse };
+	"guilds/create": {
+		method: "POST";
+		response: RESTGetAPIGuildResponse;
+		body: RESTPostAPIGuildCreateBody;
 	};
-	"guilds/bets/getByChannelId": {
-		response: RESTGetAPIGuildBetResponse;
+	"guilds/update": {
+		method: "PATCH";
+		response: RESTGetAPIGuildResponse;
+		body: RESTPatchAPIGuildUpdateBody;
 	};
+	"guilds/delete": { method: "DELETE"; response: RESTGetAPIGuildResponse };
+
+	"guilds/scams/getStats": {
+		response: RESTGetAPIGuildScamStatsResponse;
+	};
+	"guilds/blacklist/getStats": {
+		response: RESTGetAPIGuildBlacklistStatsResponse;
+	};
+
+	"guilds/bets/get": { response: RESTGetAPIGuildBetResponse };
+	"guilds/bets/getByChannelId": { response: RESTGetAPIGuildBetResponse };
 	"guilds/bets/getAll": {
-		response: RESTGetAPIGuildBetsResponse;
-		query: RESTGetAPIGuildBetsQuery;
-	};
-	"bets/fetchAll": {
 		response: RESTGetAPIGuildBetsResponse;
 		query: RESTGetAPIGuildBetsQuery;
 	};
@@ -145,18 +166,8 @@ export interface APIEndpoints {
 		method: "DELETE";
 		response: RESTGetAPIGuildBetResponse;
 	};
-	"guilds/bets/getStats": {
-		response: RESTGetAPIGuildBetStatsResponse;
-	};
-	"bets/fetchStats": {
-		response: RESTGetAPIGuildBetStatsResponse;
-	};
-	"guilds/bets/getCount": {
-		response: RESTGetAPIGuildBetCountResponse;
-	};
-	"bets/fetchCount": {
-		response: RESTGetAPIGuildBetCountResponse;
-	};
+	"guilds/bets/getStats": { response: RESTGetAPIGuildBetStatsResponse };
+	"guilds/bets/getCount": { response: RESTGetAPIGuildBetCountResponse };
 	"guilds/bets/bulkCreate": {
 		method: "POST";
 		response: RESTGetAPIGuildBetBulkResponse;
@@ -170,55 +181,13 @@ export interface APIEndpoints {
 	"guilds/bets/getThreadWaitTime": {
 		response: RESTGetAPIGuildBetThreadWaitTimeResponse;
 	};
-	"guilds/get": {
-		response: RESTGetAPIGuildResponse;
-	};
-	"guilds/getAll": {
-		response: RESTGetAPIGuildsResponse;
-	};
-	"guilds/getStats": {
-		response: RESTGetAPIGuildStatsResponse;
-	};
-	"guilds/create": {
-		method: "POST";
-		response: RESTGetAPIGuildResponse;
-		body: RESTPostAPIGuildCreateBody;
-	};
-	"guilds/update": {
-		method: "PATCH";
-		response: RESTGetAPIGuildResponse;
-		body: RESTPatchAPIGuildUpdateBody;
-	};
-	"guilds/delete": {
-		method: "DELETE";
-		response: RESTGetAPIGuildResponse;
-	};
-	"guilds/scams/getStats": {
-		method: "GET";
-		response: RESTGetAPIScamStatsResponse;
-	};
-	"guilds/blacklist/getStats": {
-		method: "GET";
-		response: RESTGetAPIBlacklistStatsResponse;
-	};
-	"guilds/users/get": {
-		response: RESTGetAPIGuildUserResponse;
-	};
-	"users/fetch": {
-		response: RESTGetAPIGuildUserResponse;
-	};
+
+	"guilds/users/get": { response: RESTGetAPIGuildUserResponse };
 	"guilds/users/getAll": {
 		response: RESTGetAPIGuildUsersResponse;
+		query: RESTGetAPIGuildUsersPaginationQuery;
 	};
-	"users/fetchAll": {
-		response: RESTGetAPIGuildUsersResponse;
-	};
-	"guilds/users/getStats": {
-		response: RESTGetAPIGuildUserStatsResponse;
-	};
-	"users/fetchStats": {
-		response: RESTGetAPIGuildUserStatsResponse;
-	};
+	"guilds/users/getStats": { response: RESTGetAPIGuildUserStatsResponse };
 	"guilds/users/create": {
 		method: "POST";
 		response: RESTGetAPIGuildUserResponse;
@@ -231,22 +200,16 @@ export interface APIEndpoints {
 	};
 	"guilds/users/delete": {
 		method: "DELETE";
-		response: RESTGetAPIGuildMediatorResponse;
+		response: RESTGetAPIGuildUserResponse;
 	};
-	"guilds/mediators/get": {
-		response: RESTGetAPIGuildMediatorResponse;
-	};
-	"mediators/fetch": {
-		response: RESTGetAPIGuildMediatorResponse;
-	};
+
+	"guilds/mediators/get": { response: RESTGetAPIGuildMediatorResponse };
 	"guilds/mediators/getAll": {
 		response: RESTGetAPIGuildMediatorsResponse;
-	};
-	"mediators/fetchAll": {
-		response: RESTGetAPIGuildMediatorsResponse;
+		query: RESTGetAPIGuildMediatorsPaginationQuery;
 	};
 	"guilds/mediators/getStats": {
-		response: RESTGetAPIMediatorStatsResponse;
+		response: RESTGetAPIGuildMediatorStatsResponse;
 	};
 	"guilds/mediators/create": {
 		method: "POST";
@@ -262,7 +225,28 @@ export interface APIEndpoints {
 		method: "DELETE";
 		response: RESTGetAPIGuildMediatorResponse;
 	};
-	"mediators/fetchStats": {
+
+	"bets/get": { response: RESTGetAPIGuildBetResponse };
+	"bets/getAll": {
+		response: RESTGetAPIGuildBetsResponse;
+		query: RESTGetAPIGuildBetsQuery;
+	};
+	"bets/getStats": { response: RESTGetAPIBetStatsResponse };
+	"bets/getCount": { response: RESTGetAPIGuildBetCountResponse };
+
+	"users/get": { response: RESTGetAPIUserResponse };
+	"users/getAll": {
+		response: RESTGetAPIUsersResponse;
+		query: RESTGetAPIGuildUsersPaginationQuery;
+	};
+	"users/getStats": { response: RESTGetAPIUserStatsResponse };
+
+	"mediators/get": { response: RESTGetAPIMediatorResponse };
+	"mediators/getAll": {
+		response: RESTGetAPIMediatorsResponse;
+		query: RESTGetAPIGuildMediatorsPaginationQuery;
+	};
+	"mediators/getStats": {
 		response: RESTGetAPIMediatorStatsResponse;
 	};
 }
