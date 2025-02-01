@@ -23,7 +23,6 @@ export class BetLog {
 	 * @param data - Raw API data representing the bet log URLs.
 	 */
 	constructor(data: APIBetLog) {
-		// Validate and convert string URLs to URL objects
 		this.closedUrl = data.closed_url;
 		this.createdUrl = data.created_url;
 		this.startedUrl = data.started_url;

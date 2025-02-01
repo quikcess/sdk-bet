@@ -1,4 +1,4 @@
-import { Collection } from "@/structures/collection";
+import { Collection } from "#quikcess/structures/collection";
 import type { GuildBet } from "./base";
 
 /**
@@ -6,16 +6,16 @@ import type { GuildBet } from "./base";
  */
 export class GuildAllBets {
 	/** The current page number of the paginated results, or null if not applicable. */
-	currentPage: number | null;
+	public readonly currentPage: number | null;
 
 	/** The total number of pages in the result set, or null if not applicable. */
-	totalPages: number | null;
+	public readonly totalPages: number | null;
 
 	/** The total number of bets in the result set. */
-	totalBets: number;
+	public readonly totalBets: number;
 
 	/** A collection of bets, mapped by their string identifier. */
-	data: Collection<string, GuildBet>;
+	public readonly data: Collection<string, GuildBet>;
 
 	/**
 	 * Initializes the GuildAllBets object.
@@ -42,7 +42,7 @@ export class GuildAllBets {
 	 *
 	 * @returns A plain object representation of the GuildAllBets.
 	 */
-	toJSON() {
+	public toJSON() {
 		return {
 			current_page: this.currentPage,
 			total_pages: this.totalPages,
@@ -56,12 +56,12 @@ export class GuildAllBets {
 	 *
 	 * @returns A string representation of the GuildAllBets.
 	 */
-	toString() {
+	public toString() {
 		return `GuildAllBets {
-      currentPage: ${this.currentPage},
-      totalPages: ${this.totalPages},
-      totalBets: ${this.totalBets},
-      data: Collection(${this.data.size}),
-    }`;
+			currentPage: ${this.currentPage},
+			totalPages: ${this.totalPages},
+			totalBets: ${this.totalBets},
+			data: Collection(${this.data.size}),
+		}`;
 	}
 }

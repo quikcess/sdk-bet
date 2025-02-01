@@ -1,5 +1,3 @@
-import { assertGuildBet } from "@/assertions/bets/assertions";
-import { toSnakeCase } from "@/utils/cases/index";
 import type {
 	APIGuildBet,
 	BetGelType,
@@ -8,6 +6,8 @@ import type {
 	BetStatus,
 	BetType,
 } from "@quikcess/bet-api-types/v1";
+import { assertGuildBet } from "#quikcess/assertions/bets/assertions";
+import { toSnakeCase } from "#quikcess/utils/cases/index";
 import { BetLog } from "./log";
 import { BetPlayer } from "./player";
 

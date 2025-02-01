@@ -7,7 +7,7 @@ export class BetPlayer {
 	/** The user ID of the player. */
 	public readonly userId: string;
 
-	/** The number of winner for this player. */
+	/** Whether he was the winner or not. */
 	public readonly winner: boolean | null;
 
 	/**
@@ -18,6 +18,6 @@ export class BetPlayer {
 	 */
 	constructor(data: APIBetPlayer) {
 		this.userId = data.user_id;
-		this.winner = data.winner; // Ensure non-negative wins
+		this.winner = data.winner;
 	}
 }

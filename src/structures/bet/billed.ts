@@ -4,19 +4,19 @@ import type {
 } from "@quikcess/bet-api-types/v1";
 
 /**
- * Represents the billing information for bets, including total profit, fee, and room-related metrics.
+ * Represents the billing information for rooms, including total sold, revenue, expenses, and profit.
  */
 export class BetBilledRooms {
 	/** Total number of rooms sold. */
 	public readonly sold: number;
 
-	/** Total revenue generated from selling rooms. */
+	/** Total revenue generated from selling rooms, based on room_price (from the bet schema). */
 	public readonly revenue: number;
 
-	/** Total cost incurred to purchase the rooms. */
+	/** Total expenses incurred to purchase the rooms, based on room_price (from the bet schema). */
 	public readonly expenses: number;
 
-	/** Net profit calculated as invoicing minus investment. */
+	/** Net profit calculated as revenue minus expenses, based on room_price (from the bet schema). */
 	public readonly profit: number;
 
 	/**
@@ -27,21 +27,24 @@ export class BetBilledRooms {
 	 */
 	constructor(data: APIBetBilledRooms) {
 		this.sold = data.sold;
-		this.profit = data.profit;
-		this.expenses = data.expenses;
 		this.revenue = data.revenue;
+		this.expenses = data.expenses;
+		this.profit = data.profit;
 	}
 }
 
 /**
- * Represents the overall billed information for bets, including total profit, fee-only profit, and room-based data.
+ * Represents the overall billed information for bets, including total profit, fee-only profit, and room-related data.
  */
 export class BetBilled {
-	/** Total invoiced amount (fee + room sales). */
+	/** Total profit (fee_only + rooms.profit). */
 	public readonly profit: number;
 
 	/** Total billed without rooms, only with the imposed fee. */
 	public readonly feeOnly: number;
+
+	/** Total revenue (fee_only + rooms.revenue). */
+	public readonly revenue: number;
 
 	/** Billing information related to room sales. */
 	public readonly rooms: BetBilledRooms;
@@ -55,6 +58,7 @@ export class BetBilled {
 	constructor(data: APIBetBilled) {
 		this.profit = data.profit;
 		this.feeOnly = data.fee_only;
+		this.revenue = data.revenue;
 		this.rooms = new BetBilledRooms(data.rooms);
 	}
 }

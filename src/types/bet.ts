@@ -52,7 +52,7 @@ export type BetData = Omit<
 	guildId: string;
 	betId: string;
 	players: BetPlayerData[];
-	playersWhoConfirmed: BetPlayerData[];
+	playersWhoConfirmed: string[];
 	cancelledBy: string | null;
 	abandonedBy: string | null;
 	givenUpBy: string | null;
