@@ -28,7 +28,10 @@ export class ScamManager {
 			Routes.scams.getByName(targetName),
 		);
 
-		return new Scam(response);
+		const data = new Scam(response);
+		this.cache.set(data.targetName, data);
+
+		return data;
 	}
 
 	async getSimilar(targetName: string): Promise<Collection<string, Scam>> {
@@ -37,6 +40,10 @@ export class ScamManager {
 		const { response } = await this.client.api.request(
 			Routes.scams.getSimilar(targetName),
 		);
+
+		for (const data of response) {
+			this.cache.set(data.target_name, new Scam(data));
+		}
 
 		return new Collection(
 			response.map((data) => [data.target_name, new Scam(data)]),
@@ -75,6 +82,10 @@ export class ScamManager {
 			response.data.map((data) => [data.target_name, new Scam(data)]),
 		);
 
+		for (const data of transformedData.values()) {
+			this.cache.set(data.targetName, data);
+		}
+
 		return new Scams({
 			currentPage: response.current_page,
 			totalPages: response.total_pages,
@@ -92,7 +103,10 @@ export class ScamManager {
 			body: payload,
 		});
 
-		return new Scam(response);
+		const dataCreated = new Scam(response);
+		this.cache.set(dataCreated.targetName, dataCreated);
+
+		return dataCreated;
 	}
 
 	async update(
@@ -117,7 +131,10 @@ export class ScamManager {
 			},
 		);
 
-		return new Scam(response);
+		const dataUpdated = new Scam(response);
+		this.cache.set(dataUpdated.targetName, dataUpdated);
+
+		return dataUpdated;
 	}
 
 	async delete(targetName: string, guildId?: string): Promise<Scam> {
@@ -131,12 +148,13 @@ export class ScamManager {
 			{ method: "DELETE", query },
 		);
 
+		this.cache.delete(targetName);
+
 		return new Scam(response);
 	}
 
 	async fetchStats(): Promise<ScamStats> {
 		const { response } = await this.client.api.request(Routes.scams.getStats());
-
 		return new ScamStats(response);
 	}
 }

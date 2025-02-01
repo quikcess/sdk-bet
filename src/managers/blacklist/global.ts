@@ -1,17 +1,17 @@
-import type { RESTGetAPIScamsQuery } from "@quikcess/bet-api-types/v1";
+import type { RESTGetAPIBlacklistsQuery } from "@quikcess/bet-api-types/v1";
 import { assertBlacklist, assertPartialBlacklist } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
 import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Blacklist, Blacklists } from "#quikcess/structures/blacklist";
+import { BlacklistStats } from "#quikcess/structures/blacklist/stats/global";
 import { Collection } from "#quikcess/structures/collection";
 import type {
 	BlacklistAddData,
 	BlacklistUpdateData,
 	BlacklistsQuery,
 } from "#quikcess/types";
-import type { ScamsQuery } from "#quikcess/types/scam";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class BlacklistManager {
@@ -28,7 +28,10 @@ export class BlacklistManager {
 			Routes.blacklist.getById(targetId),
 		);
 
-		return new Blacklist(response);
+		const data = new Blacklist(response);
+		this.cache.set(data.targetId, data);
+
+		return data;
 	}
 
 	async getAll({
@@ -50,9 +53,9 @@ export class BlacklistManager {
 			skip,
 		};
 
-		const query: RESTGetAPIScamsQuery = toSnakeCase<
-			RESTGetAPIScamsQuery,
-			ScamsQuery
+		const query: RESTGetAPIBlacklistsQuery = toSnakeCase<
+			RESTGetAPIBlacklistsQuery,
+			BlacklistsQuery
 		>(options);
 
 		const { response } = await this.client.api.request(
@@ -63,6 +66,10 @@ export class BlacklistManager {
 		const transformedData = new Collection(
 			response.data.map((data) => [data.target_id, new Blacklist(data)]),
 		);
+
+		for (const data of transformedData.values()) {
+			this.cache.set(data.targetId, data);
+		}
 
 		return new Blacklists({
 			currentPage: response.current_page,
@@ -81,7 +88,10 @@ export class BlacklistManager {
 			body: payload,
 		});
 
-		return new Blacklist(response);
+		const dataCreated = new Blacklist(response);
+		this.cache.set(dataCreated.targetId, dataCreated);
+
+		return dataCreated;
 	}
 
 	async update(
@@ -106,7 +116,10 @@ export class BlacklistManager {
 			},
 		);
 
-		return new Blacklist(response);
+		const dataUpdated = new Blacklist(response);
+		this.cache.set(dataUpdated.targetId, dataUpdated);
+
+		return dataUpdated;
 	}
 
 	async delete(targetId: string, guildId?: string): Promise<Blacklist> {
@@ -120,6 +133,15 @@ export class BlacklistManager {
 			{ method: "DELETE", query },
 		);
 
+		this.cache.delete(targetId);
+
 		return new Blacklist(response);
+	}
+
+	async fetchStats(): Promise<BlacklistStats> {
+		const { response } = await this.client.api.request(
+			Routes.blacklist.getStats(),
+		);
+		return new BlacklistStats(response);
 	}
 }
