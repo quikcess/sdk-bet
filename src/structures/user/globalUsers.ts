@@ -1,3 +1,4 @@
+import { assertGlobalUsers } from "#quikcess/assertions";
 import { Collection } from "../collection";
 import type { User } from "./globalUser";
 
@@ -28,6 +29,8 @@ export class Users {
 		totalUsers = 0,
 		data = new Collection<string, User>(),
 	}: Partial<Users>) {
+		assertGlobalUsers(data.values().toArray());
+
 		this.data = data;
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;

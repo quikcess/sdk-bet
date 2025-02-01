@@ -1,3 +1,4 @@
+import { assertBlacklists } from "#quikcess/assertions";
 import { Collection } from "#quikcess/structures/collection";
 import type { Blacklist } from "./blacklist";
 
@@ -31,6 +32,8 @@ export class Blacklists {
 		totalEntries = 0,
 		data = new Collection<string, Blacklist>(),
 	}: Partial<Blacklists>) {
+		assertBlacklists(data.values().toArray());
+
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
 		this.totalEntries = totalEntries;

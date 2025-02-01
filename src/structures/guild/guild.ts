@@ -8,7 +8,7 @@ import { GuildScamManager } from "#quikcess/managers/scam/guild";
 import { GuildUserManager } from "#quikcess/managers/user/guild";
 import { toSnakeCase } from "#quikcess/utils/cases";
 import { GuildChannels } from "./schemas/channels";
-import { GuildLogs } from "./schemas/logs";
+import { GuildLogs } from "./schemas/logs/logs";
 import { GuildPermission } from "./schemas/permission";
 
 /**

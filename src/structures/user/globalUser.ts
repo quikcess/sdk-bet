@@ -1,4 +1,5 @@
 import type { APIUser } from "@quikcess/bet-api-types/v1";
+import { assertGlobalUser } from "#quikcess/assertions";
 import { UserStats } from "./stats/base";
 
 /**
@@ -23,6 +24,8 @@ export class User {
 	 * @param data The data to initialize the User.
 	 */
 	constructor(data: APIUser) {
+		assertGlobalUser(data);
+
 		this.userId = data.user_id;
 		this.stats = new UserStats(data.stats);
 		this.createdAt = new Date(data.created_at);

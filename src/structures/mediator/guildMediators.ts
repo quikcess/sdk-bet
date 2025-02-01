@@ -1,3 +1,4 @@
+import { assertGuildMediators } from "#quikcess/assertions";
 import { Collection } from "../collection";
 import type { GuildMediator } from "./guildMediator";
 
@@ -28,6 +29,8 @@ export class GuildMediators {
 		totalMediators = 0,
 		data = new Collection<string, GuildMediator>(),
 	}: Partial<GuildMediators>) {
+		assertGuildMediators(data.values().toArray());
+
 		this.data = data;
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;

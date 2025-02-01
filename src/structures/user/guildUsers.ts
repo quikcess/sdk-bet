@@ -1,3 +1,4 @@
+import { assertGuildUsers } from "#quikcess/assertions";
 import { Collection } from "../collection";
 import type { GuildUser } from "./guildUser";
 
@@ -28,6 +29,8 @@ export class GuildUsers {
 		totalUsers = 0,
 		data = new Collection<string, GuildUser>(),
 	}: Partial<GuildUsers>) {
+		assertGuildUsers(data.values().toArray());
+
 		this.data = data;
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;

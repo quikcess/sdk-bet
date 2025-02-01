@@ -1,3 +1,4 @@
+import { assertGlobalMediators } from "#quikcess/assertions";
 import { Collection } from "../collection";
 import type { Mediator } from "./globalMediator";
 
@@ -28,6 +29,8 @@ export class Mediators {
 		totalMediators = 0,
 		data = new Collection<string, Mediator>(),
 	}: Partial<Mediators>) {
+		assertGlobalMediators(data.values().toArray());
+
 		this.data = data;
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;

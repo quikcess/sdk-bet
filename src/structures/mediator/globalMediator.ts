@@ -1,4 +1,5 @@
 import type { APIMediator } from "@quikcess/bet-api-types/v1";
+import { assertGlobalMediator } from "#quikcess/assertions";
 import { MediatorStats } from "./stats/base";
 
 /**
@@ -25,6 +26,8 @@ export class Mediator {
 
 	/** Constructor that initializes the Mediator instance with the provided data. */
 	constructor(data: APIMediator) {
+		assertGlobalMediator(data);
+
 		this.userId = data.user_id;
 		this.uptime = data.uptime;
 		this.lastEntry = data.last_entry;

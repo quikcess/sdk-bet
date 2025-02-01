@@ -1,3 +1,5 @@
+import type { APIGuildUser } from "@quikcess/bet-api-types/v1";
+import { assertGuildUser } from "#quikcess/assertions";
 import { GuildUserNotifications } from "./schemas/notifications";
 import { GuildUserScores } from "./schemas/scores";
 import { GuildUserWallet } from "./schemas/wallet";
@@ -36,7 +38,9 @@ export class GuildUser {
 	 *
 	 * @param data The data to initialize the GuildUser.
 	 */
-	constructor(data: any) {
+	constructor(data: APIGuildUser) {
+		assertGuildUser(data);
+
 		this.userId = data.user_id;
 		this.guildId = data.guild_id;
 		this.wallet = new GuildUserWallet(data.wallet);

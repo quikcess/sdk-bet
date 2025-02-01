@@ -1,4 +1,5 @@
 import type { APIGuildMediator } from "@quikcess/bet-api-types/v1";
+import { assertGuildMediator } from "#quikcess/assertions";
 import { GuildMediatorLimiter } from "./schemas/limiter";
 import { GuildMediatorPix } from "./schemas/pix";
 import { GuildMediatorSignature } from "./schemas/signature";
@@ -50,6 +51,8 @@ export class GuildMediator {
 	 * @param data The data to initialize the GuildMediator.
 	 */
 	constructor(data: APIGuildMediator) {
+		assertGuildMediator(data);
+
 		this.userId = data.user_id;
 		this.guildId = data.guild_id;
 		this.categoryId = data.category_id;

@@ -1,3 +1,4 @@
+import { assertGuilds } from "#quikcess/assertions";
 import { Collection } from "#quikcess/structures/collection";
 import type { Guild } from "./guild";
 
@@ -31,6 +32,8 @@ export class Guilds {
 		totalGuilds = 0,
 		data = new Collection<string, Guild>(),
 	}: Partial<Guilds>) {
+		assertGuilds(data.values().toArray());
+
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
 		this.totalGuilds = totalGuilds;

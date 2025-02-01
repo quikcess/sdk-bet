@@ -1,3 +1,4 @@
+import { assertScams } from "#quikcess/assertions";
 import { Collection } from "#quikcess/structures/collection";
 import type { Scam } from "./scam";
 
@@ -31,6 +32,8 @@ export class Scams {
 		totalEntries = 0,
 		data = new Collection<string, Scam>(),
 	}: Partial<Scams>) {
+		assertScams(data.values().toArray());
+
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
 		this.totalEntries = totalEntries;

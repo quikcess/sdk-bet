@@ -1,10 +1,10 @@
 import { Collection } from "#quikcess/structures/collection";
-import type { GuildBet } from "./base";
+import type { GuildBet } from "./bet";
 
 /**
  * Represents the result of all bets, including pagination and a collection of bet data.
  */
-export class GuildAllBets {
+export class GuildBets {
 	/** The current page number of the paginated results, or null if not applicable. */
 	public readonly currentPage: number | null;
 
@@ -18,7 +18,7 @@ export class GuildAllBets {
 	public readonly data: Collection<string, GuildBet>;
 
 	/**
-	 * Initializes the GuildAllBets object.
+	 * Initializes the GuildBets object.
 	 *
 	 * @param currentPage - The current page number of the paginated results.
 	 * @param totalPages - The total number of pages in the result set.
@@ -30,7 +30,7 @@ export class GuildAllBets {
 		totalPages = null,
 		totalBets = 0,
 		data = new Collection<string, GuildBet>(),
-	}: Partial<GuildAllBets>) {
+	}: Partial<GuildBets>) {
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
 		this.totalBets = totalBets;
@@ -38,9 +38,9 @@ export class GuildAllBets {
 	}
 
 	/**
-	 * Serializes the GuildAllBets object into a plain JSON object.
+	 * Serializes the GuildBets object into a plain JSON object.
 	 *
-	 * @returns A plain object representation of the GuildAllBets.
+	 * @returns A plain object representation of the GuildBets.
 	 */
 	public toJSON() {
 		return {
@@ -52,12 +52,12 @@ export class GuildAllBets {
 	}
 
 	/**
-	 * Returns a string representation of the GuildAllBets for debugging purposes.
+	 * Returns a string representation of the GuildBets for debugging purposes.
 	 *
-	 * @returns A string representation of the GuildAllBets.
+	 * @returns A string representation of the GuildBets.
 	 */
 	public toString() {
-		return `GuildAllBets {
+		return `GuildBets {
 			currentPage: ${this.currentPage},
 			totalPages: ${this.totalPages},
 			totalBets: ${this.totalBets},

@@ -1,5 +1,5 @@
 import type { APIGuildBetStats } from "@quikcess/bet-api-types/v1";
-import { BetBilled } from "../billed";
+import { BetBilled } from "../schemas/billed";
 
 /**
  * Represents aggregated metrics for bets by guild, including totals, statuses, and billing.
