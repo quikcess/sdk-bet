@@ -1,11 +1,8 @@
 import { z } from "zod";
-import { isISODateString } from "#quikcess/utils/date/index";
 import {
-	EntityContextSchema,
 	ISODateStringSchema,
-	NumericStringSchema,
-	TimestampSchema,
-} from "../common";
+	isISODateString,
+} from "#quikcess/utils/date/index";
 import {
 	APIBetLogSchema,
 	GuildBetBasicSchema,
@@ -13,8 +10,9 @@ import {
 	GuildBetPlayerSchema,
 } from "./schemas";
 
-export const GuildBetSchema = EntityContextSchema.omit({ user_id: true })
-	.extend({
+export const GuildBetSchema = z
+	.object({
+		guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
 		value: z.union([
 			z.number(),
 			z
@@ -25,10 +23,16 @@ export const GuildBetSchema = EntityContextSchema.omit({ user_id: true })
 					{ message: "INVALID_NUMBER_IN_STRING" },
 				),
 		]),
-		queue_channel_id: NumericStringSchema("queue_channel_id"),
-		channel_id: NumericStringSchema("channel_id"),
-		mediator_id: NumericStringSchema("mediator_id"),
-		started_at: ISODateStringSchema.default(() => new Date().toISOString()),
+		queue_channel_id: z
+			.string()
+			.regex(/^\d+$/, "QUEUE_CHANNEL_ID_MUST_BE_NUMERICAL_STRING"),
+		channel_id: z
+			.string()
+			.regex(/^\d+$/, "CHANNEL_ID_MUST_BE_NUMERICAL_STRING"),
+		mediator_id: z
+			.string()
+			.regex(/^\d+$/, "MEDIATOR_ID_MUST_BE_NUMERICAL_STRING"),
+		started_at: ISODateStringSchema,
 		closed_at: z
 			.string()
 			.or(z.null())
@@ -36,10 +40,11 @@ export const GuildBetSchema = EntityContextSchema.omit({ user_id: true })
 				message: "INVALID_ISO_DATE_STRING",
 			}),
 		logs: APIBetLogSchema,
+		created_at: ISODateStringSchema,
+		updated_at: ISODateStringSchema,
 	})
 	.merge(GuildBetBasicSchema)
 	.merge(GuildBetOutcomeSchema)
-	.merge(GuildBetPlayerSchema)
-	.merge(TimestampSchema);
+	.merge(GuildBetPlayerSchema);
 
 export const PartialGuildBetSchema = GuildBetSchema.partial();

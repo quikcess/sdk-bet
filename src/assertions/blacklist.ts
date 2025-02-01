@@ -3,42 +3,45 @@ import {
 	BlacklistTargetType,
 } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { ISODateStringSchema } from "#quikcess/utils/date/index";
-import { NumericStringSchema, assertAPIObject } from "./common";
+import { ISODateStringSchema } from "#quikcess/utils/date";
+import { createAssertion } from "./common";
 
 const BlacklistSchema = z.object({
-	guild_id: NumericStringSchema("guild_id"),
-	target_id: NumericStringSchema("target_id"),
+	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
+	target_id: z.string().regex(/^\d+$/, "TARGET_ID_MUST_BE_NUMERICAL_STRING"),
 	target_type: z.nativeEnum(BlacklistTargetType),
 	status: z.nativeEnum(BlacklistStatus),
 	added_by: z.string(),
 	reason: z.string(),
-	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
-	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	created_at: ISODateStringSchema,
+	updated_at: ISODateStringSchema,
 });
-
-export function assertBlacklist(
-	value: unknown,
-	route?: string,
-): asserts value is z.infer<typeof BlacklistSchema> {
-	assertAPIObject({
-		schema: BlacklistSchema,
-		value,
-		code: "BLACKLIST",
-		route: route ?? "/blacklist/?",
-	});
-}
 
 export const BlacklistSchemaPartial = BlacklistSchema.partial();
 
-export function assertPartialBlacklist(
+export const assertBlacklist: (
 	value: unknown,
 	route?: string,
-): asserts value is z.infer<typeof BlacklistSchemaPartial> {
-	assertAPIObject({
-		schema: BlacklistSchemaPartial,
-		value,
-		code: "BLACKLIST",
-		route: route ?? "/blacklist/?",
-	});
-}
+) => asserts value is z.infer<typeof BlacklistSchema> = createAssertion(
+	BlacklistSchema,
+	"BLACKLIST",
+	"/blacklist/?",
+);
+
+export const assertBlacklists: (
+	value: unknown,
+	route?: string,
+) => asserts value is z.infer<typeof BlacklistSchema>[] = createAssertion(
+	BlacklistSchema.array(),
+	"BLACKLIST",
+	"/blacklists/?",
+);
+
+export const assertPartialBlacklist: (
+	value: unknown,
+	route?: string,
+) => asserts value is z.infer<typeof BlacklistSchemaPartial> = createAssertion(
+	BlacklistSchemaPartial,
+	"BLACKLIST",
+	"/blacklist/?",
+);

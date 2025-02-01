@@ -1,6 +1,6 @@
 import { APIServicesType, APIStatusType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
-import { assertAPIObject } from "./common";
+import { createAssertion } from "./common";
 
 const StatusSchema = z.object({
 	status: z.nativeEnum(APIStatusType),
@@ -18,13 +18,11 @@ const StatusSchema = z.object({
 	uptime: z.number().nullish(),
 });
 
-export function assertStatus(
+export const assertStatus: (
 	value: unknown,
-): asserts value is z.infer<typeof StatusSchema> {
-	assertAPIObject({
-		schema: StatusSchema,
-		value,
-		code: "STATUS",
-		route: "/status",
-	});
-}
+	route?: string,
+) => asserts value is z.infer<typeof StatusSchema> = createAssertion(
+	StatusSchema,
+	"STATUS",
+	"/status/?",
+);

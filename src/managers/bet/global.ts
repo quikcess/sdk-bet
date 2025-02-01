@@ -3,7 +3,7 @@ import { assertString } from "#quikcess/assertions/literal";
 import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
-import { GuildAllBets, GuildBet } from "#quikcess/structures";
+import { GuildBet, GuildBets } from "#quikcess/structures";
 import { BetStats } from "#quikcess/structures/bet/stats/global";
 import { Collection } from "#quikcess/structures/collection";
 
@@ -38,7 +38,7 @@ export class BetManager {
 		return data;
 	}
 
-	async fetchAll(playerIds?: string[]): Promise<GuildAllBets> {
+	async fetchAll(playerIds?: string[]): Promise<GuildBets> {
 		const query: RESTGetAPIGuildBetsQuery = { player_ids: playerIds ?? [] };
 
 		const { response } = await this.client.api.request(Routes.bets.getAll(), {
@@ -53,7 +53,7 @@ export class BetManager {
 			this.cache.set(data.betId, data);
 		}
 
-		return new GuildAllBets({
+		return new GuildBets({
 			currentPage: response.current_page,
 			totalPages: response.total_pages,
 			totalBets: response.total_bets,

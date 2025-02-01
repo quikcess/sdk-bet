@@ -5,4 +5,5 @@ export const isISODateString = (value: string) =>
 
 export const ISODateStringSchema = z
 	.string()
-	.refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" });
+	.refine(isISODateString, { message: "INVALID_ISO_DATE_STRING" })
+	.default(() => new Date().toISOString());

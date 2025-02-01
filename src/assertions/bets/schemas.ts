@@ -6,10 +6,9 @@ import {
 	BetType,
 } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
-import { NumericStringSchema } from "../common";
 
 export const APIBetPlayerSchema = z.object({
-	user_id: NumericStringSchema("user_id"),
+	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERICAL_STRING"),
 	winner: z.boolean().nullable().default(null),
 });
 

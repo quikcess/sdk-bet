@@ -1,27 +1,9 @@
-import { z } from "zod";
+import type { z } from "zod";
 import { BetSDKError } from "#quikcess/structures";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
 } from "#quikcess/types/assertions";
-export const NumericStringSchema = (locale: string) =>
-	z.string().regex(/^\d+$/, `${locale.toUpperCase()}_MUST_BE_NUMERICAL_STRING`);
-
-export const ISODateStringSchema = z
-	.string()
-	.refine((value: string) => !Number.isNaN(Date.parse(value)), {
-		message: "INVALID_ISO_DATE_STRING",
-	});
-
-export const TimestampSchema = z.object({
-	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
-	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
-});
-
-export const EntityContextSchema = z.object({
-	user_id: NumericStringSchema("user_id"),
-	guild_id: NumericStringSchema("guild_id"),
-});
 
 export function createAssertion<T extends z.ZodTypeAny>(
 	schema: T,

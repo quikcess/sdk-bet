@@ -1,10 +1,10 @@
 import { ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date/index";
-import { NumericStringSchema, assertAPIObject } from "./common";
+import { createAssertion } from "./common";
 
 const ScamSchema = z.object({
-	guild_id: NumericStringSchema("guild_id"),
+	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
 	target_name: z
 		.string()
 		.min(2, "TARGET_NAME_TOO_SHORT")
@@ -17,34 +17,37 @@ const ScamSchema = z.object({
 	details: z.string(),
 	reported_by: z.string(),
 	evidences: z.array(z.string()),
-	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
-	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	created_at: ISODateStringSchema,
+	updated_at: ISODateStringSchema,
 	validated_at: ISODateStringSchema.nullable().optional().default(null),
 	validated_by: z.string().nullable().optional().default(null),
 });
 
-export function assertScam(
-	value: unknown,
-	route?: string,
-): asserts value is z.infer<typeof ScamSchema> {
-	assertAPIObject({
-		schema: ScamSchema,
-		value,
-		code: "SCAM",
-		route: route ?? "/scam/?",
-	});
-}
-
 export const ScamSchemaPartial = ScamSchema.partial();
 
-export function assertPartialScam(
+export const assertScam: (
 	value: unknown,
 	route?: string,
-): asserts value is z.infer<typeof ScamSchemaPartial> {
-	assertAPIObject({
-		schema: ScamSchemaPartial,
-		value,
-		code: "SCAM",
-		route: route ?? "/scam/?",
-	});
-}
+) => asserts value is z.infer<typeof ScamSchema> = createAssertion(
+	ScamSchema,
+	"SCAM",
+	"/scam/?",
+);
+
+export const assertScams: (
+	value: unknown,
+	route?: string,
+) => asserts value is z.infer<typeof ScamSchema>[] = createAssertion(
+	ScamSchema.array(),
+	"SCAM",
+	"/scams/?",
+);
+
+export const assertPartialScam: (
+	value: unknown,
+	route?: string,
+) => asserts value is z.infer<typeof ScamSchemaPartial> = createAssertion(
+	ScamSchemaPartial,
+	"SCAM",
+	"/scam/?",
+);

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EntityContextSchema, TimestampSchema } from "../common";
+import { ISODateStringSchema } from "#quikcess/utils/date";
 import {
 	MediatorLimiterSchema,
 	MediatorPixSchema,
@@ -7,7 +7,9 @@ import {
 } from "./schemas";
 import { MediatorStatsSchema } from "./stats";
 
-export const GuildMediatorSchema = EntityContextSchema.extend({
+export const GuildMediatorSchema = z.object({
+	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERICAL_STRING"),
+	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
 	category_id: z.string().nullable(),
 	pix: MediatorPixSchema,
 	virtual_accounts: z.number(),
@@ -16,6 +18,8 @@ export const GuildMediatorSchema = EntityContextSchema.extend({
 	signature: MediatorSignatureSchema,
 	limiter: MediatorLimiterSchema,
 	stats: MediatorStatsSchema,
-}).merge(TimestampSchema);
+	created_at: ISODateStringSchema,
+	updated_at: ISODateStringSchema,
+});
 
 export const PartialGuildMediatorSchema = GuildMediatorSchema.partial();

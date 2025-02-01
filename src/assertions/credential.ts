@@ -1,21 +1,21 @@
 import { CredentialType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date/index";
-import { NumericStringSchema, assertAPIObject } from "./common";
+import { createAssertion } from "./common";
 
 const CredentialSchema = z.object({
 	api_key: z.string(),
-	guild_id: NumericStringSchema("guild_id"),
-	user_id: NumericStringSchema("user_id"),
+	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
+	user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERICAL_STRING"),
 	type: z.nativeEnum(CredentialType),
-	created_at: ISODateStringSchema.default(() => new Date().toISOString()),
-	updated_at: ISODateStringSchema.default(() => new Date().toISOString()),
+	created_at: ISODateStringSchema,
+	updated_at: ISODateStringSchema,
 });
 
 export const GenerateApiKeySchema = z
 	.object({
-		guild_id: NumericStringSchema("guild_id"),
-		user_id: NumericStringSchema("user_id"),
+		guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
+		user_id: z.string().regex(/^\d+$/, "USER_ID_MUST_BE_NUMERICAL_STRING"),
 		type: z.nativeEnum(CredentialType),
 	})
 	.superRefine((data, ctx) => {
@@ -37,26 +37,20 @@ export const GenerateApiKeySchema = z
 		}
 	});
 
-export function assertCredential(
+export const assertCredential: (
 	value: unknown,
-	route: string,
-): asserts value is z.infer<typeof CredentialSchema> {
-	assertAPIObject({
-		schema: CredentialSchema,
-		value,
-		code: "CREDENTIAL",
-		route,
-	});
-}
+	route?: string,
+) => asserts value is z.infer<typeof CredentialSchema> = createAssertion(
+	CredentialSchema,
+	"CREDENTIAL",
+	"/credential/?",
+);
 
-export function assertGenerateCredentialKey(
+export const assertGenerateCredentialKey: (
 	value: unknown,
-	route: string,
-): asserts value is z.infer<typeof CredentialSchema> {
-	assertAPIObject({
-		schema: GenerateApiKeySchema,
-		value,
-		code: "GENERATE_CREDENTIAL_KEY",
-		route,
-	});
-}
+	route?: string,
+) => asserts value is z.infer<typeof CredentialSchema> = createAssertion(
+	CredentialSchema,
+	"GENERATE_CREDENTIAL_KEY",
+	"/credential/generate-credential-key/?",
+);
