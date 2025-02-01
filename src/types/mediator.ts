@@ -24,7 +24,7 @@ export type GuildMediatorData = Omit<
 > & {
 	guildId: string;
 	userId: string;
-	categoryId: string;
+	categoryId: string | null;
 	virtualAccounts: number;
 	lastEntry: number | null;
 	createdAt: ISODateString;

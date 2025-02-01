@@ -35,10 +35,13 @@
 	"engines": {
 		"node": ">=18.0.0"
 	},
+	"imports": {
+		"#quikcess/*": ["./build/*"]
+	},
 	"dependencies": {
 		"@quikcess/bet-api-types": "^0.0.8",
 		"ws": "^8.18.0",
-		"zod": "^3.23.8"
+		"zod": "^3.24.1"
 	},
 	"license": "MIT",
 	"repository": {

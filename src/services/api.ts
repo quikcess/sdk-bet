@@ -1,11 +1,11 @@
-import { BetSDKError } from "@/structures";
+import type { APIVersion } from "@quikcess/bet-api-types/v1";
+import { BetSDKError } from "#quikcess/structures";
 import type {
 	APIEndpoint,
 	APIRequestArgs,
 	APIRequestOptions,
 	APIResponse,
-} from "@/types/index";
-import type { APIVersion } from "@quikcess/bet-api-types/v1";
+} from "#quikcess/types/index";
 
 export class APIService {
 	// public readonly baseUrl = "https://bet.squareweb.app";
@@ -36,9 +36,9 @@ export class APIService {
 			throw new BetSDKError("SERVER_UNAVAILABLE", "Server unavailable");
 		}
 
-		const data = await response.json().catch(() => {
+		const data = (await response.json().catch(() => {
 			throw new BetSDKError("CANNOT_PARSE_RESPONSE", "Try again later");
-		});
+		})) as APIResponse<T>;
 
 		if (!data || data.status === "error" || !response.ok) {
 			throw new BetSDKError(data?.code || "COMMON_ERROR");

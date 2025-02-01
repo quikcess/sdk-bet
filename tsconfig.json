@@ -9,14 +9,14 @@
 		"declaration": true,
 		"sourceMap": true,
 
-		"lib": ["DOM", "ESNext"],
+		"lib": ["ESNext"],
 		"target": "ESNext",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 
 		"outDir": "./lib",
 		"paths": {
-			"@/*": ["./src/*"]
+			"#quikcess/*": ["./src/*"]
 		}
 	},
 	"exclude": ["./test/", "./lib/", "tsup.config.ts"]

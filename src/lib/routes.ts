@@ -1,4 +1,4 @@
-import { APIEndpoint } from "@/types/index";
+import { APIEndpoint } from "#quikcess/types/index";
 
 export type Route<T extends APIEndpoint> = string & { __route: T };
 export const Route = <T extends APIEndpoint>(route: string) => route as Route<T>;
@@ -8,9 +8,7 @@ interface IRoutes {
 }
 
 export const Routes = {
-  status: () => {
-    return Route<"status">("api/v1/status");
-  },
+  status: () => Route<"status">("api/v1/status"),
   guilds: {
     get: (guildId: string) => Route<"guilds/get">(`api/v1/guilds/${guildId}`),
     getAll: () => Route<"guilds/getAll">(`api/v1/guilds`),
@@ -67,22 +65,22 @@ export const Routes = {
     }
   },
   users: {
-    fetch: (userId: string) => Route<"users/fetch">(`api/v1/users/${userId}`),
-    fetchAll: () => Route<"users/fetchAll">(`api/v1/users`),
-    fetchStats: () => Route<"users/fetchStats">(`api/v1/users/stats`),
-    fetchStatsFromUser: (userId: string) => Route<"users/fetchStats">(`api/v1/users/stats/${userId}`),
+    get: (userId: string) => Route<"users/get">(`api/v1/users/${userId}`),
+    getAll: () => Route<"users/getAll">(`api/v1/users`),
+    getStats: () => Route<"users/getStats">(`api/v1/users/stats`),
+    getStatsFromUser: (userId: string) => Route<"users/getStats">(`api/v1/users/stats/${userId}`),
   },
   mediators: {
-    fetch: (userId: string) => Route<"mediators/fetch">(`api/v1/mediators/${userId}`),
-    fetchAll: () => Route<"mediators/fetchAll">(`api/v1/mediators`),
-    fetchStats: () => Route<"mediators/fetchStats">(`api/v1/mediators/stats`),
-    fetchStatsFromUser: (userId: string) => Route<"mediators/fetchStats">(`api/v1/mediators/stats/${userId}`),
+    get: (userId: string) => Route<"mediators/get">(`api/v1/mediators/${userId}`),
+    getAll: () => Route<"mediators/getAll">(`api/v1/mediators`),
+    getStats: () => Route<"mediators/getStats">(`api/v1/mediators/stats`),
+    getStatsFromUser: (userId: string) => Route<"mediators/getStats">(`api/v1/mediators/stats/${userId}`),
   },
   bets: {
-    fetch: (betId: string) => Route<"bets/fetch">(`api/v1/bets/${betId}`),
-    fetchAll: () => Route<"bets/fetchAll">(`api/v1/bets`),
-    fetchStats: () => Route<"bets/fetchStats">(`api/v1/bets/stats`),
-    fetchCount: () => Route<"bets/fetchCount">(`api/v1/bets/count`),
+    get: (betId: string) => Route<"bets/get">(`api/v1/bets/${betId}`),
+    getAll: () => Route<"bets/getAll">(`api/v1/bets`),
+    getStats: () => Route<"bets/getStats">(`api/v1/bets/stats`),
+    getCount: () => Route<"bets/getCount">(`api/v1/bets/count`),
   },
   scams: {
     getByName: (targetName: string) => Route<"scams/getById">(`api/v1/scams/${targetName}`),
@@ -91,7 +89,7 @@ export const Routes = {
     add: () => Route<"scams/add">("api/v1/scams"),
     update: (targetName: string) => Route<"scams/update">(`api/v1/scams/${targetName}`),
     delete: (targetName: string) => Route<"scams/delete">(`api/v1/scams/${targetName}`),
-    fetchStats: () => Route<"scams/fetchStats">(`api/v1/scams/stats`),
+    getStats: () => Route<"scams/getStats">(`api/v1/scams/stats`),
   },
   blacklist: {
     getById: (targetId: string) => Route<"blacklist/getById">(`api/v1/blacklist/${targetId}`),
@@ -99,6 +97,6 @@ export const Routes = {
     add: () => Route<"blacklist/add">(`api/v1/blacklist`),
     update: (targetId: string) => Route<"blacklist/update">(`api/v1/blacklist/${targetId}`),
     delete: (targetId: string) => Route<"blacklist/delete">(`api/v1/blacklist/${targetId}`),
-    fetchStats: () => Route<"scams/fetchStats">(`api/v1/scams/stats`),
+    getStats: () => Route<"blacklist/getStats">(`api/v1/blacklist/stats`),
   },
 } satisfies IRoutes;

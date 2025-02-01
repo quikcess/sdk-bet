@@ -1,16 +1,17 @@
-import { assertStatus } from "@/assertions/status";
 import type {
 	APIStatus,
 	APIStatusServices,
 	APIStatusType,
 } from "@quikcess/bet-api-types/v1";
+import { assertStatus } from "#quikcess/assertions/status";
 
 /**
  * Represents an api status
  */
 export class Status {
 	/** API response time */
-	public ping: number;
+	public readonly ping: number;
+
 	/**
 	 * The status of the api
 	 *
@@ -18,13 +19,16 @@ export class Status {
 	 * - 'degraded'
 	 * - 'unknown'
 	 */
-	public status: APIStatusType;
+	public readonly status: APIStatusType;
+
 	/** Data from external api services */
-	public services: APIStatusServices;
+	public readonly services: APIStatusServices;
+
 	/** For how long the aou is running */
-	public uptime?: Date;
+	public readonly uptime?: Date;
+
 	/** For how long the aou is running in millisseconds */
-	public uptimeTimestamp?: number;
+	public readonly uptimeTimestamp?: number;
 
 	/**
 	 * Represents an api status

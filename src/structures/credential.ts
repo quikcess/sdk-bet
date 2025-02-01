@@ -1,23 +1,28 @@
-import { assertCredential } from "@/assertions/credential";
-import { toSnakeCase } from "@/utils/cases/index";
 import type { APICredential, CredentialType } from "@quikcess/bet-api-types/v1";
+import { assertCredential } from "#quikcess/assertions/credential";
+import { toSnakeCase } from "#quikcess/utils/cases/index";
 
 /**
  * Represents an API credential
  */
 export class Credential {
 	/** The API key */
-	apiKey: string;
+	public readonly apiKey: string;
+
 	/** The guild ID associated with the credential */
-	guildId: string;
+	public readonly guildId: string;
+
 	/** The user ID associated with the credential */
-	userId: string;
+	public readonly userId: string;
+
 	/** The type of the credential */
-	type: CredentialType;
+	public readonly type: CredentialType;
+
 	/** The date the credential was created */
-	createdAt: Date;
+	public readonly createdAt: Date;
+
 	/** The date the credential was last updated */
-	updatedAt: Date;
+	public readonly updatedAt: Date;
 
 	/**
 	 * Represents an API credential

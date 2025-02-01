@@ -1,8 +1,13 @@
 import WebSocket from "ws";
 import { assertString } from "./assertions/literal";
 import { Routes } from "./lib/routes";
-import { BetManager } from "./managers/bet";
+import { BetManager } from "./managers/bet/global";
+import { BlacklistManager } from "./managers/blacklist/global";
+import { CredentialManager } from "./managers/credential";
 import { GuildManager } from "./managers/guild";
+import { MediatorManager } from "./managers/mediator/global";
+import { ScamManager } from "./managers/scam/global";
+import { UserManager } from "./managers/user/global";
 import { APIService } from "./services/index";
 import { Status } from "./structures/index";
 import { type APIEvents, TypedEventEmitter } from "./types/index";
@@ -23,9 +28,19 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	private ws: WebSocket;
 	/** API service */
 	public readonly api: APIService;
-
+	/** API service */
+	public readonly credentials: CredentialManager;
+	/** Bets manager */
 	public readonly bets: BetManager;
-
+	/** Bets manager */
+	public readonly users: UserManager;
+	/** Bets manager */
+	public readonly mediators: MediatorManager;
+	/** Blacklist manager */
+	public readonly blacklist: BlacklistManager;
+	/** Scams manager */
+	public readonly scams: ScamManager;
+	/** Guilds manager */
 	public readonly guilds: GuildManager;
 
 	constructor(apiKey: string) {
@@ -40,9 +55,25 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 		// Initialize API service
 		this.api = new APIService(apiKey);
 
+		// Credentials manager
+		this.credentials = new CredentialManager(this);
+
+		// Bets manager
 		this.bets = new BetManager(this);
 
-		// Inicializar o gerenciador de guildas
+		// Users manager
+		this.users = new UserManager(this);
+
+		// Mediators manager
+		this.mediators = new MediatorManager(this);
+
+		// Blacklist manager
+		this.blacklist = new BlacklistManager(this);
+
+		// Scams manager
+		this.scams = new ScamManager(this);
+
+		// Initializing the Guild Manager to start managing guilds.
 		this.guilds = new GuildManager(this);
 	}
 
@@ -74,11 +105,5 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	}
 }
 
-// const client = new Betting("12");
-// const guild = client.guilds.cache.get("123");
-// if (!guild) throw new Error("1");
-
-// const bet = client.bets.fetch("123");
-// const data = guild.bets.cache.get("123");
-// client.bets.fetch("123");
-// guild.bets.fetch("123");
+// const client = new Betting("123");
+// const guild = await client.guilds.fetch("123");
