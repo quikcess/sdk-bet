@@ -42,7 +42,7 @@ export class GuildManager {
 		return data;
 	}
 
-	async create(data: APIGuild): Promise<APIGuild> {
+	async create(data: APIGuild): Promise<Guild> {
 		const payload = toSnakeCase(data);
 		assertGuild(payload, "/guilds/create");
 
@@ -51,24 +51,30 @@ export class GuildManager {
 			body: payload,
 		});
 
-		return response;
+		const dataCreated = new Guild(this.client, response);
+		this.cache.set(data.guild_id, dataCreated);
+
+		return dataCreated;
 	}
 
-	async update(guildID: string, data: GuildUpdateData): Promise<Guild> {
-		assertString(guildID);
+	async update(guildId: string, data: GuildUpdateData): Promise<Guild> {
+		assertString(guildId);
 
 		const payload = toSnakeCase(data);
 		assertPartialGuild(payload, "/guilds/update");
 
 		const { response } = await this.client.api.request(
-			Routes.guilds.update(guildID),
+			Routes.guilds.update(guildId),
 			{
 				method: "PATCH",
 				body: payload,
 			},
 		);
 
-		return new Guild(this.client, response);
+		const dataUpdated = new Guild(this.client, response);
+		this.cache.set(guildId, dataUpdated);
+
+		return dataUpdated;
 	}
 
 	async delete(guildId: string): Promise<Guild> {
@@ -78,6 +84,8 @@ export class GuildManager {
 			Routes.guilds.delete(guildId),
 			{ method: "DELETE" },
 		);
+
+		this.cache.delete(guildId);
 
 		return new Guild(this.client, response);
 	}
@@ -111,6 +119,10 @@ export class GuildManager {
 				new Guild(this.client, data),
 			]),
 		);
+
+		for (const data of transformedData.values()) {
+			this.cache.set(data.guildId, data);
+		}
 
 		return new Guilds({
 			currentPage: response.current_page,

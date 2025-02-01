@@ -28,34 +28,20 @@ export class GuildBetManager {
 		this.cache = new Cache();
 	}
 
-	async create(data: BetCreateData): Promise<GuildBet> {
-		const payload = toSnakeCase(data);
-		assertGuildBet(payload, "/bets/create");
-
-		const { response } = await this.client.api.request(
-			Routes.guilds.bets.create(data.guildId),
-			{
-				method: "POST",
-				body: payload,
-			},
-		);
-
-		const bet = new GuildBet(response);
-		this.cache.set(bet.betId, bet);
-		return bet;
-	}
-
-	async getByChannelId(guildId: string, channelId: string): Promise<GuildBet> {
-		assertString(guildId, "GUILD_ID");
+	async getByChannelId(channelId: string): Promise<GuildBet> {
 		assertString(channelId, "CHANNEL_ID");
 
 		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getByChannelId(guildId, channelId),
+			Routes.guilds.bets.getByChannelId(this.guildId, channelId),
 		);
-		return new GuildBet(response);
+
+		const data = new GuildBet(response);
+		this.cache.set(data.betId, data);
+
+		return data;
 	}
 
-	// ex.: guild.bets.fetch("123") -> acesso com o guildId
+	// Per guild id
 	async fetch(
 		betId: string,
 		options?: {
@@ -76,18 +62,17 @@ export class GuildBetManager {
 			Routes.guilds.bets.get(this.guildId, betId),
 		);
 
-		const bet = new GuildBet(response);
-		this.cache.set(bet.betId, bet);
-		return bet;
+		const data = new GuildBet(response);
+		this.cache.set(data.betId, data);
+
+		return data;
 	}
 
-	async getAll(guildId: string, playerIds?: string[]): Promise<GuildAllBets> {
-		assertString(guildId, "GUILD_ID");
-
+	async getAll(playerIds?: string[]): Promise<GuildAllBets> {
 		const query: RESTGetAPIGuildBetsQuery = { player_ids: playerIds ?? [] };
 
 		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getAll(guildId),
+			Routes.guilds.bets.getAll(this.guildId),
 			{
 				query,
 			},
@@ -97,6 +82,10 @@ export class GuildBetManager {
 			response.data.map((data) => [data.bet_id, new GuildBet(data)]),
 		);
 
+		for (const data of transformedData.values()) {
+			this.cache.set(data.betId, data);
+		}
+
 		return new GuildAllBets({
 			currentPage: response.current_page,
 			totalPages: response.total_pages,
@@ -105,54 +94,74 @@ export class GuildBetManager {
 		});
 	}
 
-	async update(
-		guildId: string,
-		betId: string,
-		data: BetUpdateData,
-	): Promise<GuildBet> {
-		assertString(guildId);
+	async getCount(): Promise<number> {
+		const { response } = await this.client.api.request(
+			Routes.guilds.bets.getCount(this.guildId),
+		);
+
+		return response;
+	}
+
+	async getStats(): Promise<GuildBetStats> {
+		const { response } = await this.client.api.request(
+			Routes.guilds.bets.getStats(this.guildId),
+		);
+
+		return new GuildBetStats(response);
+	}
+
+	async create(data: BetCreateData): Promise<GuildBet> {
+		const payload = toSnakeCase(data);
+		assertGuildBet(payload, "/guilds/bets/create");
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.bets.create(data.guildId),
+			{
+				method: "POST",
+				body: payload,
+			},
+		);
+
+		const dataCreated = new GuildBet(response);
+		this.cache.set(dataCreated.betId, dataCreated);
+
+		return dataCreated;
+	}
+
+	async update(betId: string, data: BetUpdateData): Promise<GuildBet> {
 		assertString(betId);
 
 		const payload = toSnakeCase(data);
 		assertPartialGuildBet(payload, "/bets/update");
 
 		const { response } = await this.client.api.request(
-			Routes.guilds.bets.update(guildId, betId),
+			Routes.guilds.bets.update(this.guildId, betId),
 			{
 				method: "PATCH",
 				body: payload,
 			},
 		);
 
+		const dataUpdated = new GuildBet(response);
+		this.cache.set(dataUpdated.betId, dataUpdated);
+
+		return dataUpdated;
+	}
+
+	async delete(betId: string): Promise<GuildBet> {
+		assertString(betId);
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.bets.delete(this.guildId, betId),
+			{ method: "DELETE" },
+		);
+
+		this.cache.delete(betId);
+
 		return new GuildBet(response);
 	}
 
-	async getCount(guildId: string): Promise<number> {
-		assertString(guildId);
-
-		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getCount(guildId),
-		);
-
-		return response;
-	}
-
-	async getStats(guildId: string): Promise<GuildBetStats> {
-		assertString(guildId);
-
-		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getStats(guildId),
-		);
-
-		return new GuildBetStats(response);
-	}
-
-	async bulkCreate(
-		guildId: string,
-		data: BetCreateData[],
-	): Promise<GuildBet[]> {
-		assertString(guildId);
-
+	async bulkCreate(data: BetCreateData[]): Promise<GuildBet[]> {
 		const MAX_BATCH_SIZE = 25;
 		const results: GuildBet[] = [];
 
@@ -163,22 +172,26 @@ export class GuildBetManager {
 			const batch = payload.slice(i, i + MAX_BATCH_SIZE);
 
 			const { response } = await this.client.api.request(
-				Routes.guilds.bets.bulk.create(guildId),
+				Routes.guilds.bets.bulk.create(this.guildId),
 				{
 					method: "POST",
 					body: batch,
 				},
 			);
 
-			results.push(...response.map((bet) => new GuildBet(bet)));
+			results.push(
+				...response.map((bet) => {
+					const dataCreated = new GuildBet(bet);
+					this.cache.set(dataCreated.betId, dataCreated);
+					return dataCreated;
+				}),
+			);
 		}
 
 		return results;
 	}
 
-	async bulkDelete(guildId: string, betIds: string[]): Promise<GuildBet[]> {
-		assertString(guildId);
-
+	async bulkDelete(betIds: string[]): Promise<GuildBet[]> {
 		const MAX_BATCH_SIZE = 75;
 		const results: GuildBet[] = [];
 
@@ -186,23 +199,28 @@ export class GuildBetManager {
 			const batch = betIds.slice(i, i + MAX_BATCH_SIZE);
 
 			const { response } = await this.client.api.request(
-				Routes.guilds.bets.bulk.delete(guildId),
+				Routes.guilds.bets.bulk.delete(this.guildId),
 				{
 					method: "DELETE",
 					body: batch,
 				},
 			);
 
-			results.push(...response.map((bet) => new GuildBet(bet)));
+			results.push(
+				...response.map((bet) => {
+					const dataDeleted = new GuildBet(bet);
+					this.cache.delete(dataDeleted.betId);
+					return dataDeleted;
+				}),
+			);
 		}
 
 		return results;
 	}
 
-	async getThreadWaitTime(guildId: string): Promise<number> {
-		assertString(guildId);
+	async getThreadWaitTime(): Promise<number> {
 		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getThreadWaitTime(guildId),
+			Routes.guilds.bets.getThreadWaitTime(this.guildId),
 		);
 		return response;
 	}
