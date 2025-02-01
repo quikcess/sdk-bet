@@ -1,10 +1,21 @@
-import { assertGuildMediator } from "#quikcess/assertions";
+import type { RESTGetAPIGuildMediatorsPaginationQuery } from "@quikcess/bet-api-types/v1";
+import {
+	assertGuildMediator,
+	assertPartialGuildMediator,
+} from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
 import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
+import { Collection } from "#quikcess/structures/collection";
 import { GuildMediator } from "#quikcess/structures/mediator/guildMediator";
-import type { MediatorCreateData } from "#quikcess/types";
+import { GuildMediators } from "#quikcess/structures/mediator/guildMediators";
+import { GuildMediatorContextStats } from "#quikcess/structures/mediator/stats/guild";
+import type {
+	GuildMediatorCreateData,
+	GuildMediatorUpdateData,
+	GuildMediatorsQuery,
+} from "#quikcess/types";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class GuildMediatorManager {
@@ -18,31 +29,13 @@ export class GuildMediatorManager {
 		this.cache = new Cache();
 	}
 
-	async create(data: MediatorCreateData): Promise<GuildMediator> {
-		const payload = toSnakeCase(data);
-		assertGuildMediator(payload, "/mediators/create");
-
-		const { response } = await this.client.api.request(
-			Routes.guilds.mediators.create(data.guildId),
-			{
-				method: "POST",
-				body: payload,
-			},
-		);
-
-		const mediator = new GuildMediator(response);
-		this.cache.set(mediator.userId, mediator);
-		return mediator;
-	}
-
-	// ex.: guild.mediators.fetch("123") -> acesso ao mediator em um guildId
 	async fetch(
 		userId: string,
 		options?: {
 			cache?: boolean;
 		},
 	): Promise<GuildMediator> {
-		assertString(userId, "MEDIATOR_ID");
+		assertString(userId, "USER_ID");
 		const { cache = false } = options || {};
 
 		if (cache) {
@@ -56,8 +49,112 @@ export class GuildMediatorManager {
 			Routes.guilds.mediators.get(this.guildId, userId),
 		);
 
-		const mediator = new GuildMediator(response);
-		this.cache.set(mediator.userId, mediator);
-		return mediator;
+		const data = new GuildMediator(response);
+		this.cache.set(data.userId, data);
+
+		return data;
+	}
+
+	async create(data: GuildMediatorCreateData): Promise<GuildMediator> {
+		const payload = toSnakeCase(data);
+		assertGuildMediator(payload, "/guilds/mediators/create");
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.create(data.guildId),
+			{
+				method: "POST",
+				body: payload,
+			},
+		);
+
+		const dataCreated = new GuildMediator(response);
+		this.cache.set(dataCreated.userId, dataCreated);
+
+		return dataCreated;
+	}
+
+	async update(
+		userId: string,
+		data: GuildMediatorUpdateData,
+	): Promise<GuildMediator> {
+		assertString(userId);
+
+		const payload = toSnakeCase(data);
+		assertPartialGuildMediator(payload, "/guilds/mediators/update");
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.update(this.guildId, userId),
+			{
+				method: "PATCH",
+				body: payload,
+			},
+		);
+
+		const dataUpdated = new GuildMediator(response);
+		this.cache.set(dataUpdated.userId, dataUpdated);
+
+		return dataUpdated;
+	}
+
+	async delete(userId: string): Promise<GuildMediator> {
+		assertString(userId);
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.delete(this.guildId, userId),
+			{ method: "DELETE" },
+		);
+
+		this.cache.delete(userId);
+
+		return new GuildMediator(response);
+	}
+
+	async getAll({
+		dateStart,
+		dateEnd,
+		limit,
+		page,
+		skip,
+	}: GuildMediatorsQuery): Promise<GuildMediators> {
+		const options = {
+			dateStart,
+			dateEnd,
+			limit,
+			page,
+			skip,
+		};
+
+		const query: RESTGetAPIGuildMediatorsPaginationQuery = toSnakeCase<
+			RESTGetAPIGuildMediatorsPaginationQuery,
+			GuildMediatorsQuery
+		>(options);
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.getAll(this.guildId),
+			{
+				query,
+			},
+		);
+
+		const transformedData = new Collection(
+			response.data.map((data) => [data.user_id, new GuildMediator(data)]),
+		);
+
+		for (const data of transformedData.values()) {
+			this.cache.set(data.userId, data);
+		}
+
+		return new GuildMediators({
+			currentPage: response.current_page,
+			totalPages: response.total_pages,
+			totalMediators: response.total_mediators,
+			data: transformedData,
+		});
+	}
+
+	async getStats(): Promise<GuildMediatorContextStats> {
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.getStats(),
+		);
+		return new GuildMediatorContextStats(response);
 	}
 }

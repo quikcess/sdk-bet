@@ -1,11 +1,13 @@
-import { assertGuildUser } from "#quikcess/assertions";
+import type { RESTGetAPIGuildUsersPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertString } from "#quikcess/assertions/literal";
 import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
+import { Collection } from "#quikcess/structures/collection";
 import { User } from "#quikcess/structures/user/globalUser";
-import { GuildUser } from "#quikcess/structures/user/guildUser";
-import type { UserCreateData } from "#quikcess/types/user";
+import { Users } from "#quikcess/structures/user/globalUsers";
+import { UserContextStats } from "#quikcess/structures/user/stats/global";
+import type { GuildUsersQuery } from "#quikcess/types/user";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class UserManager {
@@ -15,7 +17,7 @@ export class UserManager {
 		this.cache = new Cache();
 	}
 
-	// ex.: client.users.fetch("123") -> acesso ao user global
+	// Global User
 	async fetch(userId: string): Promise<User> {
 		assertString(userId, "USER_ID");
 
@@ -25,23 +27,61 @@ export class UserManager {
 
 		const data = new User(response);
 		this.cache.set(data.userId, data);
+
 		return data;
 	}
 
-	async create(data: UserCreateData): Promise<GuildUser> {
-		const payload = toSnakeCase(data);
-		assertGuildUser(payload, "/users/create");
+	// Global user
+	async fetchAll({
+		dateStart,
+		dateEnd,
+		limit,
+		page,
+		skip,
+	}: GuildUsersQuery): Promise<Users> {
+		const options = {
+			dateStart,
+			dateEnd,
+			limit,
+			page,
+			skip,
+		};
 
-		const { response } = await this.client.api.request(
-			Routes.guilds.users.create(data.guildId),
-			{
-				method: "POST",
-				body: payload,
-			},
+		const query: RESTGetAPIGuildUsersPaginationQuery = toSnakeCase<
+			RESTGetAPIGuildUsersPaginationQuery,
+			GuildUsersQuery
+		>(options);
+		const { response } = await this.client.api.request(Routes.users.getAll(), {
+			query,
+		});
+
+		const transformedData = new Collection(
+			response.data.map((data) => [data.user_id, new User(data)]),
 		);
 
-		const user = new GuildUser(response);
-		this.cache.set(user.userId, user);
-		return user;
+		for (const data of transformedData.values()) {
+			this.cache.set(data.userId, data);
+		}
+
+		return new Users({
+			currentPage: response.current_page,
+			totalPages: response.total_pages,
+			totalUsers: response.total_users,
+			data: transformedData,
+		});
+	}
+
+	// Global user
+	async fetchStats(): Promise<UserContextStats> {
+		const { response } = await this.client.api.request(Routes.users.getStats());
+		return new UserContextStats(response);
+	}
+
+	// Global user
+	async fetchStatsFromUser(userId: string): Promise<UserContextStats> {
+		const { response } = await this.client.api.request(
+			Routes.users.getStatsFromUser(userId),
+		);
+		return new UserContextStats(response);
 	}
 }
