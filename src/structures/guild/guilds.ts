@@ -6,10 +6,10 @@ import type { Guild } from "./guild";
  */
 export class Guilds {
 	/** The current page number in a paginated result set, or null if pagination is not used. */
-	public readonly currentPage: number | null;
+	public readonly currentPage: number;
 
 	/** The total number of pages in the result set, or null if pagination is not used. */
-	public readonly totalPages: number | null;
+	public readonly totalPages: number;
 
 	/** The total number of guilds available in the result set. */
 	public readonly totalGuilds: number;
@@ -26,8 +26,8 @@ export class Guilds {
 	 * @param data - A collection of guilds (default: an empty collection).
 	 */
 	constructor({
-		currentPage = null,
-		totalPages = null,
+		currentPage = 0,
+		totalPages = 0,
 		totalGuilds = 0,
 		data = new Collection<string, Guild>(),
 	}: Partial<Guilds>) {
