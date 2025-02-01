@@ -1,31 +1,44 @@
-import type { APIMediators } from "@quikcess/bet-api-types/v1";
-import { Mediator } from "./globalMediator";
+import { Collection } from "../collection";
+import type { Mediator } from "./globalMediator";
 
 /**
- * Class representing a collection of mediators with pagination and total counts.
+ * Class representing a collection of Mediators, with pagination and metadata.
  */
 export class Mediators {
-	/** The list of mediators in the current page. */
-	public data: Mediator[];
+	/** List of mediators. */
+	public data: Collection<string, Mediator>;
 
-	/** The current page number. */
+	/** The current page number in the paginated data. */
 	public currentPage: number;
 
-	/** The total number of pages. */
+	/** The total number of pages in the paginated data. */
 	public totalPages: number;
 
 	/** The total number of mediators across all pages. */
 	public totalMediators: number;
 
-	/** Constructor that initializes the Mediators instance with the provided data. */
-	constructor(data: APIMediators) {
-		this.data = data.data.map((mediator) => new Mediator(mediator));
-		this.currentPage = data.current_page;
-		this.totalPages = data.total_pages;
-		this.totalMediators = data.total_mediators;
+	/**
+	 * Constructor to initialize a Mediators instance with provided data.
+	 *
+	 * @param data The data to initialize the Mediators.
+	 */
+	constructor({
+		currentPage = 0,
+		totalPages = 0,
+		totalMediators = 0,
+		data = new Collection<string, Mediator>(),
+	}: Partial<Mediators>) {
+		this.data = data;
+		this.currentPage = currentPage;
+		this.totalPages = totalPages;
+		this.totalMediators = totalMediators;
 	}
 
-	/** Converts the Mediators instance to a plain JSON object. */
+	/**
+	 * Converts the Mediators instance to a plain JSON object.
+	 *
+	 * @returns The JSON representation of the Mediators instance.
+	 */
 	public toJSON() {
 		return {
 			data: this.data.map((mediator) => mediator.toJSON()),

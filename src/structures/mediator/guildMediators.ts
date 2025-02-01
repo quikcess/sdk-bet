@@ -1,12 +1,12 @@
-import type { APIGuildMediators } from "@quikcess/bet-api-types/v1";
-import { GuildMediator } from "./guildMediator";
+import { Collection } from "../collection";
+import type { GuildMediator } from "./guildMediator";
 
 /**
  * Class representing a collection of GuildMediators, with pagination and metadata.
  */
 export class GuildMediators {
 	/** List of guild mediators. */
-	public data: GuildMediator[];
+	public data: Collection<string, GuildMediator>;
 
 	/** The current page number in the paginated data. */
 	public currentPage: number;
@@ -22,11 +22,16 @@ export class GuildMediators {
 	 *
 	 * @param data The data to initialize the GuildMediators.
 	 */
-	constructor(data: APIGuildMediators) {
-		this.data = data.data.map((mediator) => new GuildMediator(mediator));
-		this.currentPage = data.current_page;
-		this.totalPages = data.total_pages;
-		this.totalMediators = data.total_mediators;
+	constructor({
+		currentPage = 0,
+		totalPages = 0,
+		totalMediators = 0,
+		data = new Collection<string, GuildMediator>(),
+	}: Partial<GuildMediators>) {
+		this.data = data;
+		this.currentPage = currentPage;
+		this.totalPages = totalPages;
+		this.totalMediators = totalMediators;
 	}
 
 	/**
