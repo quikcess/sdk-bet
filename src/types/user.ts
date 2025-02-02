@@ -1,15 +1,36 @@
 import type {
 	APIGuildUser,
+	APIGuildUserNotifications,
+	APIGuildUserScores,
+	APIGuildUserWallet,
 	ISODateString,
 	RESTGetAPIGuildUsersPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
+import type { DeepPartial } from "./common";
 
-export type GuildUserUpdateData = Partial<
+export type GuildUserWalletRaw = APIGuildUserWallet;
+
+export type GuildUserScoresRaw = APIGuildUserScores;
+
+export type GuildUserNotificationsRaw = APIGuildUserNotifications;
+
+export type GuildUserUpdateData = DeepPartial<
 	Omit<
 		GuildUserData,
-		"userId" | "stats" | "guildId" | "createdAt" | "updatedAt"
+		| "userId"
+		| "stats"
+		| "guildId"
+		| "createdAt"
+		| "updatedAt"
+		| "wallet"
+		| "scores"
+		| "notifications"
 	>
->;
+> & {
+	wallet?: DeepPartial<GuildUserWalletRaw>;
+	scores?: DeepPartial<GuildUserScoresRaw>;
+	notifications?: DeepPartial<GuildUserNotificationsRaw>;
+};
 
 export type GuildUserCreateData = Omit<
 	GuildUserData,
