@@ -1,6 +1,6 @@
 import type { RESTGetAPIGuildBetsQuery } from "@quikcess/bet-api-types/v1";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting } from "#quikcess/index";
+import type { Betting, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { GuildBet, GuildBets } from "#quikcess/structures";
@@ -11,7 +11,7 @@ export class BetManager {
 	public readonly cache: Cache<GuildBet>;
 
 	constructor(public readonly client: Betting) {
-		this.cache = new Cache();
+		this.cache = new Cache<GuildBet>();
 	}
 
 	async fetch(

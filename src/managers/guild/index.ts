@@ -8,23 +8,23 @@ import {
 } from "#quikcess/assertions/guilds/assertions";
 import { assertString } from "#quikcess/assertions/literal";
 import { Routes } from "#quikcess/lib/routes";
-import { Cache } from "#quikcess/services/cache";
+import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
 import { Guild } from "#quikcess/structures/guild/guild";
 import { Guilds } from "#quikcess/structures/guild/guilds";
 import { GuildStats } from "#quikcess/structures/guild/stats/guild";
 import type { GuildUpdateData, GuildsQuery } from "#quikcess/types/guild";
 import { toSnakeCase } from "#quikcess/utils/cases";
-import type { Betting } from "../..";
+import type { Betting, LocalCache } from "../..";
 
 export class GuildManager {
 	public readonly cache: Cache<Guild>;
 
-	constructor(private readonly client: Betting) {
+	constructor(public readonly client: Betting) {
 		this.cache = new Cache<Guild>();
 	}
 
-	async fetch(guildId: string): Promise<Guild> {
+	async get(guildId: string): Promise<Guild> {
 		assertString(guildId, "GUILD_ID");
 
 		const cached = this.cache.get(guildId);

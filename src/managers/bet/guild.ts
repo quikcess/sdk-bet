@@ -8,7 +8,7 @@ import {
 	assertPartialGuildBet,
 } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting } from "#quikcess/index";
+import type { Betting, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { GuildBet, GuildBets } from "#quikcess/structures";
@@ -25,14 +25,19 @@ export class GuildBetManager {
 		public readonly guildId: string,
 	) {
 		assertString(guildId, "GUILD_ID");
-		this.cache = new Cache();
+		this.cache = new Cache<GuildBet>();
 	}
 
-	async getByChannelId(channelId: string): Promise<GuildBet> {
-		assertString(channelId, "CHANNEL_ID");
+	async get(betId: string): Promise<GuildBet> {
+		assertString(betId, "BET_ID");
+
+		const cached = this.cache.get(betId);
+		if (cached) {
+			return cached;
+		}
 
 		const { response } = await this.client.api.request(
-			Routes.guilds.bets.getByChannelId(this.guildId, channelId),
+			Routes.guilds.bets.get(this.guildId, betId),
 		);
 
 		const data = new GuildBet(response);
@@ -41,25 +46,24 @@ export class GuildBetManager {
 		return data;
 	}
 
-	// Per guild id
-	async fetch(
-		betId: string,
-		options?: {
-			cache?: boolean;
-		},
-	): Promise<GuildBet> {
+	async fetch(betId: string): Promise<GuildBet> {
 		assertString(betId, "BET_ID");
-		const { cache = false } = options || {};
-
-		if (cache) {
-			const cached = this.cache.get(betId);
-			if (cached) {
-				return cached;
-			}
-		}
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.get(this.guildId, betId),
+		);
+
+		const data = new GuildBet(response);
+		this.cache.set(data.betId, data);
+
+		return data;
+	}
+
+	async getByChannelId(channelId: string): Promise<GuildBet> {
+		assertString(channelId, "CHANNEL_ID");
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.bets.getByChannelId(this.guildId, channelId),
 		);
 
 		const data = new GuildBet(response);
