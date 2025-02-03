@@ -1,10 +1,12 @@
-import { Collection } from "#quikcess/structures/collection";
+import { LocalCache, type LocalCacheOptions } from "#quikcess/structures";
 
-export class Cache<T> extends Collection<string, T> {
-	private readonly store: Collection<string, T>;
-
-	constructor() {
-		super();
-		this.store = new Collection();
+export class Cache<T> extends LocalCache<T, string> {
+	constructor(options?: LocalCacheOptions) {
+		super(
+			options ?? {
+				globalClearUp: 24 * 60 * 60 * 1000,
+				autoClearUp: true,
+			},
+		);
 	}
 }
