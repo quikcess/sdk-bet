@@ -4,7 +4,8 @@ async function test() {
 	const betId = Date.now().toString();
 
 	console.time("create-bet");
-	const data = await client.bets.create({
+	const guild = await await client.guilds.get("123");
+	const data = await guild.bets.create({
 		betId,
 		channelId: `${betId}2`,
 		guildId: "123",
@@ -17,7 +18,7 @@ async function test() {
 				winner: null,
 			},
 			{
-				userId: "0987654321123456781",
+				userId: "123",
 				winner: true,
 			},
 		],

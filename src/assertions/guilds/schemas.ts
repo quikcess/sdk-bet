@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const APIGuildPermission = z.array(
 	z.object({
-		id: z.string(),
+		id: z.number(),
 		role_ids: z.array(z.string()),
 	}),
 );
