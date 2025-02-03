@@ -6,6 +6,7 @@ import { GuildBlacklistManager } from "#quikcess/managers/blacklist/guild";
 import { GuildMediatorManager } from "#quikcess/managers/mediator/guild";
 import { GuildScamManager } from "#quikcess/managers/scam/guild";
 import { GuildUserManager } from "#quikcess/managers/user/guild";
+import type { GuildUpdateData } from "#quikcess/types/guild";
 import { toSnakeCase } from "#quikcess/utils/cases";
 import { GuildChannels } from "./schemas/channels";
 import { GuildLogs } from "./schemas/logs/logs";
@@ -73,6 +74,10 @@ export class Guild {
 		this.mediators = new GuildMediatorManager(client, data.guild_id);
 		this.blacklist = new GuildBlacklistManager(client, data.guild_id);
 		this.scams = new GuildScamManager(client, data.guild_id);
+	}
+
+	async update(data: GuildUpdateData): Promise<Guild> {
+		return this.client.guilds.update(this.guildId, data);
 	}
 
 	/**

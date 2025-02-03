@@ -2,6 +2,7 @@ import type {
 	APIGuildChannels,
 	APIGuildQueueRules,
 } from "@quikcess/bet-api-types/v1";
+import { toSnakeCase } from "#quikcess/utils/cases";
 
 /**
  * Represents the guild's channels, including queue rules.
@@ -40,5 +41,13 @@ export class GuildQueueRules {
 	constructor(data: APIGuildQueueRules) {
 		this.queueName = data.queue_name;
 		this.channelIds = data.channel_ids;
+	}
+
+	public toJSON() {
+		const data: APIGuildQueueRules = toSnakeCase<
+			GuildQueueRules,
+			APIGuildQueueRules
+		>(this);
+		return data;
 	}
 }

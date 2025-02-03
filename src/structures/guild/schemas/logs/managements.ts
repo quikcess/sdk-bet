@@ -1,4 +1,5 @@
 import type { APIGuildLogsManagements } from "@quikcess/bet-api-types/v1";
+import { toSnakeCase } from "#quikcess/utils/cases";
 
 /**
  * Represents management logs within the guild.
@@ -17,5 +18,13 @@ export class GuildLogsManagements {
 		this.wins = data.wins;
 		this.loses = data.loses;
 		this.credits = data.credits;
+	}
+
+	public toJSON() {
+		const data: APIGuildLogsManagements = toSnakeCase<
+			GuildLogsManagements,
+			APIGuildLogsManagements
+		>(this);
+		return data;
 	}
 }
