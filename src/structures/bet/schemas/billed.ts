@@ -31,6 +31,10 @@ export class BetBilledRooms {
 		this.expenses = data.expenses;
 		this.profit = data.profit;
 	}
+
+	public static from(data: APIBetBilledRooms): BetBilledRooms {
+		return new BetBilledRooms(data);
+	}
 }
 
 /**
@@ -60,5 +64,9 @@ export class BetBilled {
 		this.feeOnly = data.fee_only;
 		this.revenue = data.revenue;
 		this.rooms = new BetBilledRooms(data.rooms);
+	}
+
+	public static from(data: APIBetBilled): BetBilled {
+		return new BetBilled(data);
 	}
 }

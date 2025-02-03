@@ -51,4 +51,8 @@ export class BetLog {
 				throw new Error("Invalid event type");
 		}
 	}
+
+	public static from(data: APIBetLog): BetLog {
+		return new BetLog(data);
+	}
 }

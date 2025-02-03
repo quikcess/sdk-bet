@@ -20,4 +20,8 @@ export class BetPlayer {
 		this.userId = data.user_id;
 		this.winner = data.winner;
 	}
+
+	public static from(data: APIBetPlayer): BetPlayer {
+		return new BetPlayer(data);
+	}
 }
