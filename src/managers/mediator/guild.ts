@@ -4,7 +4,7 @@ import {
 	assertPartialGuildMediator,
 } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting } from "#quikcess/index";
+import type { Betting, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -26,24 +26,29 @@ export class GuildMediatorManager {
 		public readonly guildId: string,
 	) {
 		assertString(guildId, "GUILD_ID");
-		this.cache = new Cache();
+		this.cache = new Cache<GuildMediator>();
 	}
 
-	async fetch(
-		userId: string,
-		options?: {
-			cache?: boolean;
-		},
-	): Promise<GuildMediator> {
+	async get(userId: string): Promise<GuildMediator> {
 		assertString(userId, "USER_ID");
-		const { cache = false } = options || {};
 
-		if (cache) {
-			const cached = this.cache.get(userId);
-			if (cached) {
-				return cached;
-			}
+		const cached = this.cache.get(userId);
+		if (cached) {
+			return cached;
 		}
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.get(this.guildId, userId),
+		);
+
+		const data = new GuildMediator(response);
+		this.cache.set(data.userId, data);
+
+		return data;
+	}
+
+	async fetch(userId: string): Promise<GuildMediator> {
+		assertString(userId, "USER_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.mediators.get(this.guildId, userId),

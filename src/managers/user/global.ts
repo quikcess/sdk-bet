@@ -1,6 +1,6 @@
 import type { RESTGetAPIGuildUsersPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting } from "#quikcess/index";
+import type { Betting, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -14,7 +14,7 @@ export class UserManager {
 	public readonly cache: Cache<User>;
 
 	constructor(public readonly client: Betting) {
-		this.cache = new Cache();
+		this.cache = new Cache<User>();
 	}
 
 	// Global User

@@ -1,7 +1,7 @@
 import type { RESTGetAPIGuildUsersPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertGuildUser, assertPartialGuildUser } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting } from "#quikcess/index";
+import type { Betting, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -23,24 +23,29 @@ export class GuildUserManager {
 		public readonly guildId: string,
 	) {
 		assertString(guildId, "GUILD_ID");
-		this.cache = new Cache();
+		this.cache = new Cache<GuildUser>();
 	}
 
-	async fetch(
-		userId: string,
-		options?: {
-			cache?: boolean;
-		},
-	): Promise<GuildUser> {
+	async get(userId: string): Promise<GuildUser> {
 		assertString(userId, "USER_ID");
-		const { cache = false } = options || {};
 
-		if (cache) {
-			const cached = this.cache.get(userId);
-			if (cached) {
-				return cached;
-			}
+		const cached = this.cache.get(userId);
+		if (cached) {
+			return cached;
 		}
+
+		const { response } = await this.client.api.request(
+			Routes.guilds.users.get(this.guildId, userId),
+		);
+
+		const data = new GuildUser(response);
+		this.cache.set(data.userId, data);
+
+		return data;
+	}
+
+	async fetch(userId: string): Promise<GuildUser> {
+		assertString(userId, "USER_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.users.get(this.guildId, userId),

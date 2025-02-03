@@ -1,6 +1,6 @@
 import type { RESTGetAPIGuildMediatorsPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting, GuildMediatorsQuery } from "#quikcess/index";
+import type { Betting, GuildMediatorsQuery, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -13,7 +13,7 @@ export class MediatorManager {
 	public readonly cache: Cache<Mediator>;
 
 	constructor(public readonly client: Betting) {
-		this.cache = new Cache();
+		this.cache = new Cache<Mediator>();
 	}
 
 	// Global Mediator
