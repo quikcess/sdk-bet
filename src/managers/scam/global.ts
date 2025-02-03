@@ -1,9 +1,9 @@
 import type { RESTGetAPIScamsQuery } from "@quikcess/bet-api-types/v1";
 import { assertPartialScam, assertScam } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting } from "#quikcess/index";
+import type { Betting, LocalCache } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
-import { Cache } from "#quikcess/services/cache";
+import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
 import { Scam, Scams } from "#quikcess/structures/scam";
 import { ScamStats } from "#quikcess/structures/scam/stats/global";
