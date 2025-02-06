@@ -1,12 +1,34 @@
 import type {
 	APIGuildMediator,
+	APIGuildMediatorLimiter,
+	APIGuildMediatorPix,
+	APIGuildMediatorSignature,
 	ISODateString,
 	RESTGetAPIGuildMediatorsPaginationQuery,
 } from "@quikcess/bet-api-types/v1";
+import type { DeepPartial } from "./common";
 
-export type GuildMediatorUpdateData = Partial<
-	Omit<GuildMediatorData, "userId" | "guildId" | "createdAt" | "updatedAt">
->;
+export type GuildMediatorLimiterRaw = APIGuildMediatorLimiter;
+export type GuildMediatorPixRaw = APIGuildMediatorPix;
+export type GuildMediatorSignatureRaw = APIGuildMediatorSignature;
+
+export type GuildMediatorUpdateData = DeepPartial<
+	Omit<
+		GuildMediatorData,
+		| "userId"
+		| "guildId"
+		| "createdAt"
+		| "updatedAt"
+		| "limiter"
+		| "pix"
+		| "signature"
+	>
+> & {
+	limiter?: DeepPartial<GuildMediatorLimiterRaw>;
+	pix?: DeepPartial<GuildMediatorPixRaw>;
+	signature?: DeepPartial<GuildMediatorSignatureRaw>;
+};
+
 export type GuildMediatorCreateData = Omit<
 	GuildMediatorData,
 	"createdAt" | "updatedAt"
