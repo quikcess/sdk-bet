@@ -93,6 +93,8 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 				} else {
 					this.emit(event, data);
 				}
+
+				// Sync to WS Cache
 			} catch (error) {
 				console.error("Error processing websocket message:", error);
 			}
@@ -104,21 +106,3 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 		return new Status(response);
 	}
 }
-
-async () => {
-	const client = new Betting("123");
-	const guild = await client.guilds.get("123");
-
-	const queueRules = guild.channels.queueRules.filter(
-		(rule) => !rule.channelIds.some((id) => ["123"].includes(id)),
-	);
-
-	// Corrigir a busca usando um método adequado para filtrar apostas
-	console.log(
-		guild.update({
-			channels: {
-				queue_rules: queueRules.map((r) => r.toJSON()),
-			},
-		}),
-	);
-};
