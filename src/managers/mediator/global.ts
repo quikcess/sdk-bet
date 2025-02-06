@@ -1,6 +1,6 @@
 import type { RESTGetAPIGuildMediatorsPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting, GuildMediatorsQuery, LocalCache } from "#quikcess/index";
+import type { Betting, GuildMediatorsQuery } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -17,11 +17,23 @@ export class MediatorManager {
 	}
 
 	// Global Mediator
-	async fetch(userId: string): Promise<Mediator> {
+	async fetch(
+		userId: string,
+		{
+			upsert = false,
+		}: {
+			upsert?: boolean;
+		} = {},
+	): Promise<Mediator> {
 		assertString(userId, "USER_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.mediators.get(userId),
+			{
+				query: {
+					upsert,
+				},
+			},
 		);
 
 		const data = new Mediator(response);

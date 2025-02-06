@@ -1,6 +1,6 @@
 import type { RESTGetAPIGuildUsersPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting, LocalCache } from "#quikcess/index";
+import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -18,11 +18,23 @@ export class UserManager {
 	}
 
 	// Global User
-	async fetch(userId: string): Promise<User> {
+	async fetch(
+		userId: string,
+		{
+			upsert = false,
+		}: {
+			upsert?: boolean;
+		} = {},
+	): Promise<User> {
 		assertString(userId, "USER_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.users.get(userId),
+			{
+				query: {
+					upsert,
+				},
+			},
 		);
 
 		const data = new User(response);

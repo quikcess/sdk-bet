@@ -1,7 +1,7 @@
 import type { RESTGetAPIGuildUsersPaginationQuery } from "@quikcess/bet-api-types/v1";
 import { assertGuildUser, assertPartialGuildUser } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting, LocalCache } from "#quikcess/index";
+import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -26,7 +26,14 @@ export class GuildUserManager {
 		this.cache = new Cache<GuildUser>();
 	}
 
-	async get(userId: string): Promise<GuildUser> {
+	async get(
+		userId: string,
+		{
+			upsert = false,
+		}: {
+			upsert?: boolean;
+		} = {},
+	): Promise<GuildUser> {
 		assertString(userId, "USER_ID");
 
 		const cached = this.cache.get(userId);
@@ -36,6 +43,11 @@ export class GuildUserManager {
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.users.get(this.guildId, userId),
+			{
+				query: {
+					upsert,
+				},
+			},
 		);
 
 		const data = new GuildUser(response);
@@ -44,11 +56,23 @@ export class GuildUserManager {
 		return data;
 	}
 
-	async fetch(userId: string): Promise<GuildUser> {
+	async fetch(
+		userId: string,
+		{
+			upsert = false,
+		}: {
+			upsert?: boolean;
+		} = {},
+	): Promise<GuildUser> {
 		assertString(userId, "USER_ID");
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.users.get(this.guildId, userId),
+			{
+				query: {
+					upsert,
+				},
+			},
 		);
 
 		const data = new GuildUser(response);
@@ -75,7 +99,15 @@ export class GuildUserManager {
 		return dataCreated;
 	}
 
-	async update(userId: string, data: GuildUserUpdateData): Promise<GuildUser> {
+	async update(
+		userId: string,
+		data: GuildUserUpdateData,
+		{
+			upsert = false,
+		}: {
+			upsert?: boolean;
+		} = {},
+	): Promise<GuildUser> {
 		assertString(userId);
 
 		const payload = toSnakeCase(data);
@@ -86,6 +118,9 @@ export class GuildUserManager {
 			{
 				method: "PATCH",
 				body: payload,
+				query: {
+					upsert,
+				},
 			},
 		);
 
