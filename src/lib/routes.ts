@@ -49,6 +49,17 @@ export const Routes = {
       update: (guildId: string, userId: string) => Route<"guilds/mediators/update">(`api/v1/guilds/${guildId}/mediators/${userId}`),
       delete: (guildId: string, userId: string) => Route<"guilds/mediators/delete">(`api/v1/guilds/${guildId}/mediators/${userId}`),
     },
+    queues: {
+      get: (guildId: string, queueId: string) => Route<"guilds/queues/get">(`api/v1/guilds/${guildId}/queues/${queueId}`),
+      getAll: (guildId: string) => Route<"guilds/queues/getAll">(`api/v1/guilds/${guildId}/queues`),
+      create: (guildId: string) => Route<"guilds/queues/create">(`api/v1/guilds/${guildId}/queues`),
+      update: (guildId: string, queueId: string) => Route<"guilds/queues/update">(`api/v1/guilds/${guildId}/queues/${queueId}`),
+      delete: (guildId: string, queueId: string) => Route<"guilds/queues/delete">(`api/v1/guilds/${guildId}/queues/${queueId}`),
+      bulk: {
+        create: (guildId: string) => Route<"guilds/queues/bulkCreate">(`api/v1/guilds/${guildId}/queues/bulk/create`),
+        delete:  (guildId: string) => Route<"guilds/queues/bulkDelete">(`api/v1/guilds/${guildId}/queues/bulk/delete`),
+      },
+    },
     scams: {
       getStats: (guildId: string) => Route<"guilds/scams/getStats">(`api/v1/guilds/${guildId}/scams/stats`),
     },
