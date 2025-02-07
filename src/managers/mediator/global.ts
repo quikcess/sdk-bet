@@ -49,7 +49,7 @@ export class MediatorManager {
 		limit,
 		page,
 		skip,
-	}: GuildMediatorsQuery): Promise<Mediators> {
+	}: GuildMediatorsQuery = {}): Promise<Mediators> {
 		const options = {
 			dateStart,
 			dateEnd,

@@ -149,7 +149,7 @@ export class GuildUserManager {
 		limit,
 		page,
 		skip,
-	}: GuildUsersQuery): Promise<GuildUsers> {
+	}: GuildUsersQuery = {}): Promise<GuildUsers> {
 		const options = {
 			dateStart,
 			dateEnd,

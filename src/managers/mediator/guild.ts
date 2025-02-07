@@ -152,7 +152,7 @@ export class GuildMediatorManager {
 		limit,
 		page,
 		skip,
-	}: GuildMediatorsQuery): Promise<GuildMediators> {
+	}: GuildMediatorsQuery = {}): Promise<GuildMediators> {
 		const options = {
 			dateStart,
 			dateEnd,

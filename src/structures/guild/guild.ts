@@ -4,6 +4,7 @@ import type { Betting } from "#quikcess/index";
 import { GuildBetManager } from "#quikcess/managers/bet/guild";
 import { GuildBlacklistManager } from "#quikcess/managers/blacklist/guild";
 import { GuildMediatorManager } from "#quikcess/managers/mediator/guild";
+import { GuildQueueManager } from "#quikcess/managers/queue";
 import { GuildScamManager } from "#quikcess/managers/scam/guild";
 import { GuildUserManager } from "#quikcess/managers/user/guild";
 import type { GuildUpdateData } from "#quikcess/types/guild";
@@ -18,6 +19,9 @@ import { GuildPermission } from "./schemas/permission";
 export class Guild {
 	/** Manages bets within the guild. */
 	public readonly bets: GuildBetManager;
+
+	/** Manages queues within the guild. */
+	public readonly queues: GuildQueueManager;
 
 	/** Manages users within the guild. */
 	public readonly users: GuildUserManager;
@@ -70,6 +74,7 @@ export class Guild {
 		this.updatedAt = new Date(data.updated_at);
 
 		this.bets = new GuildBetManager(client, data.guild_id);
+		this.queues = new GuildQueueManager(client, data.guild_id);
 		this.users = new GuildUserManager(client, data.guild_id);
 		this.mediators = new GuildMediatorManager(client, data.guild_id);
 		this.blacklist = new GuildBlacklistManager(client, data.guild_id);

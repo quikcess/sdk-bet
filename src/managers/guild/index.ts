@@ -15,7 +15,7 @@ import { Guilds } from "#quikcess/structures/guild/guilds";
 import { GuildStats } from "#quikcess/structures/guild/stats/guild";
 import type { GuildUpdateData, GuildsQuery } from "#quikcess/types/guild";
 import { toSnakeCase } from "#quikcess/utils/cases";
-import type { Betting, LocalCache } from "../..";
+import type { Betting } from "../..";
 
 export class GuildManager {
 	public readonly cache: Cache<Guild>;
@@ -96,7 +96,7 @@ export class GuildManager {
 		limit,
 		page,
 		skip,
-	}: GuildsQuery): Promise<Guilds> {
+	}: GuildsQuery = {}): Promise<Guilds> {
 		const options = {
 			dateStart,
 			dateEnd,

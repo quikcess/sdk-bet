@@ -32,7 +32,7 @@ export class Guilds {
 		totalGuilds = 0,
 		data = new Collection<string, Guild>(),
 	}: Partial<Guilds>) {
-		assertGuilds(data.values().toArray());
+		assertGuilds(data.toJSON().map((entry) => entry.toJSON()));
 
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
@@ -50,7 +50,7 @@ export class Guilds {
 			current_page: this.currentPage,
 			total_pages: this.totalPages,
 			total_guilds: this.totalGuilds,
-			data: Array.from(this.data.entries()), // Converts the Collection to an array of key-value pairs for serialization
+			data: this.data.toJSON().map((entry) => entry.toJSON()), // Converts the Collection to an array of key-value pairs for serialization
 		};
 	}
 

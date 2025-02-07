@@ -1,7 +1,7 @@
 import type { RESTGetAPIScamsQuery } from "@quikcess/bet-api-types/v1";
 import { assertPartialScam, assertScam } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting, LocalCache } from "#quikcess/index";
+import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { Collection } from "#quikcess/structures/collection";
@@ -57,7 +57,7 @@ export class ScamManager {
 		limit,
 		page,
 		skip,
-	}: ScamsQuery): Promise<Scams> {
+	}: ScamsQuery = {}): Promise<Scams> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 
 		const options = {

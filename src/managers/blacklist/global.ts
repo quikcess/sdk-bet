@@ -41,7 +41,7 @@ export class BlacklistManager {
 		limit,
 		page,
 		skip,
-	}: BlacklistsQuery): Promise<Blacklists> {
+	}: BlacklistsQuery = {}): Promise<Blacklists> {
 		if (guildId) assertString(guildId, "GUILD_ID");
 
 		const options = {

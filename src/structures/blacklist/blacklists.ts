@@ -32,7 +32,7 @@ export class Blacklists {
 		totalEntries = 0,
 		data = new Collection<string, Blacklist>(),
 	}: Partial<Blacklists>) {
-		assertBlacklists(data.values().toArray());
+		assertBlacklists(data.toJSON().map((entry) => entry.toJSON()));
 
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
@@ -50,7 +50,7 @@ export class Blacklists {
 			current_page: this.currentPage,
 			total_pages: this.totalPages,
 			total_entries: this.totalEntries,
-			data: Array.from(this.data.entries()), // Converts the Collection to an array of key-value pairs for serialization
+			data: this.data.toJSON().map((entry) => entry.toJSON()), // Converts the Collection to an array of key-value pairs for serialization
 		};
 	}
 

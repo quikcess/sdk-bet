@@ -1,3 +1,4 @@
+import { assertGuildBets } from "#quikcess/assertions";
 import { Collection } from "#quikcess/structures/collection";
 import type { GuildBet } from "./bet";
 
@@ -31,6 +32,8 @@ export class GuildBets {
 		totalBets = 0,
 		data = new Collection<string, GuildBet>(),
 	}: Partial<GuildBets>) {
+		assertGuildBets(data.toJSON().map((entry) => entry.toJSON()));
+
 		this.currentPage = currentPage;
 		this.totalPages = totalPages;
 		this.totalBets = totalBets;
@@ -47,7 +50,7 @@ export class GuildBets {
 			current_page: this.currentPage,
 			total_pages: this.totalPages,
 			total_bets: this.totalBets,
-			data: Array.from(this.data.entries()), // Converts the Collection to an array of entries for serialization
+			data: this.data.toJSON().map((entry) => entry.toJSON()), // Converts the Collection to an array of entries for serialization
 		};
 	}
 

@@ -29,7 +29,7 @@ export class GuildUsers {
 		totalUsers = 0,
 		data = new Collection<string, GuildUser>(),
 	}: Partial<GuildUsers>) {
-		assertGuildUsers(data.values().toArray());
+		assertGuildUsers(data.toJSON().map((entry) => entry.toJSON()));
 
 		this.data = data;
 		this.currentPage = currentPage;
@@ -44,7 +44,7 @@ export class GuildUsers {
 	 */
 	public toJSON() {
 		return {
-			data: this.data.map((user) => user.toJSON()),
+			data: this.data.toJSON().map((entry) => entry.toJSON()),
 			current_page: this.currentPage,
 			total_pages: this.totalPages,
 			total_users: this.totalUsers,

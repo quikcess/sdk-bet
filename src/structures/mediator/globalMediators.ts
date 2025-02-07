@@ -29,7 +29,7 @@ export class Mediators {
 		totalMediators = 0,
 		data = new Collection<string, Mediator>(),
 	}: Partial<Mediators>) {
-		assertGlobalMediators(data.values().toArray());
+		assertGlobalMediators(data.toJSON().map((entry) => entry.toJSON()));
 
 		this.data = data;
 		this.currentPage = currentPage;
@@ -44,7 +44,7 @@ export class Mediators {
 	 */
 	public toJSON() {
 		return {
-			data: this.data.map((mediator) => mediator.toJSON()),
+			data: this.data.toJSON().map((entry) => entry.toJSON()),
 			current_page: this.currentPage,
 			total_pages: this.totalPages,
 			total_mediators: this.totalMediators,
