@@ -1,6 +1,6 @@
 import type { z } from "zod";
-import { createAssertion } from "../common.js";
-import { PartialQueueSchema, QueueSchema } from "./queue.js";
+import { createAssertion } from "../common";
+import { PartialQueueSchema, QueueSchema } from "./queue";
 
 // Assertions for guild queues
 export const assertGuildQueue: (

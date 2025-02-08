@@ -3,6 +3,7 @@ export * from "./blacklist";
 export * from "./credential";
 export * from "./guilds/assertions";
 export * from "./mediators/assertions";
+export * from "./mods/assertions";
 export * from "./queues/assertions";
 export * from "./scam";
 export * from "./status";
