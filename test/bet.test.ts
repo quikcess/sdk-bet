@@ -102,20 +102,5 @@ import { client } from "./index.test";
 // });
 
 client.guilds.get("123").then(async (guild) => {
-	console.log(await guild.bets.fetch("1738599807391"));
-
-	console.log(
-		guild.bets.cache.find({
-			filter: {
-				// status: { $nin: [BetStatus.Closed, BetStatus.Revenged] },
-				players: {
-					$elemMatch: {
-						userId: {
-							$in: ["123"],
-						},
-					},
-				},
-			},
-		}),
-	);
+	console.log(await guild.queues.getAll());
 });

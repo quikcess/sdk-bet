@@ -28,7 +28,7 @@ export class Betting extends TypedEventEmitter<APIEvents> {
 	private ws: WebSocket;
 	/** API service */
 	public readonly api: APIService;
-	/** API service */
+	/** Credential manager */
 	public readonly credentials: CredentialManager;
 	/** Bets manager */
 	public readonly bets: BetManager;

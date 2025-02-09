@@ -1,4 +1,7 @@
-import { LocalCache, type LocalCacheOptions } from "#quikcess/structures";
+import {
+	LocalCache,
+	type LocalCacheOptions,
+} from "#quikcess/structures/local-cache";
 
 export class Cache<T> extends LocalCache<T, string> {
 	constructor(options?: LocalCacheOptions) {

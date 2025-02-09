@@ -8,18 +8,21 @@ export function toSnakeCase<T, U>(obj: T): U {
 		return obj.map(toSnakeCase) as unknown as any;
 	}
 
+	if (obj instanceof Date) {
+		return obj.toISOString() as unknown as U;
+	}
+
 	if (obj && typeof obj === "object") {
 		return Object.fromEntries(
 			Object.entries(obj).map(([key, value]) => [
 				key.replace(/([A-Z])/g, "_$1").toLowerCase(),
-				toSnakeCase(value),
+				value instanceof Date ? value.toISOString() : toSnakeCase(value),
 			]),
 		) as unknown as U;
 	}
 
 	return obj as unknown as U;
 }
-
 /**
  * Converts the keys of an object from snake_case to camelCase.
  * @param obj The object whose keys should be converted.

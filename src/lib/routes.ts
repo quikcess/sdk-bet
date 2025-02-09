@@ -60,6 +60,13 @@ export const Routes = {
         delete:  (guildId: string) => Route<"guilds/queues/bulkDelete">(`api/v1/guilds/${guildId}/queues/bulk/delete`),
       },
     },
+    mods: {
+      get: (guildId: string, modType: string, modTag: string) => Route<"guilds/mods/get">(`api/v1/guilds/${guildId}/mods/${modType}/${modTag}`),
+      getAll: (guildId: string) => Route<"guilds/mods/getAll">(`api/v1/guilds/${guildId}/mods`),
+      create: (guildId: string) => Route<"guilds/mods/create">(`api/v1/guilds/${guildId}/mods`),
+      update: (guildId: string, modType: string, modTag: string) => Route<"guilds/mods/update">(`api/v1/guilds/${guildId}/mods/${modType}/${modTag}`),
+      delete: (guildId: string, modType: string, modTag: string) => Route<"guilds/mods/delete">(`api/v1/guilds/${guildId}/mods/${modType}/${modTag}`),
+    },
     scams: {
       getStats: (guildId: string) => Route<"guilds/scams/getStats">(`api/v1/guilds/${guildId}/scams/stats`),
     },

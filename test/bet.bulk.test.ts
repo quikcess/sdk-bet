@@ -111,4 +111,4 @@ import { client } from "./index.test";
 // 		console.log(data);
 // 	});
 
-client.bets.bulkDelete(["098", "0981", "0982"]).then(console.log);
+// client.bets.bulkDelete(["098", "0981", "0982"]).then(console.log);

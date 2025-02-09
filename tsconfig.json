@@ -13,11 +13,12 @@
 		"target": "ESNext",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
+		"typeRoots": ["./src/types"],
 
 		"outDir": "./lib",
 		"paths": {
 			"#quikcess/*": ["./src/*"]
 		}
 	},
-	"exclude": ["./test/", "./lib/", "tsup.config.ts"]
+	"exclude": ["./test", "./lib", "tsup.config.ts"]
 }
