@@ -10,13 +10,14 @@ export const APIGuildPermission = z.array(
 export const APIGuildQueueRules = z.array(
 	z.object({
 		queue_name: z.string(),
-		channel_ids: z.array(z.string()),
+		channel_id: z.string().nullable(),
 	}),
 );
 
 export const APIGuildChannels = z.object({
 	parent_thread_ids: z.array(z.string()),
 	blacklist_id: z.string().nullable(),
+	scam_id: z.string().nullable(),
 	command_ids: z.array(z.string()),
 	queue_rules: APIGuildQueueRules,
 });

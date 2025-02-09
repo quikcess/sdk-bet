@@ -4,6 +4,7 @@ import type { Betting } from "#quikcess/index";
 import { GuildBetManager } from "#quikcess/managers/bet/guild";
 import { GuildBlacklistManager } from "#quikcess/managers/blacklist/guild";
 import { GuildMediatorManager } from "#quikcess/managers/mediator/guild";
+import { GuildModManager } from "#quikcess/managers/mod";
 import { GuildQueueManager } from "#quikcess/managers/queue";
 import { GuildScamManager } from "#quikcess/managers/scam/guild";
 import { GuildUserManager } from "#quikcess/managers/user/guild";
@@ -11,7 +12,7 @@ import type { GuildUpdateData } from "#quikcess/types/guild";
 import { toSnakeCase } from "#quikcess/utils/cases";
 import { GuildChannels } from "./schemas/channels";
 import { GuildLogs } from "./schemas/logs/logs";
-import { GuildPermission } from "./schemas/permission";
+import { GuildPermissions } from "./schemas/permissions/permissions";
 
 /**
  * Represents a guild with all its properties and managers.
@@ -22,6 +23,9 @@ export class Guild {
 
 	/** Manages queues within the guild. */
 	public readonly queues: GuildQueueManager;
+
+	/** Manages mods within the guild. */
+	public readonly mods: GuildModManager;
 
 	/** Manages users within the guild. */
 	public readonly users: GuildUserManager;
@@ -42,7 +46,7 @@ export class Guild {
 	public systems: number[];
 
 	/** List of permissions associated with the guild. */
-	public permissions: GuildPermission[];
+	public permissions: GuildPermissions;
 
 	/** Manages the guild's channels and their configurations. */
 	public channels: GuildChannels;
@@ -65,16 +69,15 @@ export class Guild {
 
 		this.guildId = data.guild_id;
 		this.systems = data.systems;
-		this.permissions = data.permissions.map(
-			(perm) => new GuildPermission(perm),
-		);
-		this.channels = new GuildChannels(data.channels);
+		this.permissions = new GuildPermissions(this, data.permissions);
+		this.channels = new GuildChannels(this, data.channels);
 		this.logs = new GuildLogs(data.logs);
 		this.createdAt = new Date(data.created_at);
 		this.updatedAt = new Date(data.updated_at);
 
 		this.bets = new GuildBetManager(client, data.guild_id);
 		this.queues = new GuildQueueManager(client, data.guild_id);
+		this.mods = new GuildModManager(client, data.guild_id);
 		this.users = new GuildUserManager(client, data.guild_id);
 		this.mediators = new GuildMediatorManager(client, data.guild_id);
 		this.blacklist = new GuildBlacklistManager(client, data.guild_id);
