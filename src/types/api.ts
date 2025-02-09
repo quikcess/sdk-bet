@@ -20,6 +20,13 @@ import type {
 	RESTGetAPIGuildMediatorStatsResponse,
 	RESTGetAPIGuildMediatorsPaginationQuery,
 	RESTGetAPIGuildMediatorsResponse,
+	RESTGetAPIGuildModResponse,
+	RESTGetAPIGuildModsPaginationQuery,
+	RESTGetAPIGuildModsResponse,
+	RESTGetAPIGuildQueueBulkResponse,
+	RESTGetAPIGuildQueueResponse,
+	RESTGetAPIGuildQueuesPaginationQuery,
+	RESTGetAPIGuildQueuesResponse,
 	RESTGetAPIGuildResponse,
 	RESTGetAPIGuildScamStatsResponse,
 	RESTGetAPIGuildStatsResponse,
@@ -49,6 +56,8 @@ import type {
 	RESTPatchAPIGuildBetUpdateBody,
 	RESTPatchAPIGuildMediatorUpdateBody,
 	RESTPatchAPIGuildMediatorUpdateQuery,
+	RESTPatchAPIGuildModUpdateBody,
+	RESTPatchAPIGuildQueueUpdateBody,
 	RESTPatchAPIGuildUpdateBody,
 	RESTPatchAPIGuildUserUpdateBody,
 	RESTPatchAPIGuildUserUpdateQuery,
@@ -58,6 +67,8 @@ import type {
 	RESTPostAPIGuildBetCreateBody,
 	RESTPostAPIGuildCreateBody,
 	RESTPostAPIGuildMediatorCreateBody,
+	RESTPostAPIGuildModCreateBody,
+	RESTPostAPIGuildQueueCreateBody,
 	RESTPostAPIGuildUserCreateBody,
 	RESTPostAPIScamCreateBody,
 } from "@quikcess/bet-api-types/v1";
@@ -238,6 +249,60 @@ export interface APIEndpoints {
 	"guilds/mediators/delete": {
 		method: "DELETE";
 		response: RESTGetAPIGuildMediatorResponse;
+	};
+
+	"guilds/queues/get": {
+		response: RESTGetAPIGuildQueueResponse;
+	};
+	"guilds/queues/getAll": {
+		response: RESTGetAPIGuildQueuesResponse;
+		query: RESTGetAPIGuildQueuesPaginationQuery;
+	};
+	"guilds/queues/create": {
+		method: "POST";
+		response: RESTGetAPIGuildQueueResponse;
+		body: RESTPostAPIGuildQueueCreateBody;
+	};
+	"guilds/queues/update": {
+		method: "PATCH";
+		response: RESTGetAPIGuildQueueResponse;
+		body: RESTPatchAPIGuildQueueUpdateBody;
+	};
+	"guilds/queues/delete": {
+		method: "DELETE";
+		response: RESTGetAPIGuildQueueResponse;
+	};
+	"guilds/queues/bulkCreate": {
+		method: "POST";
+		response: RESTGetAPIGuildQueueBulkResponse;
+		body: RESTPostAPIGuildQueueCreateBody[];
+	};
+	"guilds/queues/bulkDelete": {
+		method: "DELETE";
+		response: RESTGetAPIGuildQueueBulkResponse;
+		body: string[];
+	};
+
+	"guilds/mods/get": {
+		response: RESTGetAPIGuildModResponse;
+	};
+	"guilds/mods/getAll": {
+		response: RESTGetAPIGuildModsResponse;
+		query: RESTGetAPIGuildModsPaginationQuery;
+	};
+	"guilds/mods/create": {
+		method: "POST";
+		response: RESTGetAPIGuildModResponse;
+		body: RESTPostAPIGuildModCreateBody;
+	};
+	"guilds/mods/update": {
+		method: "PATCH";
+		response: RESTGetAPIGuildModResponse;
+		body: RESTPatchAPIGuildModUpdateBody;
+	};
+	"guilds/mods/delete": {
+		method: "DELETE";
+		response: RESTGetAPIGuildModResponse;
 	};
 
 	"bets/get": { response: RESTGetAPIGuildBetResponse };

@@ -5,7 +5,7 @@ import type {
 } from "@quikcess/bet-api-types/v1";
 
 export type ScamUpdateData = Partial<
-	Omit<ScamData, "guild_id" | "created_at" | "updated_at">
+	Omit<ScamData, "guildId" | "createdAt" | "updatedAt">
 >;
 
 export type ScamData = Omit<

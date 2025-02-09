@@ -10,7 +10,7 @@ export type GuildQueueCreateData = Omit<
 >;
 
 export type GuildQueueUpdateData = Partial<
-	Omit<GuildQueueData, "guild_id" | "created_at" | "updated_at">
+	Omit<GuildQueueData, "guildId" | "createdAt" | "updatedAt">
 >;
 
 export type GuildQueueData = Omit<

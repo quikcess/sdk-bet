@@ -12,7 +12,7 @@ import type { DeepPartial } from "./common";
 export type GuildModCreateData = Omit<GuildModData, "createdAt" | "updatedAt">;
 
 export type GuildModUpdateData = DeepPartial<
-	Omit<GuildModData, "guild_id" | "created_at" | "updated_at">
+	Omit<GuildModData, "guildId" | "createdAt" | "updatedAt">
 >;
 
 export type GuildModComponents = {
