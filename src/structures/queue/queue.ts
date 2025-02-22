@@ -39,7 +39,14 @@ export class GuildQueue {
 	 * @returns The guild queue data formatted as an API-compatible object.
 	 */
 	public toJSON() {
-		const data: APIGuildQueue = toSnakeCase<GuildQueue, APIGuildQueue>(this);
+		const data: APIGuildQueue = {
+			guild_id: this.guildId,
+			queue_id: this.queueId,
+			channel_id: this.channelId,
+			type: this.type,
+			created_at: this.createdAt.toISOString(),
+			updated_at: this.updatedAt.toISOString(),
+		};
 		return data;
 	}
 }

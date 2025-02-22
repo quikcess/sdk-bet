@@ -13,7 +13,7 @@ import type {
 	GuildModCreateData,
 	GuildModUpdateData,
 	GuildModsQuery,
-} from "#quikcess/types/mod";
+} from "#quikcess/types/index";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class GuildModManager {
@@ -117,25 +117,12 @@ export class GuildModManager {
 		return new GuildMod(response);
 	}
 
-	async getAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildModsQuery = {}): Promise<GuildMods> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
-
+	async getAll(options: GuildModsQuery = {}): Promise<GuildMods> {
 		const query: RESTGetAPIGuildModsPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildModsPaginationQuery,
 			GuildModsQuery
 		>(options);
+
 		const { response } = await this.client.api.request(
 			Routes.guilds.mods.getAll(this.guildId),
 			{

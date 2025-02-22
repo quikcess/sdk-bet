@@ -8,6 +8,7 @@ import type {
 	RESTGetAPICredentialBaseQuery,
 	RESTGetAPICredentialResponse,
 	RESTGetAPIGuildBetBulkResponse,
+	RESTGetAPIGuildBetCountQuery,
 	RESTGetAPIGuildBetCountResponse,
 	RESTGetAPIGuildBetResponse,
 	RESTGetAPIGuildBetStatsResponse,
@@ -15,6 +16,8 @@ import type {
 	RESTGetAPIGuildBetsQuery,
 	RESTGetAPIGuildBetsResponse,
 	RESTGetAPIGuildBlacklistStatsResponse,
+	RESTGetAPIGuildLeastLoadedMediatorBody,
+	RESTGetAPIGuildLeastLoadedMediatorResponse,
 	RESTGetAPIGuildMediatorQuery,
 	RESTGetAPIGuildMediatorResponse,
 	RESTGetAPIGuildMediatorStatsResponse,
@@ -184,7 +187,10 @@ export interface APIEndpoints {
 		response: RESTGetAPIGuildBetResponse;
 	};
 	"guilds/bets/getStats": { response: RESTGetAPIGuildBetStatsResponse };
-	"guilds/bets/getCount": { response: RESTGetAPIGuildBetCountResponse };
+	"guilds/bets/getCount": {
+		response: RESTGetAPIGuildBetCountResponse;
+		query: RESTGetAPIGuildBetCountQuery;
+	};
 	"guilds/bets/bulkCreate": {
 		method: "POST";
 		response: RESTGetAPIGuildBetBulkResponse;
@@ -227,6 +233,10 @@ export interface APIEndpoints {
 	"guilds/mediators/get": {
 		response: RESTGetAPIGuildMediatorResponse;
 		query: RESTGetAPIGuildMediatorQuery;
+	};
+	"guilds/mediators/getLeastLoaded": {
+		response: RESTGetAPIGuildLeastLoadedMediatorResponse;
+		body: RESTGetAPIGuildLeastLoadedMediatorBody[];
 	};
 	"guilds/mediators/getAll": {
 		response: RESTGetAPIGuildMediatorsResponse;

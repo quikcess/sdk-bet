@@ -1,6 +1,7 @@
 import type { RESTGetAPIGuildMediatorsPaginationQuery } from "@quikcess/bet-api-types/v1";
 import {
 	assertGuildMediator,
+	assertGuildMediators,
 	assertPartialGuildMediator,
 } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
@@ -146,25 +147,32 @@ export class GuildMediatorManager {
 		return new GuildMediator(response);
 	}
 
-	async getAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildMediatorsQuery = {}): Promise<GuildMediators> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
+	async getLeastLoaded(
+		data: GuildMediatorUpdateData[],
+	): Promise<GuildMediator | undefined> {
+		const payload = toSnakeCase(data);
+		assertGuildMediators(payload, "/guilds/mediators/getLeastLoaded");
 
+		const { response } = await this.client.api.request(
+			Routes.guilds.mediators.getLeastLoaded(this.guildId),
+			{
+				body: payload,
+			},
+		);
+
+		if (response) {
+			const dataUpdated = new GuildMediator(response);
+			this.cache.set(dataUpdated.userId, dataUpdated);
+			return dataUpdated;
+		}
+	}
+
+	async getAll(options: GuildMediatorsQuery = {}): Promise<GuildMediators> {
 		const query: RESTGetAPIGuildMediatorsPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildMediatorsPaginationQuery,
 			GuildMediatorsQuery
 		>(options);
+
 		const { response } = await this.client.api.request(
 			Routes.guilds.mediators.getAll(this.guildId),
 			{

@@ -7,10 +7,10 @@ import type { GuildBet } from "./bet";
  */
 export class GuildBets {
 	/** The current page number of the paginated results, or null if not applicable. */
-	public readonly currentPage: number | null;
+	public readonly currentPage: number;
 
 	/** The total number of pages in the result set, or null if not applicable. */
-	public readonly totalPages: number | null;
+	public readonly totalPages: number;
 
 	/** The total number of bets in the result set. */
 	public readonly totalBets: number;
@@ -27,8 +27,8 @@ export class GuildBets {
 	 * @param data - A collection of bets (default is an empty collection).
 	 */
 	constructor({
-		currentPage = null,
-		totalPages = null,
+		currentPage = 0,
+		totalPages = 0,
 		totalBets = 0,
 		data = new Collection<string, GuildBet>(),
 	}: Partial<GuildBets>) {

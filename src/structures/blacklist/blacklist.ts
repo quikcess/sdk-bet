@@ -68,6 +68,15 @@ export class Blacklist {
 	 * @returns An APIBlacklist object representing this instance.
 	 */
 	public toJSON(): APIBlacklist {
-		return toSnakeCase<Blacklist, APIBlacklist>(this);
+		return {
+			guild_id: this.guildId,
+			target_id: this.targetId,
+			target_type: this.targetType,
+			status: this.status,
+			added_by: this.addedBy,
+			reason: this.reason,
+			created_at: this.createdAt.toISOString(),
+			updated_at: this.updatedAt.toISOString(),
+		};
 	}
 }

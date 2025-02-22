@@ -1,6 +1,7 @@
 import { GuildModType } from "@quikcess/bet-api-types/v1";
 import { z } from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date";
+import { deepPartialify } from "../deep";
 import { ModDataSchema } from "./schemas";
 
 export const ModSchema = z.object({
@@ -12,4 +13,4 @@ export const ModSchema = z.object({
 	updated_at: ISODateStringSchema,
 });
 
-export const PartialModSchema = ModSchema.partial();
+export const PartialModSchema = deepPartialify(ModSchema);

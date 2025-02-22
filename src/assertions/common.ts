@@ -3,7 +3,7 @@ import { BetSDKError } from "#quikcess/structures";
 import type {
 	APIObjectAssertionProps,
 	LiteralAssertionProps,
-} from "#quikcess/types/assertions";
+} from "#quikcess/types/index";
 
 export function createAssertion<T extends z.ZodTypeAny>(
 	schema: T,

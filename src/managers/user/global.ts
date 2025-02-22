@@ -7,7 +7,7 @@ import { Collection } from "#quikcess/structures/collection";
 import { User } from "#quikcess/structures/user/globalUser";
 import { Users } from "#quikcess/structures/user/globalUsers";
 import { UserContextStats } from "#quikcess/structures/user/stats/global";
-import type { GuildUsersQuery } from "#quikcess/types/user";
+import type { GuildUsersQuery } from "#quikcess/types/index";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class UserManager {
@@ -44,25 +44,12 @@ export class UserManager {
 	}
 
 	// Global user
-	async fetchAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildUsersQuery = {}): Promise<Users> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
-
+	async fetchAll(options: GuildUsersQuery = {}): Promise<Users> {
 		const query: RESTGetAPIGuildUsersPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildUsersPaginationQuery,
 			GuildUsersQuery
 		>(options);
+
 		const { response } = await this.client.api.request(Routes.users.getAll(), {
 			query,
 		});

@@ -8,13 +8,18 @@ import {
 	assertPartialGuildBet,
 } from "#quikcess/assertions";
 import { assertString } from "#quikcess/assertions/literal";
-import type { Betting, LocalCache } from "#quikcess/index";
+import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { Cache } from "#quikcess/services";
 import { GuildBet, GuildBets } from "#quikcess/structures";
 import { GuildBetStats } from "#quikcess/structures/bet/stats/guild";
 import { Collection } from "#quikcess/structures/collection";
-import type { BetCreateData, BetUpdateData } from "#quikcess/types";
+import type {
+	BetCreateData,
+	BetUpdateData,
+	GuildBetCountQuery,
+	GuildBetsQuery,
+} from "#quikcess/types";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class GuildBetManager {
@@ -72,8 +77,11 @@ export class GuildBetManager {
 		return data;
 	}
 
-	async getAll(playerIds?: string[]): Promise<GuildBets> {
-		const query: RESTGetAPIGuildBetsQuery = { player_ids: playerIds ?? [] };
+	async getAll(options: GuildBetsQuery = {}): Promise<GuildBets> {
+		const query: RESTGetAPIGuildBetsQuery = toSnakeCase<
+			RESTGetAPIGuildBetsQuery,
+			GuildBetsQuery
+		>(options);
 
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.getAll(this.guildId),
@@ -98,9 +106,12 @@ export class GuildBetManager {
 		});
 	}
 
-	async getCount(): Promise<number> {
+	async getCount(query: GuildBetCountQuery = {}): Promise<number> {
 		const { response } = await this.client.api.request(
 			Routes.guilds.bets.getCount(this.guildId),
+			{
+				query: query,
+			},
 		);
 
 		return response;

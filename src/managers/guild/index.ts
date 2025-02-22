@@ -13,7 +13,7 @@ import { Collection } from "#quikcess/structures/collection";
 import { Guild } from "#quikcess/structures/guild/guild";
 import { Guilds } from "#quikcess/structures/guild/guilds";
 import { GuildStats } from "#quikcess/structures/guild/stats/guild";
-import type { GuildUpdateData, GuildsQuery } from "#quikcess/types/guild";
+import type { GuildUpdateData, GuildsQuery } from "#quikcess/types/index";
 import { toSnakeCase } from "#quikcess/utils/cases";
 import type { Betting } from "../..";
 
@@ -90,25 +90,12 @@ export class GuildManager {
 		return new Guild(this.client, response);
 	}
 
-	async getAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildsQuery = {}): Promise<Guilds> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
-
+	async getAll(options: GuildsQuery = {}): Promise<Guilds> {
 		const query: RESTGetAPIGuildsPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildsPaginationQuery,
 			GuildsQuery
 		>(options);
+
 		const { response } = await this.client.api.request(Routes.guilds.getAll(), {
 			query,
 		});

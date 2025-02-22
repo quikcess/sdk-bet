@@ -7,19 +7,10 @@ export const APIGuildPermission = z.array(
 	}),
 );
 
-export const APIGuildQueueRules = z.array(
-	z.object({
-		queue_name: z.string(),
-		channel_id: z.string().nullable(),
-	}),
-);
-
 export const APIGuildChannels = z.object({
-	parent_thread_ids: z.array(z.string()),
 	blacklist_id: z.string().nullable(),
 	scam_id: z.string().nullable(),
 	command_ids: z.array(z.string()),
-	queue_rules: APIGuildQueueRules,
 });
 
 export const APIGuildLogsSystems = z.object({
@@ -47,4 +38,32 @@ export const APIGuildLogs = z.object({
 	bets: APIGuildLogsBets,
 	managements: APIGuildLogsManagements,
 	systems: APIGuildLogsSystems,
+});
+
+export const APIGuildQueueRules = z.array(
+	z.object({
+		format: z.string(),
+		channel_id: z.string().nullable(),
+	}),
+);
+
+export const APIGuildBetTax = z.array(
+	z.object({
+		percentage: z.number(),
+		min_value: z.number(),
+		max_value: z.number(),
+	}),
+);
+
+export const APIGuildBetSettings = z.object({
+	queue_rules: APIGuildQueueRules,
+	taxes: APIGuildBetTax,
+	parent_channel_id: z.string().nullable(),
+	room_price: z.number(),
+	threshold: z.number(),
+	start_time: z.number(),
+});
+
+export const APIGuildSettings = z.object({
+	bet: APIGuildBetSettings,
 });

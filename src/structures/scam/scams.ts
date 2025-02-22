@@ -7,10 +7,10 @@ import type { Scam } from "./scam";
  */
 export class Scams {
 	/** The current page number of the paginated results, or null if not applicable. */
-	public readonly currentPage: number | null;
+	public readonly currentPage: number;
 
 	/** The total number of pages in the result set, or null if not applicable. */
-	public readonly totalPages: number | null;
+	public readonly totalPages: number;
 
 	/** The total number of scam entries in the result set. */
 	public readonly totalEntries: number;
@@ -27,8 +27,8 @@ export class Scams {
 	 * @param data - A collection of scam entries (default is an empty collection).
 	 */
 	constructor({
-		currentPage = null,
-		totalPages = null,
+		currentPage = 0,
+		totalPages = 0,
 		totalEntries = 0,
 		data = new Collection<string, Scam>(),
 	}: Partial<Scams>) {

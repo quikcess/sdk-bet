@@ -2,7 +2,7 @@ import { assertString } from "#quikcess/assertions/literal";
 import type { Betting } from "#quikcess/index";
 import { Routes } from "#quikcess/lib/routes";
 import { GuildScamStats } from "#quikcess/structures/scam/stats/guild";
-import type { ScamUpdateData, ScamsQuery } from "#quikcess/types/scam";
+import type { ScamUpdateData, ScamsQuery } from "#quikcess/types/index";
 import { ScamManager } from "./global";
 
 export class GuildScamManager extends ScamManager {

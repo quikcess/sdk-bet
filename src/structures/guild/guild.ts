@@ -8,11 +8,12 @@ import { GuildModManager } from "#quikcess/managers/mod";
 import { GuildQueueManager } from "#quikcess/managers/queue";
 import { GuildScamManager } from "#quikcess/managers/scam/guild";
 import { GuildUserManager } from "#quikcess/managers/user/guild";
-import type { GuildUpdateData } from "#quikcess/types/guild";
+import type { GuildUpdateData } from "#quikcess/types/index";
 import { toSnakeCase } from "#quikcess/utils/cases";
 import { GuildChannels } from "./schemas/channels";
 import { GuildLogs } from "./schemas/logs/logs";
 import { GuildPermissions } from "./schemas/permissions/permissions";
+import { GuildSettings } from "./schemas/settings";
 
 /**
  * Represents a guild with all its properties and managers.
@@ -39,8 +40,14 @@ export class Guild {
 	/** Manages scams within the guild. */
 	public readonly scams: GuildScamManager;
 
+	/** Manages scams within the guild. */
+	public readonly settings: GuildSettings;
+
 	/** Unique identifier of the guild. */
 	public readonly guildId: string;
+
+	/** Prefix command of the guild. */
+	public prefix: string;
 
 	/** List of active systems in the guild. */
 	public systems: number[];
@@ -68,6 +75,7 @@ export class Guild {
 		assertGuild(data, "GUILD_DATA");
 
 		this.guildId = data.guild_id;
+		this.prefix = data.prefix;
 		this.systems = data.systems;
 		this.permissions = new GuildPermissions(this, data.permissions);
 		this.channels = new GuildChannels(this, data.channels);
@@ -82,6 +90,7 @@ export class Guild {
 		this.mediators = new GuildMediatorManager(client, data.guild_id);
 		this.blacklist = new GuildBlacklistManager(client, data.guild_id);
 		this.scams = new GuildScamManager(client, data.guild_id);
+		this.settings = new GuildSettings(this, data.settings);
 	}
 
 	async update(data: GuildUpdateData): Promise<Guild> {
@@ -93,7 +102,16 @@ export class Guild {
 	 * @returns The guild data formatted as an API-compatible object.
 	 */
 	public toJSON() {
-		const data: APIGuild = toSnakeCase<Guild, APIGuild>(this);
-		return data;
+		return {
+			guild_id: this.guildId,
+			prefix: this.prefix,
+			systems: this.systems,
+			permissions: this.permissions,
+			channels: this.channels,
+			logs: this.logs,
+			created_at: this.createdAt,
+			updated_at: this.updatedAt,
+			settings: this.settings,
+		};
 	}
 }

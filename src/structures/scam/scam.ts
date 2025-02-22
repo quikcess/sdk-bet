@@ -77,7 +77,18 @@ export class Scam {
 	 * @returns The APIScam object representation of this instance.
 	 */
 	public toJSON(): APIScam {
-		const data: APIScam = toSnakeCase<Scam, APIScam>(this);
-		return data;
+		return {
+			guild_id: this.guildId,
+			target_name: this.targetName,
+			type: this.type,
+			status: this.status,
+			details: this.details,
+			reported_by: this.reportedBy,
+			evidences: this.evidences,
+			created_at: this.createdAt.toISOString(),
+			updated_at: this.updatedAt.toISOString(),
+			validated_at: this.validatedAt?.toISOString() ?? null,
+			validated_by: this.validatedBy,
+		};
 	}
 }

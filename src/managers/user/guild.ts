@@ -12,7 +12,7 @@ import type {
 	GuildUserCreateData,
 	GuildUserUpdateData,
 	GuildUsersQuery,
-} from "#quikcess/types/user";
+} from "#quikcess/types/index";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class GuildUserManager {
@@ -143,25 +143,12 @@ export class GuildUserManager {
 		return new GuildUser(response);
 	}
 
-	async getAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildUsersQuery = {}): Promise<GuildUsers> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
-
+	async getAll(options: GuildUsersQuery = {}): Promise<GuildUsers> {
 		const query: RESTGetAPIGuildUsersPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildUsersPaginationQuery,
 			GuildUsersQuery
 		>(options);
+
 		const { response } = await this.client.api.request(
 			Routes.guilds.users.getAll(this.guildId),
 			{

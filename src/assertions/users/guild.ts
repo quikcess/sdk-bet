@@ -1,5 +1,6 @@
 import z from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date";
+import { deepPartialify } from "../deep";
 import {
 	UserNotificationsSchema,
 	UserScoresSchema,
@@ -18,4 +19,4 @@ export const GuildUserSchema = z.object({
 	updated_at: ISODateStringSchema,
 });
 
-export const PartialGuildUserSchema = GuildUserSchema.partial();
+export const PartialGuildUserSchema = deepPartialify(GuildUserSchema);

@@ -11,7 +11,7 @@ import type {
 	ScamData,
 	ScamUpdateData,
 	ScamsQuery,
-} from "#quikcess/types/scam";
+} from "#quikcess/types/index";
 import { toSnakeCase } from "#quikcess/utils/cases";
 
 export class ScamManager {

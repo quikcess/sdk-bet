@@ -24,4 +24,11 @@ export class BetPlayer {
 	public static from(data: APIBetPlayer): BetPlayer {
 		return new BetPlayer(data);
 	}
+
+	public toJSON(): APIBetPlayer {
+		return {
+			user_id: this.userId,
+			winner: this.winner,
+		};
+	}
 }

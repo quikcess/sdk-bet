@@ -117,25 +117,12 @@ export class GuildQueueManager {
 		return new GuildQueue(response);
 	}
 
-	async getAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildQueuesQuery = {}): Promise<GuildQueues> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
-
+	async getAll(options: GuildQueuesQuery = {}): Promise<GuildQueues> {
 		const query: RESTGetAPIGuildQueuesPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildQueuesPaginationQuery,
 			GuildQueuesQuery
 		>(options);
+
 		const { response } = await this.client.api.request(
 			Routes.guilds.queues.getAll(this.guildId),
 			{

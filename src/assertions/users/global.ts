@@ -1,5 +1,6 @@
 import z from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date";
+import { deepPartialify } from "../deep";
 import { UserStatsSchema } from "./stats";
 
 export const GlobalUserSchema = z.object({
@@ -9,4 +10,4 @@ export const GlobalUserSchema = z.object({
 	updated_at: ISODateStringSchema,
 });
 
-export const PartialGlobalUserSchema = GlobalUserSchema.partial();
+export const PartialGlobalUserSchema = deepPartialify(GlobalUserSchema);

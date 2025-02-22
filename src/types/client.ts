@@ -1,5 +1,12 @@
 import EventEmitter from "events";
 import type { APIBlacklist, APIGuildBet } from "@quikcess/bet-api-types/v1";
+import type { ZodSchema } from "zod";
+
+export type DeepPartial<T> = T extends object
+	? {
+			[P in keyof T]?: DeepPartial<T[P]>;
+		}
+	: T;
 
 export class TypedEventEmitter<TEvents extends Record<string, any>> {
 	private emitter = new EventEmitter();
@@ -33,4 +40,19 @@ export interface APIEvents {
 	betCreate: [data: APIGuildBet];
 	betUpdate: [before: APIGuildBet | undefined, after: APIGuildBet];
 	betDelete: [betId: string, data: APIGuildBet | undefined];
+}
+
+export interface BaseAssertionProps {
+	schema: ZodSchema;
+	value: unknown;
+	code?: string;
+}
+
+export interface LiteralAssertionProps extends BaseAssertionProps {
+	expect: string;
+}
+
+export interface APIObjectAssertionProps extends BaseAssertionProps {
+	code: string;
+	route: string;
 }

@@ -5,6 +5,7 @@ import {
 import * as z from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date";
 import { createAssertion } from "./common";
+import { deepPartialify } from "./deep";
 
 const BlacklistSchema = z.object({
 	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
@@ -17,7 +18,7 @@ const BlacklistSchema = z.object({
 	updated_at: ISODateStringSchema,
 });
 
-export const BlacklistSchemaPartial = BlacklistSchema.partial();
+export const BlacklistSchemaPartial = deepPartialify(BlacklistSchema);
 
 export const assertBlacklist: (
 	value: unknown,

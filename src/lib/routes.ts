@@ -42,6 +42,7 @@ export const Routes = {
     },
     mediators: {
       get: (guildId: string, userId: string) => Route<"guilds/mediators/get">(`api/v1/guilds/${guildId}/mediators/${userId}`),
+      getLeastLoaded: (guildId: string) => Route<"guilds/mediators/getLeastLoaded">(`api/v1/guilds/${guildId}/mediators/least-loaded`),
       getAll: (guildId: string) => Route<"guilds/mediators/getAll">(`api/v1/guilds/${guildId}/mediators`),
       getStats: () => Route<"guilds/mediators/getStats">(`api/v1/guilds/mediators/stats`),
       getStatsFromUser: (guildId:string, userId:string) => Route<"guilds/mediators/getStats">(`api/v1/guilds/${guildId}/mediators/${userId}/stats`),

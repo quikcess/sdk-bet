@@ -43,25 +43,12 @@ export class MediatorManager {
 	}
 
 	// Global mediator
-	async fetchAll({
-		dateStart,
-		dateEnd,
-		limit,
-		page,
-		skip,
-	}: GuildMediatorsQuery = {}): Promise<Mediators> {
-		const options = {
-			dateStart,
-			dateEnd,
-			limit,
-			page,
-			skip,
-		};
-
+	async fetchAll(options: GuildMediatorsQuery = {}): Promise<Mediators> {
 		const query: RESTGetAPIGuildMediatorsPaginationQuery = toSnakeCase<
 			RESTGetAPIGuildMediatorsPaginationQuery,
 			GuildMediatorsQuery
 		>(options);
+
 		const { response } = await this.client.api.request(
 			Routes.mediators.getAll(),
 			{

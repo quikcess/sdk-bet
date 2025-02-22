@@ -3,6 +3,7 @@ import {
 	ISODateStringSchema,
 	isISODateString,
 } from "#quikcess/utils/date/index";
+import { deepPartialify } from "../deep";
 import {
 	APIBetLogSchema,
 	GuildBetBasicSchema,
@@ -47,4 +48,4 @@ export const GuildBetSchema = z
 	.merge(GuildBetOutcomeSchema)
 	.merge(GuildBetPlayerSchema);
 
-export const PartialGuildBetSchema = GuildBetSchema.partial();
+export const PartialGuildBetSchema = deepPartialify(GuildBetSchema);

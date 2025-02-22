@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date";
+import { deepPartialify } from "../deep";
 import { MediatorStatsSchema } from "./stats";
 
 export const GlobalMediatorSchema = z.object({
@@ -11,4 +12,4 @@ export const GlobalMediatorSchema = z.object({
 	updated_at: ISODateStringSchema,
 });
 
-export const PartialGlobalMediatorSchema = GlobalMediatorSchema.partial();
+export const PartialGlobalMediatorSchema = deepPartialify(GlobalMediatorSchema);

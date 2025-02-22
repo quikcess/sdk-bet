@@ -7,7 +7,6 @@ import type {
 	BetType,
 } from "@quikcess/bet-api-types/v1";
 import { assertGuildBet } from "#quikcess/assertions/bets/assertions";
-import { toSnakeCase } from "#quikcess/utils/cases/index";
 import { BetLog } from "./schemas/log";
 import { BetPlayer } from "./schemas/player";
 
@@ -34,7 +33,7 @@ export class GuildBet {
 	public readonly players: BetPlayer[];
 
 	/** List of players involved in the bet. */
-	public readonly playersWhoConfirmed: string[];
+	public playersWhoConfirmed: string[];
 
 	/** Current status of the bet. */
 	public status: BetStatus;
@@ -43,25 +42,28 @@ export class GuildBet {
 	public readonly type: BetType;
 
 	/** Identifier for the room associated with the bet. */
-	public readonly roomId: number;
+	public roomId: number;
+
+	/** Identifier for the room price associated with the bet. */
+	public roomPrice: number;
 
 	/** The value of the bet, which could be numeric or string-based. */
-	public readonly value: number | string;
+	public value: number | string;
 
 	/** Identifier for the queue channel associated with the bet. */
 	public readonly queueChannelId: string;
 
 	/** Identifier for the channel where the bet took place. */
-	public readonly channelId: string;
+	public channelId: string;
 
 	/** Identifier for the mediator managing the bet. */
-	public readonly mediatorId: string;
+	public mediatorId: string;
 
 	/** Flag indicating whether the bet was won by walkover. */
-	public readonly wo: boolean;
+	public wo: boolean;
 
 	/** Flag indicating whether the bet allows revenge matches. */
-	public readonly revenge: boolean;
+	public revenge: boolean;
 
 	/** Number of emulators used in the bet. */
 	public readonly emulators: number;
@@ -82,16 +84,16 @@ export class GuildBet {
 	public readonly startedAt: Date;
 
 	/** Timestamp of when the bet was closed, or null if not closed. */
-	public readonly closedAt: Date | null;
+	public closedAt: Date | null;
 
-	public readonly abandonedBy: string | null;
+	public abandonedBy: string | null;
 
-	public readonly cancelledBy: string | null;
+	public cancelledBy: string | null;
 
-	public readonly givenUpBy: string | null;
+	public givenUpBy: string | null;
 
 	/** Logs associated with the bet. */
-	public readonly logs: BetLog;
+	public logs: BetLog;
 
 	/**
 	 * Initializes the bet entity using API data.
@@ -111,6 +113,7 @@ export class GuildBet {
 		this.status = data.status;
 		this.type = data.type;
 		this.roomId = data.room_id;
+		this.roomPrice = data.room_price;
 		this.value = data.value;
 		this.queueChannelId = data.queue_channel_id;
 		this.channelId = data.channel_id;
@@ -135,7 +138,35 @@ export class GuildBet {
 	}
 
 	public toJSON(): APIGuildBet {
-		const data: APIGuildBet = toSnakeCase<GuildBet, APIGuildBet>(this);
-		return data;
+		return {
+			guild_id: this.guildId,
+			bet_id: this.betId,
+			platform: this.platform,
+			format: this.format,
+			mode: this.mode,
+			players: this.players.map((player) => player.toJSON()),
+			players_who_confirmed: this.playersWhoConfirmed,
+			status: this.status,
+			type: this.type,
+			room_id: this.roomId,
+			room_price: this.roomPrice,
+			value: this.value,
+			queue_channel_id: this.queueChannelId,
+			channel_id: this.channelId,
+			mediator_id: this.mediatorId,
+			wo: this.wo,
+			revenge: this.revenge,
+			emulators: this.emulators,
+			gel_type: this.gelType,
+			gel_count: this.gelCount,
+			abandoned_by: this.abandonedBy,
+			cancelled_by: this.cancelledBy,
+			given_up_by: this.givenUpBy,
+			created_at: this.createdAt.toISOString(),
+			updated_at: this.updatedAt.toISOString(),
+			started_at: this.startedAt.toISOString(),
+			closed_at: this.closedAt?.toISOString() ?? null,
+			logs: this.logs.toJSON(),
+		};
 	}
 }

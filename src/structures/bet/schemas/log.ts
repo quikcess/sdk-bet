@@ -55,4 +55,13 @@ export class BetLog {
 	public static from(data: APIBetLog): BetLog {
 		return new BetLog(data);
 	}
+
+	public toJSON(): APIBetLog {
+		return {
+			closed_url: this.closedUrl,
+			created_url: this.createdUrl,
+			started_url: this.startedUrl,
+			victory_url: this.victoryUrl,
+		};
+	}
 }

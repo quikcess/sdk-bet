@@ -232,6 +232,31 @@ export class LocalCache<V, K extends string | number | symbol = string> {
 	}
 
 	/**
+	 * Adds values to the beginning of an array at the specified path
+	 * Optionally returns the updated object if returnToObject is true
+	 */
+	unshift(
+		key: K,
+		path: string,
+		values: unknown | unknown[],
+		options: { returnToObject: true; archiveClearUp?: number },
+	): V;
+	unshift(
+		key: K,
+		path: string,
+		values: unknown | unknown[],
+		options?: { returnToObject?: false; archiveClearUp?: number },
+	): null;
+	unshift(
+		key: K,
+		path: string,
+		values: unknown | unknown[],
+		options: { returnToObject?: boolean; archiveClearUp?: number } = {},
+	): V | null {
+		return this.modifyArray(key, path, "unshift", values, options);
+	}
+
+	/**
 	 * Removes values from an array at the specified path
 	 * Optionally returns the updated object if returnToObject is true
 	 */
@@ -287,7 +312,7 @@ export class LocalCache<V, K extends string | number | symbol = string> {
 	private modifyArray(
 		key: K,
 		path: string,
-		operation: "push" | "addToSet" | "pull",
+		operation: "push" | "unshift" | "addToSet" | "pull",
 		values: unknown | unknown[],
 		options: { returnToObject?: boolean; archiveClearUp?: number } = {},
 	): V | null {
@@ -305,6 +330,9 @@ export class LocalCache<V, K extends string | number | symbol = string> {
 		switch (operation) {
 			case "push":
 				newArray = [...array, ...(Array.isArray(values) ? values : [values])];
+				break;
+			case "unshift":
+				newArray = [...(Array.isArray(values) ? values : [values]), ...array];
 				break;
 			case "addToSet":
 				newArray = [
@@ -448,6 +476,50 @@ export class LocalCache<V, K extends string | number | symbol = string> {
 		return results;
 	}
 
+	shift(deleteData = true): V | undefined {
+		if (this.size === 0) {
+			return undefined;
+		}
+
+		const firstKey = Array.from(this.data.keys())[0];
+
+		if (firstKey !== undefined) {
+			const value = this.data.get(firstKey);
+
+			this.data.delete(firstKey);
+
+			if (this.filePath && deleteData) {
+				this.saveToFile();
+			}
+
+			return value?.data;
+		}
+
+		return undefined;
+	}
+
+	pop(deleteData = true): V | undefined {
+		if (this.size === 0) {
+			return undefined;
+		}
+
+		const lastKey = Array.from(this.data.keys()).pop();
+
+		if (lastKey !== undefined) {
+			const value = this.data.get(lastKey);
+
+			this.data.delete(lastKey);
+
+			if (this.filePath && deleteData) {
+				this.saveToFile();
+			}
+
+			return value?.data;
+		}
+
+		return undefined;
+	}
+
 	private checkCondition<T>(value: T, condition: FilterCondition<T>): boolean {
 		if (condition.$eq !== undefined) {
 			return JSON.stringify(value) === JSON.stringify(condition.$eq);
@@ -552,7 +624,7 @@ export class LocalCache<V, K extends string | number | symbol = string> {
 	/**
 	 * Retrieves the number of items in the store
 	 */
-	size(): number {
+	get size(): number {
 		return this.data.size;
 	}
 }

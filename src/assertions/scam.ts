@@ -2,6 +2,7 @@ import { ScamStatus, ScamType } from "@quikcess/bet-api-types/v1";
 import * as z from "zod";
 import { ISODateStringSchema } from "#quikcess/utils/date/index";
 import { createAssertion } from "./common";
+import { deepPartialify } from "./deep";
 
 const ScamSchema = z.object({
 	guild_id: z.string().regex(/^\d+$/, "GUILD_ID_MUST_BE_NUMERICAL_STRING"),
@@ -23,7 +24,7 @@ const ScamSchema = z.object({
 	validated_by: z.string().nullable().optional().default(null),
 });
 
-export const ScamSchemaPartial = ScamSchema.partial();
+export const ScamSchemaPartial = deepPartialify(ScamSchema);
 
 export const assertScam: (
 	value: unknown,
