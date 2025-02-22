@@ -8,9 +8,7 @@ import type {
 } from "#quikcess/types/index";
 
 export class APIService {
-	// public readonly baseUrl = "https://bet.squareweb.app";
-	public readonly baseUrl = "http://localhost:80";
-	// public readonly baseUrl = "https://api.quikcess.com";
+	public readonly baseUrl = "https://api.quikcess.com.br";
 	public readonly version: APIVersion<1> = "v1";
 
 	constructor(protected readonly apiKey: string) {}

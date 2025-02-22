@@ -20,7 +20,7 @@ export * from "./types/index";
  */
 export class Betting extends TypedEventEmitter<APIEvents> {
 	public static apiInfo = {
-		baseUrl: "https://api.quikcess.com",
+		baseUrl: "https://api.quikcess.com.br",
 		version: "v1",
 	};
 
